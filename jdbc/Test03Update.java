@@ -10,7 +10,7 @@ public class Test03Update {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		//2. connection
 		Connection con = DriverManager.getConnection(
-				"",
+				"jdbc:mysql://127.0.0.1:3306/ssafydb?erverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8",
 				"ssafy",
 				"ssafy"
 				);

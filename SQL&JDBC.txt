@@ -1,0 +1,44 @@
+use ssafydb;
+
+drop table ssafy_member;
+
+create table ssafy_member (
+	idx          int          not null auto_increment,
+	userid       varchar(16)  not null,
+	username     varchar(20),
+	userpwd      varchar(16),
+	emailid      varchar(20),
+	emaildomain  varchar(50),
+	joindate     timestamp    not null default current_timestamp,
+	primary key (idx)
+);
+
+
+insert into ssafy_member (userid, username, userpwd, emailid, emaildomain, joindate)
+values ('kimssafy', '김싸피', '1234', 'kimssafy', 'ssafy.com', now());
+
+insert into ssafy_member (userid, username, userpwd, emailid, emaildomain, joindate)
+values ('parkssafy', '박싸피', '9876', 'parksafy', 'naver.com', now());
+
+insert into ssafy_member (userid, username, userpwd, emailid, emaildomain, joindate)
+values ('hongssafy', '홍싸피', 'abcd', 'hongssafy', 'ssafy.com', now());
+
+insert into ssafy_member (userid, username, userpwd, emailid, emaildomain, joindate)
+values ('choissafy', '최싸피', 'xyz', 'choissafy', 'ssafy.co.kr', now());
+
+insert into ssafy_member (userid, username, userpwd, emailid, emaildomain, joindate)
+values ('jangssafy', '장싸피', 'ab34', 'jangssafy', 'google.com', now());
+
+insert into ssafy_member (userid, username, userpwd, emailid, emaildomain, joindate)
+values ('youssafy', '유싸피', '12cd', 'ussafy', 'google.co.kr', now());
+
+insert into ssafy_member (userid, username, userpwd, emailid, emaildomain, joindate)
+values ('gossafy', '고싸피', '4567', 'gossafy', 'naver.com', now());
+
+
+
+  * DB 정보
+- Driver Class
+	com.mysql.cj.jdbc.Driver
+- URL
+jdbc:mysql://127.0.0.1:3306/ssafydb?erverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
