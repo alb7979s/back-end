@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title> test </title>
+</head>
+<body>
+	<div>
+		<!-- a태그는 컨텍스트 루트 자동 추가 안됨, 어노테이션한곳이랑 헷갈리지 말기!(web.xml도 자동추가) -->
+		<a href="/99-coffee/servlet/test10">GET 방식 호출1</a>				<!-- null, parameter 안넘겨줄수 있는 상황 있으면 null체크 필수! -->
+	</div>
+	<div>
+		<a href="/99-coffee/servlet/test10?msg=">GET 방식 호출2</a>		<!-- "" -->
+	</div>
+	<div>
+		<a href="/99-coffee/servlet/test10?msg=hello">GET 방식 호출3</a> 	<!-- "hello" -->
+	</div>
+	<div>
+		<!-- method를 설정하지 않은 경우 GET 방식임(별도의 한글처리 없이 한글도 받음!) -->
+		<form action="/99-coffee/servlet/test10">
+			<!-- name으로 parameter내용 서버로 알려줌! -->
+			<input type="text" name="msg" />
+			<!-- button의 default type: submit -->
+			<button>GET 방식 호출4</button>
+		</form>
+	</div>
+	<div>
+		<!-- POST 방식 (한글처리 따로 해줘야함)-->
+		<!-- "/"로 페이지 주소를 설정할 경우 port 번호 다음에 적용됨 -->
+		<form action="/99-coffee/servlet/test10" method="post">
+			<input type="text" name="msg" />
+			<button>POST 방식 호출 5</button>
+		</form>
+	</div>
+	<!-- 
+		html 페이지 호출 주소
+		http://localhost:8080/99-coffee/servlet/test10.html
+		
+		호출할 서블릿 주소
+		http://localhost:8080/99-coffee/servlet/test10
+	 -->
+	<div>
+		<!-- 호출 페이지 주소를 "/"로 시작하지 않을 경우 브라우저의 현재 주소에서 제일 마지막 부분만 변경됨! -->
+		<form action="test10" method="post">
+			<input type="text" name="msg" />
+			<button>POST 방식 호출 6</button>
+		</form>
+	</div>
+</body>
+</html>

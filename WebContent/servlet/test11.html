@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div>
+		<form action="test11" method="post">
+		<!-- value값 없는 애는 default로 이름은 날라감(찍어보면 null 안뜸 ""뜸), value 있는 애들은 찍어보면 null뜸 -->
+			<div>
+				<input type="text" name="id"/>
+			</div>
+			<div>
+				<!-- hidden 개발자가 상황에 따라 값 전달하고 싶을 때 주로 사용 -->
+				<input type="hidden" name="msg" value="write" />
+			</div>
+			<div>
+				<input type="radio" name="r" value="m">남자
+				<input type="radio" name="r" value="f">여자
+			</div>
+			<div>
+				<input type="checkbox" name="cb" value="1">브리또
+				<input type="checkbox" name="cb" value="2">찜닭
+				<input type="checkbox" name="cb" value="3">엽떡
+				<input type="checkbox" name="cb" value="4">두부
+			</div>
+			<div>
+				<button>확인</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
