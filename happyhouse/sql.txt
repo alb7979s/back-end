@@ -1,0 +1,36 @@
+
+CREATE TABLE IF NOT EXISTS `happyhouse`.`member` (
+  `id` VARCHAR(16) NOT NULL,
+  `pwd` VARCHAR(16) NOT NULL,
+  `dpt` VARCHAR(16) NULL,
+  `email` VARCHAR(100) NULL,
+  `joindate` TIMESTAMP NULL DEFAULT current_timestamp,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+commit;
+
+INSERT INTO member (id, pwd, dpt, email)
+VALUES('test', 'test', 'ho', 'test@test.com');
+
+
+commit;
+
+-- -----------------------------------------------------
+-- Table `ssafyweb`.`guestbook`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `happyhouse`.`notice` (
+  `noticeno` INT NOT NULL AUTO_INCREMENT,
+  `userid` VARCHAR(16) NOT NULL,
+  `subject` VARCHAR(100) NOT NULL,
+  `content` VARCHAR(2000) NOT NULL,
+  `regtime` TIMESTAMP NOT NULL DEFAULT current_timestamp,
+  INDEX `notice_userid_FK_idx` (`userid` ASC) VISIBLE,
+  PRIMARY KEY (`noticeno`),
+  CONSTRAINT `notice_userid_FK`
+    FOREIGN KEY (`userid`)
+    REFERENCES `happyhouse`.`member`(`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+commit;
