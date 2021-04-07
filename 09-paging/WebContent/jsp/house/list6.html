@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>페이징 게시판</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="/09-paging/css/layout.css">
+<link rel="stylesheet" href="/09-paging/css/basic.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+	<!-- topMenu.html에 있는거 가져와 쓸거임, 아래 script에 선언 -->	
+	<div class="header"></div>
+
+	<div class="content">
+		<ol class="breadcrumb">
+		  <li><a href="#1">Home</a></li>
+		  <li class="active">House6</li>
+		</ol>
+		<hr>		
+		<div class="row">
+		    <div class="col-md-10"></div>
+		    <div class="col-md-2" style="text-align: right">
+		    	<!-- 일부분만 바꿀땐 보통 span -->
+				전체 <span id="countSpan">0</span>개
+		    </div>
+		</div>
+		<div class="table-responsive">
+		<table class="table table-hover">
+			<thead>
+			<tr>
+				<th>번호</th>
+				<th>아파트명</th>
+				<th>동</th>
+				<th>거래일</th>
+				<th>거래금액</th>
+				<th>건축년도</th>
+				<th>층</th>
+				<th>면적</th>
+			</tr>
+			</thead>
+			<tbody id="houseTbody"></tbody>
+		</table>
+		</div>
+		<!-- 페이지 링크 출력부분 -->
+		<nav>
+        	<ul class="pagination"></ul>
+        </nav>
+	</div>		
+	
+	<div class="footer">
+		<div class="container navbar navbar-inverse">
+			<h3>이 페이지는 수업시간에 만들어졌습니다.</h3>
+		</div>
+	</div>
+</div>
+<script>
+	// div 태그 중에서 class 속성이 header인 엘리먼트에 topMenu.html 파일의 내용을 읽어서 자식으로 추가한다.
+	$("div.header").load("/09-paging/jsp/include/topMenu.html", function(){
+		// 상단 메뉴 선택 상태 만들기, 이 문구는 topMenu.html 로드 된 후에 수행되어야함 그래서 콜백함수 넣어준거
+		$("ul.nav > li").removeClass("active");		
+		$("ul.nav > li:eq(6)").addClass("active");	
+	});
+	
+	function makePage(result){
+		console.dir(result);
+		// 테이블의 데이터
+		makePageList(result.list);
+		// 화면 하단의 페이지 링크 생성
+		makePageLink(result.pageResult);
+	}
+	function makePageList(list) {
+		let html = "";
+		for(let i = 0; i < list.length; i++){
+			let house = list[i];
+			html += `
+				<tr>
+					<td>${house.no}</td>
+					<td>${house.aptName}</td>
+					<td>${house.dong}</td>
+					<td>${house.dealYear}/${house.dealMonth}/${house.dealDay}</td>
+					<td>${house.dealAmount}만원</td>
+					<td>${house.buildYear}년</td>
+					<td>${house.floor}층</td>
+					<td>${house.area} 평방미터</td>
+				</tr>
+			`;
+		}
+		if (list.length == 0){
+			html = `
+				<tr>
+					<td colspan='8'>입력된 정보가 없습니다.</td>
+				</tr>
+			`;
+		}
+		$("#houseTbody").html(html);
+	}
+	function makePageLink(pr) {
+		$("#countSpan").text(pr.count);
+		
+		<!-- 이전 -->
+		let html = "";
+		let className = "";
+		if(!pr.prev) {
+			className = "disabled";
+		}
+		html += `<li class="${className}">`;
+		let fn = "";
+		if(pr.prev){
+			fn = `onclick="goPage(${pr.beginPage - 1})"`;
+		}
+		html += `
+				<a href="#1" ${fn} aria-label="Previous">
+		        	<span aria-hidden="true">&laquo;</span>
+			   	</a>
+		   	</li>
+		`;
+		for(let i = pr.beginPage; i <= pr.endPage; i++){
+			if(i == pr.pageNo){
+				html += `<li class="active"><a href="#1">${i}</a></li>`;
+			} else{
+				html += `<li><a href="#1" onclick="goPage(${i});">${i}</a></li>`; 
+			}
+		}
+	    <!-- 다음 -->
+		className = "";
+		if(!pr.next) {
+			className = "disabled";
+		}
+		html += `<li class="${className}">`;
+	    fn = "";
+		if(pr.next){
+			fn = `onclick="goPage(${pr.endPage + 1})"`;
+		}
+		html += `
+				<a href="#1" ${fn} aria-label="Next">
+		        	<span aria-hidden="true">&raquo;</span>
+			   	</a>
+		   	</li>
+		`;
+        $("ul.pagination").html(html);
+	}
+	/*
+		/house/list6 서블릿을 호출하여 데이터 받아오기
+	*/
+	function goPage(pageNo) {		//이 function 색 개이쁘네..
+		$.ajax({
+			url: "/09-paging/house/list6",
+			data: "pageNo=" + pageNo, 
+			dataType: "json",
+			success: makePage
+		});
+	}
+	// 페이지 로딩 후 서버 화면에 필요한 데이터를 ajax로 요청한다.
+	goPage(1);
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
