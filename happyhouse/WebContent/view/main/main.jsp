@@ -17,18 +17,6 @@
 <title>HappyHouse</title>
 <link rel="stylesheet" href="${root}/css/main.css">
 <script>
-function moveLogin() {
-	document.location.href = "${root}/view/member/login.jsp";
-}
-function moveRegistry(){
-	document.location.href = "${root}/view/member/join.jsp";
-}
-function moveModify(){
-	document.location.href = "${root}/view/member/modify.jsp";
-}
-function moveLogout() {
-	document.location.href = "${root}/member?act=logout";
-}
 </script>
 </head>
 <body>
@@ -40,19 +28,11 @@ function moveLogout() {
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav navbar-left">
             <li><a href="${root}/notice">공지사항</a></li>
-            <li><a href="#">주변탐방</a></li>
-            <li><a href="#">나의관심지역</a></li>
+            <li><a href="${root}/favorite">나의관심지역</a></li>
+            <li><a href="${root}/clinic">선별진료소</a></li>
+            <li><a href="${root}/hospital">국가안심병원</a></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
-			<c:if test="${userinfo == null}">
-            <li><button type="button" class="btn btn-warning" style="margin-top: 10px; margin-right: 10px;" id="login" onclick="moveLogin();">로그인</button></li>
-            <li><button type="button" class="btn btn-warning" style="margin-top: 10px; margin-right: 10px;" id="reg" onclick="moveRegistry();">회원가입</button></li>
-            </c:if>
-			<c:if test="${userinfo != null}">
-            <li><button type="button" class="btn btn-warning" style="margin-top: 10px; margin-right: 10px; "id = "logout" onclick="moveLogout();">로그아웃</button></li>
-            <li><button type="button" class="btn btn-warning" style="margin-top: 10px; margin-right: 10px; "id = "myInfo" onclick="moveModify();">수정하기</button></li>
-            </c:if>
-          </ul>
+          <%@ include file="/view/main/login.jsp" %>
         </div>
       </div>
     </nav>

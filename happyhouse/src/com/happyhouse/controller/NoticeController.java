@@ -1,7 +1,6 @@
 package com.happyhouse.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,9 +12,9 @@ import javax.servlet.http.HttpSession;
 
 import com.happyhouse.model.MemberDto;
 import com.happyhouse.model.NoticeDto;
+import com.happyhouse.model.PageDto;
 import com.happyhouse.model.service.NoticeService;
 import com.happyhouse.model.service.NoticeServiceImpl;
-import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;
 
 
 @WebServlet("/notice")
@@ -171,7 +170,7 @@ public class NoticeController extends HttpServlet {
 		response.sendRedirect(path);
 		
 	}
-	private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+/*	private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = "/view/notice/list.jsp";
 		try {
 			List<NoticeDto> list = noticeService.listNotice();
@@ -185,7 +184,35 @@ public class NoticeController extends HttpServlet {
 		}
 		request.getRequestDispatcher(path).forward(request, response);
 		
+	}*/
+	
+	private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String path = "/view/notice/list.jsp";
+		PageDto pageDto = new PageDto();
+		
+		try {
+			if(request.getParameter("pageNo") == null) {
+				pageDto.setPageNo(1);
+			}else {
+				pageDto.setPageNo(Integer.parseInt(request.getParameter("pageNo")));				
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("msg", "글목록을 얻어오는 중 문제가 발생했습니다.");
+			path = "/error/error.jsp";
+		}
+
+		try {
+			request.setAttribute("result", noticeService.listNotice(pageDto));
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ServletException(e);
+		}
+		request.getRequestDispatcher(path).forward(request, response);
+		
 	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		System.out.println("POST");

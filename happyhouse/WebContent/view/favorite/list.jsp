@@ -15,18 +15,6 @@
 <title>HappyHouse</title>
 <link rel="stylesheet" href="${root}/css/main.css">
 
-<script type="text/javascript">
-function searchCity() {
-	if (document.getElementById("word").value == "") {
-		alert("검색어를 입력해주세요.");
-		return;
-	} else {
-		console.log("ok");
-		document.getElementById("searchform").action = "${root}/aptsearch";
-		document.getElementById("searchform").submit();
-	}
-}
-</script>
 </head>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -45,27 +33,27 @@ function searchCity() {
         </div>
       </div>
     </nav>
-	
+
 	<div class="jumbotron text-center">
       <h1>Happy House</h1> 
-      <p style="font-size: 130%;">내 집 마련의 꿈을 이루세요 !</p>
-      <div style="display: inline-block; text-align:center;">
-        <form id="searchform" method="post" action="">
-            <div class="input-group">
-                <select class="form-control" name="key" id="key" style="width:100px;">
-                    <option value="dong" selected="selected">동</option>
-			    	<option value="AptName">아파트</option>
-                </select>
-            	<input type="text" class="form-control" id="word" name="word" size="50" placeholder="검색어를 입력해주세요" style="width:600px;">
-            	<button onclick="searchCity();" type="button" class="btn btn-warning"><span class="glyphicon glyphicon-search"></span></button>
-            </div>
-        </form>
-      </div>
+      <c:if test="${userinfo == null}">
+      	<p style="font-size: 130%;">로그인이 필요한 서비스 입니다.</p>
+      </c:if>
+      <c:if test="${userinfo != null}">
+	      <c:if test="${favoriteinfo == null}">
+	      	<p style="font-size: 130%;">나의 관심 지역</p>
+	      	<button onclick = "location.href = '${root}/view/favorite/favorite.jsp'">설정</button> 
+	      </c:if>
+	      <c:if test="${favoriteinfo != null}">
+	      	<p style="font-size: 130%;">나의 관심 지역: ${favoritedong}</p>
+	      	<button onclick = "location.href = '${root}/view/favorite/favorite.jsp'">수정</button> 
+	      </c:if>
+      </c:if>
     </div>
     
-	<div class="container-fluid" style="width:80%;">
-		<c:if test="${aptinfo.size() != 0}">
-			<c:forEach var="apt" items="${aptinfo}">
+    <div class="container-fluid" style="width:80%;">
+		<c:if test="${favoriteinfo.size() != 0}">
+			<c:forEach var="apt" items="${favoriteinfo}">
 				<div class="col-sm-4 col-xs-12">
 		            <div class="panel panel-default text-center">
 		              <div class="panel-heading">
@@ -115,5 +103,6 @@ function searchCity() {
 			</div>
 		</c:if>
 	</div>
+    	
 </body>
 </html>

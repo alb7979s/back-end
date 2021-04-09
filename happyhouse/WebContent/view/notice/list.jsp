@@ -14,7 +14,8 @@
   <title>HappyHouse</title>
   <link rel="stylesheet" href="${root}/css/main.css">
 </head>
-
+<c:set var="notices" value="${result.list}" />
+<c:set var="pr" value="${result.pageResult}" />
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
   <nav class="navbar navbar-default navbar-fixed-top">
@@ -25,10 +26,11 @@
       <div class="collapse navbar-collapse" id="myNavbar">
      <ul class="nav navbar-nav navbar-left">
           <li><a href="${root}/notice">공지사항</a></li>
-          <li><a href="#">주변탐방</a></li>
-          <li><a href="#">나의관심지역</a></li>
+          <li><a href="${root}/favorite">나의관심지역</a></li>
+          <li><a href="${root}/clinic">선별진료소</a></li>
+          <li><a href="${root}/hospital">국가안심병원</a></li>
         </ul>
-
+		<%@ include file="/view/main/login.jsp" %>
       </div>
     </div>
   </nav>
@@ -90,7 +92,7 @@
       </div>
       <div class="form-group">
         <label for="exampleFormControlTextarea1"
-          style="resize: horizontal; color: black; font-size: 20px; font-weight: bold">내용</label>
+          style="resize: horizontal; color: black; font-size: 20px; font-weight: bold"> 내용 </label>
         <textarea class="form-control" id="exampleFormControlTextarea1" rows="25"></textarea>
       </div>
     </form>
@@ -108,8 +110,36 @@
       </button>
     </div>
   </div>
-<!--  
+  	<c:if test="${pr.count != 0}"> 
+		<nav>
+	<ul class="pagination botBar">
+		<!-- 이전 -->
+		<li class="<c:if test="${not pr.prev}">disabled</c:if>">
+		<a href="#1" <c:if test="${pr.prev}">onclick="goPage(${pr.beginPage-1});"</c:if>
+			aria-label="dataevious"> <span aria-hidden="true">&laquo;</span>
+		</a></li>
+		<c:forEach var="i" begin="${pr.beginPage}" end="${pr.endPage}">
+			<c:choose>
+				<c:when test="${i eq pr.pageNo}">
+					<li class="page-item active"><a href="#1">${i}</a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a class="page-item" href="#1" onclick="goPage(${i});">${i}</a></li>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		<!-- 다음 -->
+		<li class="<c:if test="${not pr.next}">disabled</c:if>">
+		
+		<a href="#1" <c:if test="${pr.next}">onclick="goPage(${pr.endPage + 1});"</c:if>
+			aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+		</a></li>
+	</ul>
+</nav>
+     </c:if>
+<!--  페이징
   <ul class="pagination botBar">
+  	
     <li class="page-item"><a class="page-link" href="#">Previous</a></li>
     <li class="page-item"><a class="page-link" href="#">1</a></li>
     <li class="page-item"><a class="page-link" href="#">2</a></li>
@@ -140,6 +170,12 @@
 		}
 		
 	},true);
+	$("ul.nav > li ").removeClass("active");
+	$("ul.nav > li:eq(${pr.pageNo})").addClass("active");
+	function goPage(pageNo){
+	//	alert(pageNo);
+		location.href="${root}/notice?act=list&pageNo="+pageNo;
+	}
   </script>
 </body>
 

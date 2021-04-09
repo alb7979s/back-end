@@ -23,22 +23,11 @@
 <title>HappyHouse</title>
 <link rel="stylesheet" href="${root}/css/main.css">
 <script type="text/javascript">
-	function login() {
-		if (document.getElementById("id").value == "") {
-			alert("아이디를 입력하세요");
-			return;
-		} else if (document.getElementById("pwd").value == "") {
-			alert("비밀번호를 입력하세요");
-			return;
-		} else {
-			document.getElementById("loginform").action = "${root}/member";
-			document.getElementById("loginform").submit();
-		}
-	}
-
-	function moveJoin() {
-		document.location.href = "${root}/view/member/join.jsp";
-	}
+	$(document).ready(function() {
+		$("#registerBtn").click(function() {
+			$("#favoriteform").submit();
+		});
+	});
 </script>
 </head>
 <body>
@@ -55,6 +44,7 @@
 		            <li><a href="${root}/clinic">선별진료소</a></li>
 		            <li><a href="${root}/hospital">국가안심병원</a></li>
 				</ul>
+				<%@ include file="/view/main/login.jsp" %>
 			</div>
 		</div>
 	</nav>
@@ -65,24 +55,23 @@
 	</div>
 
 	<div class="container" align="center">
-		<form id="loginform" method="post" action="">
-			<input type="hidden" name="act" id="act" value="login">
-			<div class="form-group">
-				<label for="">아이디</label>
-				<input type="text" class="form-control" id="id" name="id" placeholder="" style="width:300px">
-			</div>
-			<div class="form-group">
-				<label for="">비밀번호</label>
-				<input type="password" class="form-control" id="pwd" name="pwd" placeholder="" style="width:300px">
-			</div>
-			<div class="form-group" align="center">
-				<button type="button" class="btn btn-warning" onclick="login();">로그인</button>
-				<button type="button" class="btn btn-primary" onclick="moveJoin();">회원가입</button>
-			</div>
-			<div>${msg}</div>
-			<div>
-				<a href="">아이디 찾기</a> | <a href="">비밀번호 찾기</a>
-			</div>
+		<form id="favoriteform" method="post" action="${root}/favorite">
+			<input type="hidden" name="act" id="act" value="set">
+			<div class="form-group" align="left">
+					<div id="dong" class="custom-control-inline">
+						<select class="form-control" id="dong" name="dong">
+							<option value="평창동">평창동</option>
+							<option value="사직동">사직동</option>
+							<option value="숭인동">숭인동</option>
+							<option value="신영동">신영동</option>
+							<option value="목동">목동</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group" align="center">
+					<button type="button" id="registerBtn" class="btn btn-primary">설정</button>
+					<button type="reset" class="btn btn-warning">초기화</button>
+				</div>
 		</form>
 	</div>
 

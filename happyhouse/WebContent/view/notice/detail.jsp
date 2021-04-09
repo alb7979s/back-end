@@ -32,8 +32,9 @@
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav navbar-left">
 					<li><a href="${root}/notice">공지사항</a></li>
-					<li><a href="#">주변탐방</a></li>
-					<li><a href="#">나의관심지역</a></li>
+		            <li><a href="${root}/favorite">나의관심지역</a></li>
+		            <li><a href="${root}/clinic">선별진료소</a></li>
+		            <li><a href="${root}/hospital">국가안심병원</a></li>
 				</ul>
 			</div>
 		</div>
