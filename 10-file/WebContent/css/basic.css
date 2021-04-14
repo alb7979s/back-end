@@ -1,0 +1,51 @@
+ul {
+	list-style: none;
+}
+body { background: #d5998705; }
+form, .down, .profile { 
+	margin: 0 auto;
+    width: 40%;
+    border: 1px solid #345;
+    padding: 20px;
+    background: #e4e9f41a;
+    box-shadow: 1px 1px 3px #456;}
+form > div, .down > div { margin-bottom: 10px; }    
+form > div > label  { width: 100px; }
+form > div > input[type=file] { display: inline-block; }
+form > div.center { text-align: center; }
+#result {
+	height: 25px;
+}
+.success {
+	width: 100px;
+	display: inline;
+	position: relative;
+	animation-duration: 10s;
+  	animation-name: success;
+  	animation-direction: alternate;
+  	animation-iteration-count: infinite;
+}
+@keyframes success {
+  	from {
+    	opacity: 0;
+    	color: black;
+    	left: 0%;
+  	}
+	25% {
+		opacity: 1.0;
+	  	color: red;
+	}
+	50% {
+		opacity: 0.3;
+	  	color: blue;
+	  	box-shadow: 10px 10px 10px #345;
+	}
+	75% {
+		opacity: 1.0;
+	  	color: green;
+	}
+  	to {
+    	opacity: 0.3;
+    	color: orange;
+  	}
+}
