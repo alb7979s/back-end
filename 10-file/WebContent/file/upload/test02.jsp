@@ -14,7 +14,7 @@
 	</div>
 
 	<div class="content">
-		<h2>cors.jar 라이브러리를 이용한 업로드 파일 서버에 저장하기</h2>
+		<h2>cos.jar 라이브러리를 이용한 업로드 파일 서버에 저장하기</h2>
 		<hr>
 		<form action="test02" 
 			  method="post"

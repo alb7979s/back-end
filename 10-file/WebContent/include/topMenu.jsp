@@ -17,6 +17,8 @@
       <li><a href="<c:url value='/upload/test07' />">Ajax업로드7</a></li>
       <li><a href="<c:url value='/upload/test08' />">파일선택-미리보기8</a></li>
       <li><a href="<c:url value='/upload/test09' />">파일드래그-미리보기9</a></li>
+      <li><a href="<c:url value='/upload/test10' />">업로드 DB 저장10</a></li>
+      <li><a href="<c:url value='/upload/test11' />">업로드 파일 모듈화11</a></li>
     </ul>
   </div>
 </nav> 
