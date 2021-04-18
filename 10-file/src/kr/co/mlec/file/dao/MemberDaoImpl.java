@@ -41,7 +41,7 @@ public class MemberDaoImpl implements MemberDao {
 	}
 	
 	@Override
-	public void insertMemberFile(MemberFileDto fildDto) throws SQLException {
+	public void insertMemberFile(MemberFileDto memberFile) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		sql.append("insert into member_file ( ");
 		sql.append("	id, path, orgName, systemName, contentType, size ");
@@ -52,12 +52,12 @@ public class MemberDaoImpl implements MemberDao {
 				PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 				) {
 			int index = 1;
-			pstmt.setString(index++, fildDto.getId());
-			pstmt.setString(index++, fildDto.getPath());
-			pstmt.setString(index++, fildDto.getOrgName());
-			pstmt.setString(index++, fildDto.getSystemName());
-			pstmt.setString(index++, fildDto.getContentType());
-			pstmt.setLong(index++, fildDto.getSize());
+			pstmt.setString(index++, memberFile.getId());
+			pstmt.setString(index++, memberFile.getPath());
+			pstmt.setString(index++, memberFile.getOrgName());
+			pstmt.setString(index++, memberFile.getSystemName());
+			pstmt.setString(index++, memberFile.getContentType());
+			pstmt.setLong(index++, memberFile.getSize());
 			pstmt.executeUpdate();
 		}
 	}

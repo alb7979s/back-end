@@ -2,7 +2,12 @@ package kr.co.mlec.file.dto;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/*
+ * controller에서 파라미터 정제 후 데이터 담아서! service()로 넘겨줄거임.
+ * 근데 여기선 (회원, 언어, 파일) 3개의 데이터를 줘야는데, 따로따로 줄 수도 있지만
+ * 이렇게 MemberDto에 한번에 선언해서 묶어서 줄 수 있음(연관성이 있는거니 굳이 따로 보낼 필요 없음!)
+ * List인 이유는 1:N의 관계이기 때문에
+ */
 public class MemberDto {
 	private String id;
 	private String password;

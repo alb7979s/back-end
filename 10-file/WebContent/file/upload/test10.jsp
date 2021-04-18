@@ -68,12 +68,12 @@
 	</div>	
 </div>
 <script>
-	/* html5 file이란 API 사용 */
+	/* html5 - file이란 API 사용 */
 	let uploadFile = null;
 	let profile = document.querySelector("#profile");
 	profile.onchange = function (event) {		// onchange:여기선 인풋창에 있는 값이 바뀌었을 때 호출
 		
-    	let file = event.target.files[0];
+    	let file = event.target.files[0];		// event.target: 이벤트가 발생한 그 객체 자체
 		console.dir(event.target);
 		console.dir(event.target.files);
 		
@@ -88,7 +88,7 @@
     	uploadFile = file;
     	// 이미지 동적 추가
     	// URL.createObjectURL(file): file 정보 주면 이미지 정보를 줄 수 있는 URL을 만들어줌
-    	$('.img').html(`<img src="\${URL.createObjectURL(file)}" alt='profile' />`);	
+    	$('.img').html(`<img src="\${URL.createObjectURL(file)}" alt='profile' />`);
     };    
     
     // 아래 두 문단 드래그&드랍 할 수 있도록
@@ -96,8 +96,7 @@
     imgFrame.ondragover = function (event) {
         return false;	// 1. ondragover false로 줘야행
     }
-    
-    imgFrame.ondrop = function (event) {	// 2. 그 영역으로 drop할 수 있는 이벤트(여기선 대상이 .img)
+    imgFrame.ondrop = function (event) {			// 2. ondrop: 그 영역으로 drop할 수 있는 이벤트(여기선 대상이 .img)
     	uploadFile = event.dataTransfer.files[0];	// 실제 드랍된애에 대한 정보 뽑아냄, 여러개면 files for루프로 돌려서 하면 됨
     	if (uploadFile.type.substring(0, 5) != 'image') {
     		alert("이미지를 선택하세요");
@@ -117,16 +116,3 @@
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-

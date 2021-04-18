@@ -1,13 +1,3 @@
-/*
- *   파일 업로드 프로그램 작성
- *   1. 업로드 라이브러리 다운로드
- *      : mvnrepository.com 사이트 접속후 cos 검색
- *      : 2002 11 월 버전 다운로드
- *      : WEB-INF/lib 폴더에 붙여넣기
- *      
- *   2. 테스트 파일
- *      : /Users/mrson/SSAFY/data.txt
- */
 package kr.co.mlec.file.download;
 
 import java.io.IOException;

@@ -36,7 +36,7 @@ public class Test05 extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String uploadRoot = "c:/SSAFY/upload";
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/HH");
+		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 		String path = "/member" + sdf.format(new Date());
 		
 		// uploadPath + datePath 경로가 존재하는지 확인하고 존재하지 않으면 디렉토리 생성

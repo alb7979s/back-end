@@ -1,5 +1,8 @@
 package kr.co.mlec.file.dto;
 
+/*
+ * copy() 체이닝 기법 사용하려고 setter에다가 return this; 추가해줌(선언부에 return type도 바꿔주고)
+ */
 public class FileDto {
 	private String path;
 	private String orgName;

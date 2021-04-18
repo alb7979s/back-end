@@ -28,8 +28,8 @@ public class CommonsMultipartRequest {
 		this(request, path, false);
 	}
 	public CommonsMultipartRequest(HttpServletRequest request, String path, boolean thumbnail) throws Exception {	
-		// 보통 resources라고 설정 관련된거 만듦(영상 보면서 따라하기!!)
-		String uploadRoot = "c:/SSAFY/upload";		//이런 값들은 나중에 설정파일 별도로(서버 전체에 영향주는 상수? 같은것들)
+		// 보통 resources라고 설정 관련된거 만듦(스프링 가면 .properties 이용해서 할거, 일단 여기선 저런식으로 처리한다만 알고 넘어가기)
+		String uploadRoot = "c:/SSAFY/upload";
 		// 이 두 줄은 사용자가 객체를 생성할때 넘겨준 path를 사용할거
 //		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/HH");
 //		String filePath = "/commons" + sdf.format(new Date());
@@ -46,7 +46,7 @@ public class CommonsMultipartRequest {
 		
 		List<FileItem> lists = upload.parseRequest(request);
 		for (FileItem item : lists) {
-				String fieldName = item.getFieldName();
+			String fieldName = item.getFieldName();
 			if (item.isFormField()) {	// type file이 아닐 때 true값, 즉 일반 폼 데이터 일 때
 				String fieldValue = item.getString("utf-8");
 				List<String> values = parameterMap.get(fieldName);

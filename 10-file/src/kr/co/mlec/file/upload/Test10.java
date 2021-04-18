@@ -48,7 +48,7 @@ public class Test10 extends HttpServlet {
 		MemberDto member = new MemberDto();
 		
 		String uploadRoot = "c:/SSAFY/upload";
-		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/HH");
+		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 		String filePath = "/commons" + sdf.format(new Date());
 		File file = new File(uploadRoot, filePath);
 		if (file.exists() == false) file.mkdirs();
@@ -66,7 +66,7 @@ public class Test10 extends HttpServlet {
 			
 			List<FileItem> lists = upload.parseRequest(request);
 			for (FileItem item : lists) {
-					String fieldName = item.getFieldName();
+				String fieldName = item.getFieldName();
 				if (item.isFormField()) {	// type file이 아닐 때 true값, 즉 일반 폼 데이터 일 때
 					/* 직접 작성하기 - 데이터베이스 저장을 위한 코드 추가 */
 					
@@ -90,6 +90,7 @@ public class Test10 extends HttpServlet {
 						case "lang":	// lang은 여러개라 추가 작업 필요!
 							MemberLangDto mlDto = new MemberLangDto();
 							mlDto.setLang(fieldValue);
+							// 여기서 setId 안해준 이유는 id값이 위에나올지, 아래나올지 모르니까 service()에서 처리해준거
 							member.getLangList().add(mlDto);
 							break;
 					}
@@ -103,7 +104,7 @@ public class Test10 extends HttpServlet {
 					String ext = "";
 					int index = name.lastIndexOf(".");
 					if (index != -1) { 
-						ext = name.substring(name.lastIndexOf("."));
+						ext = name.substring(index);
 					}
 					
 					// 파일 저장하기

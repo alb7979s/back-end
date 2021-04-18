@@ -8,7 +8,7 @@ import com.oreilly.servlet.multipart.FileRenamePolicy;
 public class MlecFileRenamePolicy implements FileRenamePolicy {
 	
 	public static void main(String[] args) {
-		File f = new File("c:/java-lec/upload/test.txt");
+		File f = new File("c:/upload/temp/test.txt");
 		// f.getParent(); - c:/java-lec/upload
 		// f.getName() - test.txt
 		// c:/java-lec/upload/test.txt

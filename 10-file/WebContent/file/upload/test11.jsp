@@ -91,6 +91,14 @@
     
     imgFrame.ondrop = function (event) {
     	uploadFile = event.dataTransfer.files[0];
+    	if (uploadFile.type.substring(0, 5) != 'image') {
+    		alert("이미지를 선택하세요");
+    		return false;
+    	}
+    	if (uploadFile.size >= 100 * 1024) {
+    		alert("100kb 미만의 파일을 선택하세요");
+    		return false;
+    	}  
     	console.log(uploadFile)
         this.innerHTML = `<img src="\${URL.createObjectURL(uploadFile)}">`;
         return false;

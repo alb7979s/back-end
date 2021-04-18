@@ -18,18 +18,18 @@
 		<hr>
 		<div class="down">
 			<div>
-				<img src="${contextPath}/download.do?path=/commons/2021/04/14&name=6d7e10fc-5604-46c1-be70-38844c6f5030.jpg" 
+				<img src="${contextPath}/download.do?path=/commons/2021/04/17&name=2921131d-dc86-4a1b-81b6-6a2440372ed4.jpg" 
 					 width="300"
 				>
 			</div>
 			<div>
-				<a target="_blank" href="${contextPath}/download.do?path=/commons/2021/04/14&name=6d7e10fc-5604-46c1-be70-38844c6f5030.jpg">
+				<a target="_blank" href="${contextPath}/download.do?path=/commons/2021/04/17&name=2921131d-dc86-4a1b-81b6-6a2440372ed4.jpg">
 					이미지 보여주기
 				</a>	
 			</div>
 			<div>	
 				<!-- dname 붙은건 다운로드! -->
-				<a href="${contextPath}/download.do?path=/commons/2021/04/14&name=6d7e10fc-5604-46c1-be70-38844c6f5030.jpg&dname=테스트.jpg">
+				<a href="${contextPath}/download.do?path=/commons/2021/04/17&name=2921131d-dc86-4a1b-81b6-6a2440372ed4.jpg&dname=테스트.jpg">
 					이미지 다운로드
 				</a>
 			</div>	
