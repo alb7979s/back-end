@@ -98,14 +98,15 @@ public class CommonsMultipartRequest {
 	}
 	@SuppressWarnings("unchecked")
 	public List<String> getParameterValues(String fieldName) {
-		// EMPTY_LIST는 null안넘김 (길이가 0인거 넘김, 사용자 입장에서 null 체크 안해줘도 됨)
+		// EMPTY_LIST는 null안넘김 (길이가 0인 리스트를 넘김, 사용자 입장에서 null 체크 안해줘도 됨)
 		return parameterMap.get(fieldName) == null ? Collections.EMPTY_LIST : parameterMap.get(fieldName);
 	}
 	public FileDto getFile(String fieldName) {
 		return fileMap.get(fieldName) != null ? fileMap.get(fieldName).get(0) : null;
 	}
+	@SuppressWarnings("unchecked")
 	public List<FileDto> getFileList(String fieldName) {
-		return fileMap.get(fieldName);
+		return fileMap.get(fieldName) == null ? Collections.EMPTY_LIST : fileMap.get(fieldName);
 	}
 	
 }

@@ -62,7 +62,7 @@ public class Test11 extends HttpServlet {
 			member.setProfileName(fileDto.getSystemName());
 			member.setProfilePath(fileDto.getPath());
 			// attachs 로 들어온 파일 정보
-			member.setFileList(mRequest.getFileList("attaches"));
+			member.setFileList(mRequest.getFileList("attachs"));
 			
 			service.join(member);
 			response.sendRedirect("test11");
