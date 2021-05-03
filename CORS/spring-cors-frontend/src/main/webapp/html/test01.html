@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<button>요청하기</button>
+	<div id="result">Ajax 요청 결과</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+	
+	<script>
+		// test01.html 을 요청하는 서버는 localhost:9980번에서 내려 받음
+		// 이때의 origin은 "localhost:9980" 임
+		console.log('location.origin', location.origin);	//Access-Control-Allow-Origin' header is present on the requested resource
+		$('button').click(function() {
+			$.ajax({	//ajax 요청 객체로 줌
+				url:'http://localhost:9999/apiserver/cors/test01',	// spring-cors-apiserver에 데이터를 요청: localhost:9999 서버 (서버가 다르네? SOP 위배됨!)
+				success: function (data) { 	//결과 받아 처리하는 콜백함수
+					$('#result').html(data);
+				} 		
+			});
+		});
+	</script>
+</body>
+</html>

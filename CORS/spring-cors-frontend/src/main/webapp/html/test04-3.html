@@ -1,0 +1,21 @@
+<!-- call back 방식 - CORS 해결책 3 -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<button>요청하기</button>
+	<div id="result">Ajax 요청 결과</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+	<script>
+		function mycb(msg) {		
+			$('#result').html(msg);
+		}
+		$("button").click(function () {
+			$.getScript("http://localhost:9999/apiserver/cors/test04?callback=mycb");	//동적으로 script 만들고, 제거해줌
+		});
+	</script>
+</body>
+</html>

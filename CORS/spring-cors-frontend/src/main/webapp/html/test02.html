@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<button>요청하기</button>
+	<div id="result">Ajax 요청 결과</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+	
+	<script>
+		// Proxy Server를 이용한 API Server의 데이터 받아오기 - CORS 해결책1
+		console.log('location.origin', location.origin);
+		$('button').click(function() {
+			$.ajax({	
+				url:'/frontend/cors/test02.do',	
+				success: function (data) { 	
+					$('#result').html(data);
+				} 		
+			});
+		});
+	</script>
+</body>
+</html>

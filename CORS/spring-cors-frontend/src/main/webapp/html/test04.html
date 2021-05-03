@@ -1,0 +1,21 @@
+<!-- call back 방식 - CORS 해결책 3 -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<button>요청하기</button>
+	<div id="result">Ajax 요청 결과</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+	<script>
+		function mycb(msg) {		//cb 넘어왔다는 전제하에
+			$('#result').html(msg);
+		}
+	</script>
+	<!-- Test04에서 cb('<h2>Ajax CallBack 호출성공~~ </h2>') 받아올거, js의 함수로 만들어서 보내줌-->
+	<!-- 	<script src="http://localhost:9999/apiserver/cors/test04"></script> -->
+	<script src="http://localhost:9999/apiserver/cors/test04?callback=mycb"></script>
+</body>
+</html>

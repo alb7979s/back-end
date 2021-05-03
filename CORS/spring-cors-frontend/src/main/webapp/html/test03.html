@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<button>요청하기</button>
+	<div id="result">Ajax 요청 결과</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+	
+	<script>
+		// 응답 헤더를 활용한 데이터 받아오기 - CORS 해결책 2
+		console.log('location.origin', location.origin);
+		$('button').click(function() {
+			$.ajax({	
+				url:'http://localhost:9999/apiserver/cors/test03',	
+				success: function (data) { 	
+					$('#result').html(data);
+				} 		
+			});
+		});
+	</script>
+</body>
+</html>
