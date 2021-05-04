@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.homework.model.repository.ProductMapper">
+	
+	<!-- class Product라서 요기 product alias랑 잘 맞음 -->
+	<insert id="insertProduct" parameterType="product">
+		insert into product(
+			id, name, price, description
+		) values (
+			#{id}, #{name}, #{price}, #{description}
+		)
+	</insert>
+	<update id="updateProduct" parameterType="product">
+		update product
+		   set price = #{price},
+		       description = #{description}
+		 where id = #{id}
+	</update>
+	<delete id="deleteProduct" parameterType="string">
+		delete 
+		  from product
+		 where id = #{id} 
+	</delete>
+
+	<select id="selectAllProduct" resultType="product">
+		select * 
+		  from product
+	</select>
+	
+	<select id="selectProduct" parameterType="string" resultType="product">
+		select * 
+		  from product
+		 where id = #{id}
+	</select>
+</mapper>
