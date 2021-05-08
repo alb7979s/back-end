@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ssafy.happyhouse.mapper.FavoriteMapper">
+
+	<select id="getDong" parameterType="member" resultType="favorite">
+		select DISTINCT f.dong
+		from member m join favorite f 
+		on f.id= #{id}
+	</select>
+	
+	<select id="getAreas" parameterType="member" resultType="apt">
+		SELECT DISTINCT h.no, h.dong, AptName, code, dealAmount, buildYear, dealYear, dealMonth, dealDay, area, floor, jibun 
+		FROM favorite f JOIN housedeal h
+		WHERE h.dong = #{dong}
+	</select>
+	
+	<select id = "setArea" parameterType="favorite" resultType="favorite">
+		SELECT id, no, dong 
+		FROM favorite 
+		WHERE id = #{id}
+	</select>
+	
+	<update id="updateArea" parameterType="favorite">
+		update favorite 
+		set dong = #{dong}
+		where id =  #{id}
+	</update>
+	
+	<insert id="insertArea" parameterType="favorite">
+		insert into favorite (id, no, dong)
+		values ( #{id} , 1 , #{dong})
+	</insert>
+	
+</mapper>

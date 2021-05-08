@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+ <mapper namespace="com.ssafy.happyhouse.mapper.ClinicMapper">
+	<select id="clinicList" resultType="Clinic">
+		select no, base_date, sample_collection_yn, sido, sigungu, medi_name, address, weekday_oper_time,saturday_oper_time, holiday_oper_time, phone_no 
+		from happyhouse.selection_clinic 
+	</select>
+
+</mapper>
+

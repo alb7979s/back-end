@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+ <mapper namespace="com.ssafy.happyhouse.mapper.NoticeMapper">
+ 
+ 	
+<!-- 	public void writeNotice(Notice notice) throws SQLException; -->
+	<insert id="writeNotice" parameterType="Notice">
+		insert into notice (userid, subject, content )
+		values (#{userid},#{subject},#{content})
+	</insert>
+
+	
+<!-- 	public List<Notice> listNoticeAll() throws SQLException; -->
+	<select id="listNoticeAll" resultType="Notice">
+		select noticeno, userid, subject, content, regtime
+		from notice
+		order by noticeno desc
+	</select>
+	
+<!-- 	public List<Notice> listNoticePage(Page page) throws SQLException; -->
+	<select id="listNoticePage" parameterType = "Page" resultType="Notice">
+		select noticeno, userid, subject, content, regtime 
+		from notice 
+		order by noticeno desc 
+		LIMIT #{begin}, #{listSize} 
+	</select>
+
+<!-- 	public int selectNoticeCount() throws SQLException; -->
+	<select id="selectNoticeCount" resultType="int">
+		SELECT count(*) as cnt 
+		FROM notice 
+	</select>
+
+<!-- 	public Notice getNotice(int noticeno) throws SQLException; -->
+	<select id="getNotice" parameterType="int" resultType="Notice">
+		select noticeno, userid, subject, content, regtime
+		from notice 
+		where noticeno = #{noticeno}
+	</select>
+
+<!-- 	public void modifyNotice(Notice notice) throws SQLException; -->
+	<update id="modifyNotice" parameterType="Notice">
+		update notice set subject = #{subject}, content = #{content} where noticeno = #{noticeno}
+	</update>
+
+<!-- 	public void deleteNotice(int noticeno) throws SQLException; -->
+	<delete id="deleteNotice" parameterType="int">
+		delete from notice where noticeno = #{noticeno}
+	</delete>
+</mapper>
+

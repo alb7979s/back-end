@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ssafy.happyhouse.mapper.MemberMapper">
+
+	<insert id="insertMember" parameterType="member">
+		insert into member(
+			id, pwd, dpt, email
+		) values (
+			#{id}, #{pwd}, #{dpt}, #{email}
+		)
+	</insert>
+	
+	<delete id="deleteMember" parameterType="member">
+		delete 
+		  from member
+		 where id = #{id} 
+	</delete>
+	
+	<select id="selectMember" parameterType="member" resultType="member">
+		select id, pwd, dpt, email
+		  from member
+		 where id = #{id}
+	</select>
+	
+	<update id="updateMember" parameterType="member">
+		update member
+		   set pwd = #{pwd}, 
+			   dpt = #{dpt}, 
+			   email = #{email}
+		 where id = #{id}
+	</update>
+	
+	<select id="loginMember" parameterType="member" resultType="member">
+		select id, email
+		from member
+		where id = #{id} and pwd = #{pwd}
+	</select>
+</mapper>
