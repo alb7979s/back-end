@@ -9,7 +9,8 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
 	integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous">
+</script>
 </head>
 <body>
 	<h1 style="text-align: center; margin: 50px auto;">
@@ -17,7 +18,6 @@
 	<hr>
 	<h2>상품 관리</h2>
 	<button id="showList">목록조회</button>
-	<div id="check"></div>
 	<ul id="pilist"></ul>
 	<button id="insertBtn">추가</button>
 	<button id="modifyBtn">수정</button>

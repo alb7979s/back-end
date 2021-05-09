@@ -34,12 +34,12 @@ public class ProductController2 {
 		return productService.selectAll();
 	}
 	
-	@GetMapping("{id}")
+	@GetMapping("{id}")	// product2/p01 이 넘어오면 이 id란 변수에 p01이 저장됨, 그걸 @PathVariable로 사용
 	public Product detail(@PathVariable("id") String id) throws Exception {
 		return productService.select(id);
 	}
 	
-	@DeleteMapping("{id}")
+	@DeleteMapping("{id}")	
 	public List<Product> delete(@PathVariable("id") String id) throws Exception {
 		productService.delete(id);
 		return productService.selectAll(); 

@@ -88,6 +88,7 @@
 				url: '${root}/product2',
 				type: "POST",
 				contentType: "application/json; charset=utf-8",
+				// data 객체로 보내던거 REST방식에선 JSON형식으로 보냄
 				data: JSON.stringify({
 					id: $("#id").val(),
 					name: $("#name").val(),
