@@ -21,19 +21,15 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script>
+	<c:if test="${dongList == null}">
+		dongListInit();
+	</c:if>
 	function dongListInit(){
 		location.href = "${root}/dongInit";
 	}
 </script>
 <title>HappyHouse</title>
 <link rel="stylesheet" href="${root}/css/main.css">
-<!-- <script type="text/javascript"> -->
-<!-- // 	$(document).ready(function() { -->
-<!-- // 		$("#registerBtn").click(function() { -->
-<!-- // 			$("#favoriteform").submit(); -->
-<!-- // 		}); -->
-<!-- // 	}); -->
-<!-- </script> -->
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -58,9 +54,7 @@
 		<h1>Happy House</h1>
 		<p style="font-size: 130%;">내 집 마련의 꿈을 이루세요 !</p>
 	</div>
-	<c:if test="${dongList == null}">
-		<script>dongListInit();</script>
-	</c:if>
+	
 	<div class="container" align="center">
 		<form id="favoriteform" method="post" action="${root}/favoriteSet">
 			<input type="hidden" name="act" id="act" value="set">
