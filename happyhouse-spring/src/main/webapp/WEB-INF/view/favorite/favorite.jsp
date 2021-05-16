@@ -20,6 +20,11 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script>
+	function dongListInit(){
+		location.href = "${root}/dongInit";
+	}
+</script>
 <title>HappyHouse</title>
 <link rel="stylesheet" href="${root}/css/main.css">
 <!-- <script type="text/javascript"> -->
@@ -53,18 +58,18 @@
 		<h1>Happy House</h1>
 		<p style="font-size: 130%;">내 집 마련의 꿈을 이루세요 !</p>
 	</div>
-
+	<c:if test="${dongList == null}">
+		<script>dongListInit();</script>
+	</c:if>
 	<div class="container" align="center">
 		<form id="favoriteform" method="post" action="${root}/favoriteSet">
 			<input type="hidden" name="act" id="act" value="set">
 			<div class="form-group" align="left">
 					<div id="dong" class="custom-control-inline">
 						<select class="form-control" id="dong" name="dong">
-							<option value="평창동">평창동</option>
-							<option value="사직동">사직동</option>
-							<option value="숭인동">숭인동</option>
-							<option value="신영동">신영동</option>
-							<option value="목동">목동</option>
+							<c:forEach var="dong" items="${dongList}">
+								<option value="${dong}">${dong}</option>
+							</c:forEach>
 						</select>
 					</div>
 				</div>

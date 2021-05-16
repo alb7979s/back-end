@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.happyhouse.dto.Apt;
 import com.ssafy.happyhouse.dto.Favorite;
@@ -47,13 +48,13 @@ public class FavoriteServiceImpl implements FavoriteService {
 //		}
 //	}
 
+	@Transactional
 	@Override
 	public List<Apt> favoriteAreaSearch(Member member) throws Exception {
-		System.out.println(favoriteDao.getDong(member));
 		return favoriteDao.getAreas(favoriteDao.getDong(member));
-//		return null;
 	}
 
+	@Transactional
 	@Override
 	public void favoriteSet(Member member, String dong) throws Exception {
 		Favorite result = favoriteDao.setArea(member);
@@ -71,6 +72,11 @@ public class FavoriteServiceImpl implements FavoriteService {
 			favoriteDao.insertArea(map);
 		}
 		
+	}
+
+	@Override
+	public List<String> getDongList() throws Exception {
+		return favoriteDao.getDongList();
 	}
 	
 	

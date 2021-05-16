@@ -76,11 +76,13 @@ public class NoticeController {
 		
 		@GetMapping("/write") //OK
 		public String mvWrite() {
+			System.out.println("GetWrite");
 			return "/notice/write";
 		}
 		
 		@PostMapping("/write") // OK
 		public String doWrite(Notice notice,HttpSession session , Model model) throws SQLException {
+			System.out.println("postWrite");
 			/*
 			 * 
 			 * 

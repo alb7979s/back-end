@@ -3,7 +3,6 @@ package com.ssafy.happyhouse.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ssafy.happyhouse.dto.Apt;
-import com.ssafy.happyhouse.dto.Favorite;
 import com.ssafy.happyhouse.dto.Member;
 import com.ssafy.happyhouse.service.FavoriteService;
 
@@ -25,18 +24,18 @@ public class FavoriteController extends HttpServlet {
 	
 	@Autowired
 	private FavoriteService favoriteService;
-
+	
+	@GetMapping("/dongInit")
+	public String dongInit(HttpSession session) throws Exception {
+		session.setAttribute("dongList", favoriteService.getDongList());
+		return "redirect:/favorite";
+	}
 	@PostMapping("/favoriteSet")
-	public String set(HttpServletRequest request, Model model, HttpSession session) {
+	public String set(@RequestParam String dong, Model model, HttpSession session) {
 		Member member = (Member) session.getAttribute("userinfo");
 
 		if(member!=null){
 			try {
-				String dong = request.getParameter("dong");
-				System.out.println("dong " + dong);
-				Favorite favorite = new Favorite();
-				favorite.setDong(dong);
-				System.out.println(favorite.toString());
 				favoriteService.favoriteSet(member, dong);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -44,7 +43,7 @@ public class FavoriteController extends HttpServlet {
 		}else {
 			model.addAttribute("msg", "회원만 사용 가능한 기능입니다");
 		}
-		return "redirect:/";
+		return "redirect:/favorite";
 	}
 	
 	@GetMapping("/mvfavorite")
@@ -54,17 +53,16 @@ public class FavoriteController extends HttpServlet {
 	
 	@RequestMapping("/favorite")
 	public String search(Model model, HttpSession session) {
-		
 		Member member = (Member) session.getAttribute("userinfo");
 
 		if(member!=null){
 			List<Apt> list;
 			try {
 				list = favoriteService.favoriteAreaSearch(member);
-				System.out.println(list);
-				if(list != null)
+				if(list.size() != 0) {
 					model.addAttribute("favoritedong", list.get(0).getDong());
-				model.addAttribute("favoriteinfo", list);
+					model.addAttribute("favoriteinfo", list);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

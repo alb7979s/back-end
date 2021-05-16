@@ -20,7 +20,6 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
-	
 	@PostMapping("/join")
 	public String join(Member member, Model model, @RequestParam("emaildomain") String emaildomain) {
 		member.setEmail(member.getEmail() + "@" + emaildomain);

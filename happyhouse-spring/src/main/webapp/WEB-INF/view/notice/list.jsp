@@ -40,7 +40,7 @@
   </div>
 
   <div class="container menu" id="board" style="padding-top: 50px;height: 1000px;">
-    <button id = "goWriteBtn" type="button " class="btn clickMakeBoard btn-primary">글쓰기</button>
+    <button id = "goWriteBtn" type="button" class="btn clickMakeBoard btn-primary">글쓰기</button>
     <form action ="${root}/notice/search" method="GET">
 	    <div class="dropdown" style="float: right; height: 51px;">
 	    <!--    <button type="button" class="btn dropdown-toggle dropbtn" data-toggle="dropdown">검색</button>-->
@@ -49,14 +49,14 @@
 	    		<option value="subject">제목</option>
 			</select>
 	      <input type="text" name="word">
-	      <button id="searchBtn" type="button " class="btn btn-primary">검색</button>
+	      <button id="searchBtn" type="button" class="btn btn-primary">검색</button>
+	    </div>
     </form>
     <!--   <div class="dropdown-menu">
         <h4 class="dropdown-item" onclick="dropSelectTitle()">제목</h4>
         <h4 class="dropdown-item" onclick="dropSelectUser()">작성자</h4>
       </div> -->
 
-    </div>
     <div class="w3-padding w3-white notranslate">
       <table class="table table-striped">
         <thead>
@@ -80,33 +80,6 @@
 
         </tbody>
       </table>
-    </div>
-  </div>
-  <div class="container menu" id="makeBoard" style="display: none;padding-top: 50px; height:1000px;">
-    <h1 style="color: black;">게시판</h1>
-    <form>
-      <div class="form-group">
-        <label for="exampleFormControlInput1" style="color: black; font-size: 20px; font-weight: bold">제목</label>
-        <input type="title" class="form-control" id="exampleFormControlInput1">
-      </div>
-      <div class="form-group">
-        <label for="exampleFormControlTextarea1"
-          style="resize: horizontal; color: black; font-size: 20px; font-weight: bold"> 내용 </label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="25"></textarea>
-      </div>
-    </form>
-    <div id="upde" style="text-align:center;">
-      <button type="button" class="btn btn-warning" id = "boardUdate" style="display: none;">수정</button>
-      <button type="button" class="btn btn-warning" id = "boardUdateFinish" style="display: none;">저장</button>
-      <button type="button" class="btn btn-danger">삭제</button>
-    </div>
-    <div id="post" style="text-align: center; margin-top: 50px; padding-bottom: 100px; padding-bottom: 0;">
-      <button type="button " class="btn btn-lg postBoard">POST
-      </button>
-    </div>
-    <div id="back" style="text-align: center; margin-top: 50px; padding-bottom: 100px;">
-      <button type="button " class="btn btn-lg backBoard">BACK
-      </button>
     </div>
   </div>
   	<c:if test="${pr.count != 0}"> 
@@ -145,11 +118,11 @@
     <li class="page-item"><a class="page-link" href="#">3</a></li>
     <li class="page-item"><a class="page-link" href="#">Next</a></li>
   </ul>-->
-  </div>
   <script>
 	const goWriteBtn = document.querySelector("#goWriteBtn");
 //	const hiddenform = document.querySelector("#hiddenform");
 	goWriteBtn.addEventListener('click',function() {
+		console.log("GoWriteBtn click");
 		location.href = "${root}/notice/write";
 	});
 	const tbody = document.querySelector("tbody");

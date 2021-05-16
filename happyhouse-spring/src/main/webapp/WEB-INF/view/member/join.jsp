@@ -33,7 +33,7 @@
 				alert("비밀번호 확인!!!");
 				return;
 			} else {
-				$("#memberform").submit();
+				$("#memberform").submit(); 
 			}
 		});
 	});
@@ -77,7 +77,7 @@
 					</div>
 				</div>
 				<div class="form-group" align="center">
-					<button type="button" id="registerBtn" class="btn btn-primary">회원가입</button>
+					<button type="button" id="registerBtn" class="btn btn-primary" >회원가입</button>
 					<button type="reset" class="btn btn-warning">초기화</button>
 				</div>
 			</form>
