@@ -25,11 +25,6 @@ public class FavoriteController extends HttpServlet {
 	@Autowired
 	private FavoriteService favoriteService;
 	
-	@GetMapping("/dongInit")
-	public String dongInit(HttpSession session) throws Exception {
-		session.setAttribute("dongList", favoriteService.getDongList());
-		return "redirect:/favorite";
-	}
 	@PostMapping("/favoriteSet")
 	public String set(@RequestParam String dong, Model model, HttpSession session) {
 		Member member = (Member) session.getAttribute("userinfo");
@@ -47,7 +42,10 @@ public class FavoriteController extends HttpServlet {
 	}
 	
 	@GetMapping("/mvfavorite")
-	public String move() {
+	public String move(HttpSession session) throws Exception {
+		if(session.getAttribute("dongList") == null) {
+			session.setAttribute("dongList", favoriteService.getDongList());
+		}
 		return "favorite/favorite";
 	}
 	

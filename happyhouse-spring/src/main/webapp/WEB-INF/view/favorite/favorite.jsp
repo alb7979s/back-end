@@ -20,14 +20,6 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script>
-	<c:if test="${dongList == null}">
-		dongListInit();
-	</c:if>
-	function dongListInit(){
-		location.href = "${root}/dongInit";
-	}
-</script>
 <title>HappyHouse</title>
 <link rel="stylesheet" href="${root}/css/main.css">
 </head>
