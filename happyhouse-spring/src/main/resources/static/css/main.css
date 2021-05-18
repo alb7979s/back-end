@@ -27,6 +27,12 @@ tbody > tr:hover {
   cursor: pointer;
 }
 
+.hello-text {
+	font-size: 14px;
+	color: #ffffff;
+	margin: 15px;
+}
+
 .jumbotron {
   background-color: #3588b8;
   color: #fff;

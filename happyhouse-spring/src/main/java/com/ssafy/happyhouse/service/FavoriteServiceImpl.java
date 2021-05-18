@@ -18,35 +18,6 @@ public class FavoriteServiceImpl implements FavoriteService {
 	
 	@Autowired
 	private FavoriteMapper favoriteDao;
-//	
-//	public static FavoriteService favoriteService;
-	
-//	private FavoriteServiceImpl() {};
-//	public static FavoriteService getFavoriteService() {
-//		if(favoriteService == null) favoriteService = new FavoriteServiceImpl();
-//		return favoriteService;
-//	}
-	
-//	private FavoriteDao favoriteDao = FavoriteDaoImpl.getFavoriteDao();
-	
-	
-//	@Override
-//	public List<Apt> favoriteAreaSearch(Member memberDto) throws Exception {
-//		return favoriteDao.getAreas(memberDto);
-//	}
-//	@Override
-//	public void favoriteSet(Member member, String dong) throws Exception{
-//		
-//		Favorite result = favoriteDao.setArea(favoriteDao.getDong(member));
-//		if(result!=null) {
-//			//존재하면 update
-//			favoriteDao.updateArea(favorite);
-//		}
-//		else {
-//			//존재하지 않으면 insert
-//			favoriteDao.insertArea(favorite);
-//		}
-//	}
 
 	@Transactional
 	@Override

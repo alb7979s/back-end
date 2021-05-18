@@ -39,13 +39,20 @@
 	function moveJoin(){
 		location.href="${root}/member/moveJoin";
 	}
+	
+	function keyCheck(){
+		// enter
+		if(event.keyCode == 13){
+			login();
+		}
+	}
 </script>
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#" style="font-size: 2em;"><span
+				<a class="navbar-brand" href="${root}/" style="font-size: 2em;"><span
 					class="glyphicon glyphicon-home"></span></a>
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
@@ -69,11 +76,11 @@
 			<input type="hidden" name="act" id="act" value="login">
 			<div class="form-group">
 				<label for="">아이디</label>
-				<input type="text" class="form-control" id="id" name="id" placeholder="" style="width:300px">
+				<input type="text" class="form-control" onKeydown="keyCheck()" id="id" name="id" placeholder="" style="width:300px">
 			</div>
 			<div class="form-group">
 				<label for="">비밀번호</label>
-				<input type="password" class="form-control" id="pwd" name="pwd" placeholder="" style="width:300px">
+				<input type="password" class="form-control" onKeydown="keyCheck()" id="pwd" name="pwd" placeholder="" style="width:300px">
 			</div>
 			<div class="form-group" align="center">
 				<button type="button" class="btn btn-warning" onclick="login();">로그인</button>

@@ -18,7 +18,7 @@ import com.ssafy.happyhouse.dto.Member;
 import com.ssafy.happyhouse.service.FavoriteService;
 
 @Controller
-//@RequestMapping("/favorite")
+@RequestMapping("/favorite")
 public class FavoriteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -49,7 +49,7 @@ public class FavoriteController extends HttpServlet {
 		return "favorite/favorite";
 	}
 	
-	@RequestMapping("/favorite")
+	@RequestMapping(value= {"", "/favorite"})
 	public String search(Model model, HttpSession session) {
 		Member member = (Member) session.getAttribute("userinfo");
 

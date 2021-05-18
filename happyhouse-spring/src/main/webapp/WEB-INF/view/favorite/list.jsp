@@ -42,11 +42,11 @@
       <c:if test="${userinfo != null}">
 	      <c:if test="${favoriteinfo == null}">
 	      	<p style="font-size: 130%;">나의 관심 지역</p>
-	      	<button onclick = "location.href = '${root}/mvfavorite'">설정</button> 
+	      	<button onclick = "location.href = '${root}/favorite/mvfavorite'">설정</button> 
 	      </c:if>
 	      <c:if test="${favoriteinfo != null}">
 	      	<p style="font-size: 130%;">나의 관심 지역: ${favoritedong}</p>
-	      	<button onclick = "location.href = '${root}/mvfavorite'">수정</button> 
+	      	<button onclick = "location.href = '${root}/favorite/mvfavorite'">수정</button> 
 	      </c:if>
       </c:if>
     </div>

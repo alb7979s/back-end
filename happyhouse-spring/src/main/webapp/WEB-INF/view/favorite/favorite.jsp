@@ -48,7 +48,7 @@
 	</div>
 	
 	<div class="container" align="center">
-		<form id="favoriteform" method="post" action="${root}/favoriteSet">
+		<form id="favoriteform" method="post" action="${root}/favorite/favoriteSet">
 			<input type="hidden" name="act" id="act" value="set">
 			<div class="form-group" align="left">
 					<div id="dong" class="custom-control-inline">

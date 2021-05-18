@@ -19,14 +19,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#registerBtn").click(function() {
-				
-			if($("#pwd").val() != $("#pwdcheck").val()) {
-				alert("비밀번호가 맞지 않습니다.");
-				return;
-			} else {
-				$("#temp").attr("value","modify");
-				$("#memberform").submit();
-			}
+			modify();
 		});
 		$("#cancleBtn").click(function() {
 			document.location.href = "${root}/";
@@ -35,8 +28,30 @@
 		$("#withdrawBtn").click(function() {
 			$("#memberform").attr('action', "${root}/member/withdraw").submit();
 		});
-
 	});
+	function modify(){
+		if($("#pwd").val() == ''){
+			alert("비밀번호를 입력해주세요.");
+			return;
+		}
+		else if($("#pwd").val() != $("#pwdcheck").val()) {
+			alert("비밀번호가 맞지 않습니다.");
+			return;
+		}
+		else if($("#email").val() == ''){
+			alert("이메일을 입력해주세요");
+			return;		
+		} else {
+			$("#temp").attr("value","modify");
+			$("#memberform").submit();
+		}
+	}
+	function keyCheck(){
+		// enter
+		if(event.keyCode == 13){
+			modify();
+		}
+	}
 </script>
 </head>
 <body>
@@ -47,25 +62,25 @@
 		<div class="col-lg-6" align="center">
 			<form id="memberform" method="post" action="${root}/member/modify">
 				<div class="form-group" align="left">
-					<label for="">아이디</label> <input type="text" class="form-control" id="id"
+					<label for="">아이디</label> <input type="text" class="form-control" id="id" onKeydown="keyCheck()"
 						name="id" value="${userinfo.id}" readonly/>
 				</div>
 				<div class="form-group" align="left">
-					<label for="">비밀번호</label> <input type="password"
+					<label for="">비밀번호</label> <input type="password" onKeydown="keyCheck()"
 						class="form-control" id="pwd" name="pwd">
 				</div>
 				<div class="form-group" align="left">
-					<label for="">비밀번호재입력</label> <input type="password"
+					<label for="">비밀번호재입력</label> <input type="password" onKeydown="keyCheck()"
 						class="form-control" id="pwdcheck" name="pwdcheck">
 				</div>
 				<div class="form-group" align="left">
-					<label for="name">소속</label> <input type="text"
+					<label for="name">소속</label> <input type="text" onKeydown="keyCheck()"
 						class="form-control" id="dpt" name="dpt">
 				</div>
 				<div class="form-group" align="left">
 					<label for="email">이메일</label><br>
-					<div id="email" class="custom-control-inline">
-						<input type="text" class="form-control" name="email" size="25">
+					<div class="custom-control-inline">
+						<input type="text" class="form-control" id = "email" name="email" size="25" onKeydown="keyCheck()">
 						@ <select class="form-control" id="emaildomain" name="emaildomain">
 							<option value="naver.com">naver.com</option>
 							<option value="google.com">google.com</option>
