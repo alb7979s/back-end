@@ -50,5 +50,12 @@
 	<delete id="deleteNotice" parameterType="int">
 		delete from notice where noticeno = #{noticeno}
 	</delete>
+	
+	<select id="selectNotice" resultType="Notice">
+		select *
+		from notice
+		order by noticeno desc 
+		LIMIT 0, 6
+	</select>
 </mapper>
 

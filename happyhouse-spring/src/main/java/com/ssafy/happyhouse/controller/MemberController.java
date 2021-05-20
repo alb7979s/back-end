@@ -90,12 +90,15 @@ public class MemberController {
 	}
 	
 	@GetMapping("/moveJoin")
-	public String moveJoin() {
+	public String moveJoin(Model model) throws Exception {
+		model.addAttribute("idList", memberService.getIdList());
+		model.addAttribute("emailList", memberService.getEmailList());
 		return "member/join";
 	}
 	
 	@GetMapping("/moveModify")
-	public String moveModify() {
+	public String moveModify(Model model) throws Exception {
+		model.addAttribute("emailList", memberService.getEmailList());
 		return "member/modify";
 	}
 	

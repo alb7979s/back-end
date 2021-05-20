@@ -16,4 +16,5 @@ public interface BoardMapper {
 	public Board getBoard(int no) throws SQLException;
 	public void modify(Board board) throws SQLException;
 	public void delete(int no) throws SQLException;
+	public List<Board> search(String word);
 }

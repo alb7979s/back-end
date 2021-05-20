@@ -17,6 +17,13 @@
 		order by `no` desc
 	</select>
 	
+	<select id="search" parameterType="String" resultType="Board">
+		select `no`, views, userid, subject, content, regtime
+		from board
+		where `subject` like '%${word}%' or `content` like '%${word}%'
+		order by `no` desc
+	</select>
+	
 	<select id="listPage" parameterType = "Page" resultType="Board">
 		select `no`, views, userid, subject, content, regtime 
 		from board 

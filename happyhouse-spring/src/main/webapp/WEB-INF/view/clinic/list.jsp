@@ -54,7 +54,7 @@
 	      </tr>
 	    </thead>
 	    <tbody>
-		    <c:forEach var="clinic" items="${clinicinfo}" varStatus="loop">
+		    <c:forEach var="clinic" items="${result.clinic}" varStatus="loop">
 		      <tr>
 		        <td>${clinic.no}</td>
 		        <td>${clinic.sido}</td>
@@ -69,6 +69,43 @@
 	    </tbody>
 	  </table>
     </div>
-    	
+    
+
+	<c:if test="${result.pageResult.count != 0}"> 
+		<nav>
+			<ul class="pagination botBar">
+				<!-- 이전 -->
+				<li class="<c:if test="${not result.pageResult.prev}">disabled</c:if>">
+				<a href="#1" <c:if test="${result.pageResult.prev}">onclick="goPage(${result.pageResult.beginPage-1});"</c:if>
+					aria-label="dataevious"> <span aria-hidden="true">&laquo;</span>
+				</a></li>
+				<c:forEach var="i" begin="${result.pageResult.beginPage}" end="${result.pageResult.endPage}">
+					<c:choose>
+						<c:when test="${i eq result.pageResult.pageNo}">
+							<li class="page-item active"><a href="#1">${i}</a></li>
+						</c:when>
+						<c:otherwise>
+							<li><a class="page-item" href="#1" onclick="goPage(${i});">${i}</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<!-- 다음 -->
+				<li class="<c:if test="${not result.pageResult.next}">disabled</c:if>">
+				
+				<a href="#1" <c:if test="${result.pageResult.next}">onclick="goPage(${result.pageResult.endPage + 1});"</c:if>
+					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+				</a></li>
+			</ul>
+		</nav>
+     </c:if>
+     
+     <script>
+     $("ul.nav > li ").removeClass("active");
+ 	 $("ul.nav > li:eq(${pr.pageNo})").addClass("active");
+     function goPage(pageNo){
+    	//	alert(pageNo);
+    	location.href="${root}/clinic/list?pageNo="+pageNo;
+     }
+     </script>
 </body>
 </html>

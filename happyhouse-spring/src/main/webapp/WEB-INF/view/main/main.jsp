@@ -20,7 +20,8 @@
 </script>
 </head>
 <body>
-	<nav class="navbar navbar-default navbar-fixed-top">
+
+	<nav class="navbar navbar-default navbar-fixed-top top">
       <div class="container">
         <div class="navbar-header">
           <a class="navbar-brand" href="${root}/" style="font-size:2em;"><span class="glyphicon glyphicon-home"></span></a>
@@ -81,65 +82,10 @@
     <div class="container-fluid text-center">
       <h2><span class="glyphicon glyphicon-ok"></span>공지사항</h2>
       <br>
-      <div class="row slideanim">
-        <div class="col-sm-4">
-            <div class="panel panel-default text-center" style="border:1px solid rgb(216, 216, 216);">
-                <div class="panel-body">
-                    <p><strong>첫 공지입니다.</strong></p>
-                    <p>공지에요. 공지에요. 공지에요. </p>
-                    <p style="text-align:right;margin-right:20px;">자세히</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-default text-center" style="border:1px solid rgb(216, 216, 216);">
-                <div class="panel-body">
-                    <p><strong>첫 공지입니다.</strong></p>
-                    <p>공지에요. 공지에요. 공지에요. </p>
-                    <p style="text-align:right;margin-right:20px;">자세히</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-default text-center" style="border:1px solid rgb(216, 216, 216);">
-                <div class="panel-body">
-                    <p><strong>첫 공지입니다.</strong></p>
-                    <p>공지에요. 공지에요. 공지에요. </p>
-                    <p style="text-align:right;margin-right:20px;">자세히</p>
-                </div>
-            </div>
-        </div>
+      <div class="row slideanim" id="main_notice">
+     	<!-- 로딩할 때, ajax로 공지사항 최근 6개 불러옴 -->   
       </div>
-      <br><br>
-      <div class="row slideanim">
-        <div class="col-sm-4">
-            <div class="panel panel-default text-center" style="border:1px solid rgb(216, 216, 216);">
-                <div class="panel-body">
-                    <p><strong>첫 공지입니다.</strong></p>
-                    <p>공지에요. 공지에요. 공지에요. </p>
-                    <p style="text-align:right;margin-right:20px;">자세히</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="panel panel-default text-center" style="border:1px solid rgb(216, 216, 216);">
-            <div class="panel-body">
-                <p><strong>첫 공지입니다.</strong></p>
-                <p>공지에요. 공지에요. 공지에요. </p>
-                <p style="text-align:right;margin-right:20px;">자세히</p>
-            </div>
-        </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-default text-center" style="border:1px solid rgb(216, 216, 216);">
-                <div class="panel-body">
-                    <p><strong>첫 공지입니다.</strong></p>
-                    <p>공지에요. 공지에요. 공지에요. </p>
-                    <p style="text-align:right;margin-right:20px;">자세히</p>
-                </div>
-            </div>
-        </div>
-      </div>
+     
     </div>
     
    	<div class="container-fluid bg-grey">
@@ -176,13 +122,52 @@
     </div>
     
     <footer class="container-fluid text-center">
-      <a href="#myPage" title="To Top">
+      <a href="#top" title="To Top">
         <span class="glyphicon glyphicon-chevron-up"></span>
       </a>
       <p>Copyright by SSAFY. All rights reserved.</p>
     </footer>
     
    <script>
+ 
+	   $.ajax({
+			 url:"/notice",
+			 method:"post",
+			 dataType: "json",
+			 contentType:"application/json; charset=UTF-8",
+			 success:function(data){
+				 console.dir("tds");
+				 console.log(data);
+				
+				 var result = '';
+				 if(data==null){
+					 result+='<h2>등록된 공지사항이 없습니다.</h2>'
+				 }
+				 else{
+					 $.each(data, function(index, item){
+						 console.log(index);
+						 result+='<div class="col-sm-4">'
+						 result+='<div class="panel panel-default text-center" style="border:1px solid rgb(216, 216, 216);">'
+						 result+='<div class="panel-body">'
+						 result+='<p><strong>공지  #'+item.noticeno+'</strong></p>'
+						 result+='<p>'+item.subject+'</p>'
+						 result+='<p style="text-align:right; margin-right:20px;">'
+						 result+='<a style="color:gray; text-decoration:none;" href="${root}/notice/detail?number='+item.noticeno+ '">자세히</a>'
+						 result+='</p></div></div></div>'
+						 
+						 if(index==2)
+							 result+=' <br><br>';
+					 })
+				 }
+				 
+				 $("#main_notice").html(result);
+				 
+			 },
+			 error:function(data){
+				 console.log("메인화면 -공지사항 6개 오류");
+			 },
+		 }); 
+
     $(document).ready(function(){
         // Add smooth scrolling to all links in navbar + footer link
         $(".navbar a, footer a[href='#myPage']").on('click', function(event) {

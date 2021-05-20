@@ -1,6 +1,7 @@
 package com.ssafy.happyhouse.controller;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ssafy.happyhouse.dto.Member;
 import com.ssafy.happyhouse.dto.Notice;
@@ -26,13 +28,22 @@ public class NoticeController {
 		
 		@GetMapping(value= {"","/list"}) // OK
 		public String list(Integer pageNo , Model model) throws SQLException {
-			System.out.println("list");
+			//System.out.println("list");
 			if(pageNo == null) {
 				pageNo = 1;
 			}
 			Page page = new Page(pageNo);
 			model.addAttribute("result",noticeService.listNoticePage(page));
 			return "notice/list";
+		}
+		
+		@ResponseBody
+		@PostMapping
+		public List<Notice> selectlist() throws SQLException {
+			System.out.println("tioio");
+			List<Notice> list = noticeService.selectList();
+			System.out.println("top "+list);
+			return list;
 		}
 		
 /*		@GetMapping("/search") 

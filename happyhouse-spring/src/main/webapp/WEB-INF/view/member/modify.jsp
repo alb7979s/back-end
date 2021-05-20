@@ -29,22 +29,55 @@
 			$("#memberform").attr('action', "${root}/member/withdraw").submit();
 		});
 	});
+	var emailDup = false;
+	function msgAndFocus(attr, msg){
+		alert(msg);
+		$(attr).focus();
+	}
 	function modify(){
 		if($("#pwd").val() == ''){
-			alert("비밀번호를 입력해주세요.");
+			msgAndFocus("#pwd", "비밀번호를 입력해주세요");
 			return;
 		}
 		else if($("#pwd").val() != $("#pwdcheck").val()) {
-			alert("비밀번호가 맞지 않습니다.");
+			msgAndFocus("#pwdcheck", "비밀번호가 같지 않습니다.");
 			return;
 		}
-		else if($("#email").val() == ''){
-			alert("이메일을 입력해주세요");
-			return;		
+		else if ($("#emailinput").val() == "") {
+			msgAndFocus("#emailinput", "이메일을 입력해주세요");
+			return;
+		} else if (emailDup) {
+			msgAndFocus("#emailinput", "email을 바꿔주세요.");
+			return;
 		} else {
-			$("#temp").attr("value","modify");
 			$("#memberform").submit();
 		}
+	}
+	function setMsg(id, msg, color){
+		$(id).text(msg);
+		console.log(id + " " + msg + " " + color);
+		$(id).css({'color': color});
+	}
+	function setDup(attr, flag){
+		if(attr == "#emailinput") {
+			emailDup = flag;
+			if(flag) setMsg("#emailDupMsg", "이미 존재하는 이메일 입니다.", 'red');
+			else setMsg("#emailDupMsg", "사용 가능한 이메일 입니다.", 'blue');
+		}
+		return flag;
+	}
+	function dupCheck(items, attr, emaildomain = false){
+		target = $(attr).val() + (emaildomain ? ("@"+$("#emaildomain option:selected").val()) : '');
+		for(let i=0; i < items.length; i++){
+			console.log(items[i] + " " + target);
+			if(items[i] == target) {
+				return setDup(attr, true);
+			}
+		}
+		return setDup(attr, false);
+	}
+	function emailCheck() {
+		dupCheck("${emailList}".substr(1, "${emailList}".length-2).split(", "), "#emailinput", true);
 	}
 	function keyCheck(){
 		// enter
@@ -80,7 +113,7 @@
 				<div class="form-group" align="left">
 					<label for="email">이메일</label><br>
 					<div class="custom-control-inline">
-						<input type="text" class="form-control" id = "email" name="email" size="25" onKeydown="keyCheck()">
+						<input type="text" class="form-control" id = "emailinput" name="email" size="25" onKeydown="keyCheck()" onKeyUp="emailCheck()">
 						@ <select class="form-control" id="emaildomain" name="emaildomain">
 							<option value="naver.com">naver.com</option>
 							<option value="google.com">google.com</option>
@@ -89,6 +122,7 @@
 							<option value="hanmail.net">hanmail.net</option>
 						</select>
 					</div>
+					<div id="emailDupMsg"></div>
 				</div>
 				<div class="form-group" align="center">
 					<button type="button" id="registerBtn" class="btn btn-primary">수정</button>

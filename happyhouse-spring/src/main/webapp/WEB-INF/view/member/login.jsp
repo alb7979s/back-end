@@ -52,7 +52,7 @@
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="${root}/" style="font-size: 2em;"><span
+				<a class="navbar-brand" href="${root}/"  style="font-size: 2em;"><span
 					class="glyphicon glyphicon-home"></span></a>
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">

@@ -39,6 +39,11 @@ public class BoardServiceImpl implements BoardService{
 	public List<Board> listAll() throws SQLException {
 		return BoardMapper.listAll();
 	}
+	
+	@Override
+	public List<Board> search(String word) throws SQLException {
+		return BoardMapper.search(word);
+	}
 
 	@Override
 	public Board getBoard(int no) throws SQLException {

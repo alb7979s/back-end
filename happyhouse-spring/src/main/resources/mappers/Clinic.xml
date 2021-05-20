@@ -9,5 +9,16 @@
 		from happyhouse.selection_clinic 
 	</select>
 
+	<select id="listClinicPage" parameterType = "Page" resultType="Clinic">
+		select *
+		from selection_clinic 
+		order by no 
+		LIMIT #{begin}, #{listSize} 
+	</select>
+	
+	<select id="selectClinicCount" resultType="int">
+		SELECT count(*) as cnt 
+		FROM selection_clinic
+	</select>
 </mapper>
 

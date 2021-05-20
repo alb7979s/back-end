@@ -16,4 +16,5 @@ public interface NoticeMapper {
 	public Notice getNotice(int noticeno) throws SQLException;
 	public void modifyNotice(Notice notice) throws SQLException;
 	public void deleteNotice(int noticeno) throws SQLException;
+	public List<Notice> selectNotice();
 }

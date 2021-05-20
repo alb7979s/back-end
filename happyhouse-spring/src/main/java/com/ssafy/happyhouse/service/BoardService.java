@@ -15,4 +15,5 @@ public interface BoardService {
 	public void modify(Board board) throws SQLException;
 	public void delete(int no) throws SQLException;
 	Map<String,Object> listPage(Page page) throws SQLException;
+	public List<Board> search(String word) throws SQLException;
 }

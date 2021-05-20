@@ -8,5 +8,16 @@
 		select no, base_date, sido, sigungu, medi_name, address, type, phone_no from happyhouse.hospital 
 	</select>
 
+	<select id="listHospitalPage" parameterType = "Page" resultType="Hospital">
+		select *
+		from hospital 
+		order by no 
+		LIMIT #{begin}, #{listSize} 
+	</select>
+	
+	<select id="selectHospitalCount" resultType="int">
+		SELECT count(*) as cnt 
+		FROM hospital
+	</select>
 </mapper>
 

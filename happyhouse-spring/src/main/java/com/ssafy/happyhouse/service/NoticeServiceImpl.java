@@ -86,4 +86,10 @@ public class NoticeServiceImpl implements NoticeService{
 		return result;
 	}
 
+	@Override
+	public List<Notice> selectList() {
+		
+		return noticeMapper.selectNotice();
+	}
+
 }

@@ -2,6 +2,7 @@ package com.ssafy.happyhouse.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ssafy.happyhouse.dto.Clinic;
 import com.ssafy.happyhouse.dto.Hospital;
+import com.ssafy.happyhouse.dto.Page;
 import com.ssafy.happyhouse.service.ClinicService;
 import com.ssafy.happyhouse.service.HospitalServiceImpl;
 import com.ssafy.happyhouse.service.HospitalService;
@@ -29,10 +31,17 @@ public class HospitalController {
 	private HospitalService hospitalService;
 	
 	@GetMapping(value= {"", "/list"})
-	public String list(Model model) throws Exception {
-		System.out.println("test");
-		List<Hospital> list = hospitalService.hospitalList();
-		model.addAttribute("hosinfo", list);
+	public String list(Integer pageNo, Model model) throws Exception {
+		if(pageNo == null) { 
+			pageNo = 1; 
+		} 
+		 
+		Page page = new Page(pageNo);
+		 
+		Map<String, Object> list = hospitalService.listhospitalPage(page);
+		System.out.println(list);
+		model.addAttribute("result", list);
+		
 		return "hospital/list";
 	}
 }

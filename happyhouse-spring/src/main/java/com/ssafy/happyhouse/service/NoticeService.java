@@ -15,4 +15,6 @@ public interface NoticeService {
 	public void modifyNotice(Notice notice) throws SQLException;
 	public void deleteNotice(int noticeno) throws SQLException;
 	Map<String,Object> listNoticePage(Page page) throws SQLException;
+	
+	public List<Notice> selectList();
 }

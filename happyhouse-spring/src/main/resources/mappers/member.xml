@@ -37,4 +37,14 @@
 		from member
 		where id = #{id} and pwd = #{pwd}
 	</select>
+
+	<select id="getIdList" resultType="String">
+		SELECT DISTINCT id
+		FROM `member` m ;
+	</select>
+	
+	<select id="getEmailList" resultType="String">
+		SELECT DISTINCT email
+		FROM `member` m ;
+	</select>
 </mapper>

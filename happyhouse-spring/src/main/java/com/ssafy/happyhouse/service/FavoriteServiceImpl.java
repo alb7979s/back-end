@@ -17,18 +17,18 @@ import com.ssafy.happyhouse.mapper.FavoriteMapper;
 public class FavoriteServiceImpl implements FavoriteService {
 	
 	@Autowired
-	private FavoriteMapper favoriteDao;
+	private FavoriteMapper favoriteMapper;
 
 	@Transactional
 	@Override
 	public List<Apt> favoriteAreaSearch(Member member) throws Exception {
-		return favoriteDao.getAreas(favoriteDao.getDong(member));
+		return favoriteMapper.getAreas(favoriteMapper.getDong(member));
 	}
 
 	@Transactional
 	@Override
 	public void favoriteSet(Member member, String dong) throws Exception {
-		Favorite result = favoriteDao.setArea(member);
+		Favorite result = favoriteMapper.setArea(member);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("id", member.getId());
@@ -36,18 +36,18 @@ public class FavoriteServiceImpl implements FavoriteService {
 		
 		if(result!=null) {
 			//존재하면 update
-			favoriteDao.updateArea(map);
+			favoriteMapper.updateArea(map);
 		}
 		else {
 			//존재하지 않으면 insert
-			favoriteDao.insertArea(map);
+			favoriteMapper.insertArea(map);
 		}
 		
 	}
 
 	@Override
 	public List<String> getDongList() throws Exception {
-		return favoriteDao.getDongList();
+		return favoriteMapper.getDongList();
 	}
 	
 	
