@@ -112,8 +112,8 @@
 				</div>
 				<div class="form-group" align="left">
 					<label for="email">이메일</label><br>
-					<div class="custom-control-inline">
-						<input type="text" class="form-control" id = "emailinput" name="email" size="25" onKeydown="keyCheck()" onKeyUp="emailCheck()">
+					<div class="custom-control-inline input-inline" id="email">
+						<input type="text" class="form-control" onKeyUp="emailCheck()" id="emailinput" name="email" size="25" >
 						@ <select class="form-control" id="emaildomain" name="emaildomain" onchange="emailCheck()">
 							<option value="naver.com">naver.com</option>
 							<option value="google.com">google.com</option>

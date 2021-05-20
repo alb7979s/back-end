@@ -33,6 +33,19 @@ public class MemberController {
 		}
 	}
 	
+	@PostMapping("/modify")
+	public String modify(Member member, Model model, @RequestParam("emaildomain") String emaildomain) {
+		member.setEmail(member.getEmail() + "@" + emaildomain);
+		try {
+			memberService.modify(member);
+			return "index";
+		}catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg", "수정 중 문제가 생겼습니다.");
+			return "error/error404";
+		}
+	}
+	
 	@PostMapping("/login")
 	public String login(Member member, Model model, HttpSession session) {
 		String path="index";
@@ -69,17 +82,6 @@ public class MemberController {
 		}catch(Exception e) {
 			e.printStackTrace();
 			model.addAttribute("msg", "탈퇴 처리 중 문제가 발생했습니다.");
-			return "error/error404";
-		}
-	}
-	@PostMapping("/modify")
-	public String modify(Member member, Model model) {
-		try {
-			memberService.modify(member);
-			return "index";
-		}catch(Exception e) {
-			e.printStackTrace();
-			model.addAttribute("msg", "수정 하는 중 문제가 발생했습니다.");
 			return "error/error404";
 		}
 	}

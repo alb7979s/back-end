@@ -33,7 +33,7 @@ public class MemberServiceImpl implements MemberService {
 	public void modify(Member member) throws Exception {
 		Member memberInfo = memberMapper.selectMember(member);
 		if (memberInfo != null) {
-			memberMapper.updateMember(memberInfo);
+			memberMapper.updateMember(member);
 		}
 	}
 	
