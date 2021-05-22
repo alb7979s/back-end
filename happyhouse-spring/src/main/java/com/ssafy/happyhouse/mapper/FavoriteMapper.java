@@ -14,4 +14,5 @@ public interface FavoriteMapper {
 	Favorite setArea(Member member) throws Exception;
 	void updateArea(HashMap<String, Object> map)  throws Exception;
 	void insertArea(HashMap<String, Object> map)  throws Exception;
+	List<Apt> favoriteAreasSearch(Member member);
 }

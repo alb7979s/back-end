@@ -3,9 +3,62 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="com.ssafy.happyhouse.mapper.AptMapper">
-	<select id="aptSearch" parameterType="map" resultType="apt">
+<!-- 	<select id="aptSearch" parameterType="map" resultType="apt">
 		select * 
 		from housedeal
 		where ${key} like '%${word}%'
+	</select> -->
+	<select id="aptSearch" parameterType="map" resultType="apt">
+		SELECT hd.dong, hd.AptName ,hd.code ,hd.dealAmount ,hd.buildYear ,hd.dealYear ,hd.dealMonth ,hd.dealDay ,hd.area , hd.floor, hd.jibun ,hi.lat, hi.lng
+		FROM houseinfo hi 
+		JOIN housedeal hd 
+		on hi.AptName = hd.AptName AND hi.dong =hd.dong 
+		where hd.${key} like '%${word}%' 
 	</select>
+	
+	
+	<!-- 시도 -->
+	<select id="selectSidoCodeList" resultType="String">
+		select sido_code    
+		from sidocode 
+		order by sido_name 
+	</select>
+	<select id="selectSidoNameList" resultType="String">
+		select sido_name    
+		from sidocode 
+		order by sido_name 
+	</select>
+	
+	<!-- 구군 -->
+	<select id="selectGugunNameList" parameterType="String" resultType="String">
+		select gugun_name    
+		from guguncode  
+		where gugun_code like '${code}%' 
+		order by gugun_name
+	</select>
+	
+	<!-- 동 -->
+	<select id="selectDongNameList" parameterType="String" resultType="String">
+		select dong     
+		from dongcode  
+		where gugun = '${code}' 
+		order by dong 
+	</select>
+	
+	<!-- 관심 지역 저장 -->
+	<update id="saveFavoriteInfo" parameterType="map">
+		insert into interestlocation (userid, dongcode, city, gugun, dong) 
+		values ( #{userid}, 
+		(SELECT d.dongcode FROM dongcode d WHERE dong = #{dong} ),
+		(SELECT s.sido_name FROM sidocode s WHERE sido_code = #{city} ),
+		<if test="dong==''">
+			#{gugun},
+		</if>
+		<if test="dong!=''">
+		(SELECT d.gugun FROM dongcode d WHERE dong = #{dong} ),
+		</if>
+		#{dong}
+		)
+	</update>
+	
 </mapper>

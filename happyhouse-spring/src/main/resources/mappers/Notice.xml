@@ -15,14 +15,14 @@
 	
 <!-- 	public List<Notice> listNoticeAll() throws SQLException; -->
 	<select id="listNoticeAll" resultType="Notice">
-		select noticeno, userid, subject, content, regtime
+		select * 
 		from notice
 		order by noticeno desc
 	</select>
 	
 <!-- 	public List<Notice> listNoticePage(Page page) throws SQLException; -->
 	<select id="listNoticePage" parameterType = "Page" resultType="Notice">
-		select noticeno, userid, subject, content, regtime 
+		select * 
 		from notice 
 		order by noticeno desc 
 		LIMIT #{begin}, #{listSize} 
@@ -36,7 +36,7 @@
 
 <!-- 	public Notice getNotice(int noticeno) throws SQLException; -->
 	<select id="getNotice" parameterType="int" resultType="Notice">
-		select noticeno, userid, subject, content, regtime
+		select * 
 		from notice 
 		where noticeno = #{noticeno}
 	</select>
@@ -56,6 +56,28 @@
 		from notice
 		order by noticeno desc 
 		LIMIT 0, 6
+	</select>
+	
+	<!-- 조회수 1 증가 -->
+	<update id="countUpNotice" parameterType="int">
+		update notice 
+		set views = views+1 
+		where noticeno = #{noticeno}
+	</update>
+	
+	<!-- 검색 기능에 사용 -->
+ 	<select id="searchNoticePage" parameterType = "map" resultType="Notice">
+		select *
+		from notice  
+		where `${key}` like '%${word}%' 
+		order by noticeno desc
+		LIMIT #{begin}, #{listSize} 
+	</select>
+	
+	<select id="searchNoticeCount" parameterType = "map" resultType="int">
+		SELECT count(*) as cnt 
+		FROM notice 
+		where `${key}` like '%${word}%'
 	</select>
 </mapper>
 

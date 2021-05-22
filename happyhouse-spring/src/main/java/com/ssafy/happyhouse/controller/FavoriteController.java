@@ -36,7 +36,7 @@ public class FavoriteController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}else {
-			model.addAttribute("msg", "회원만 사용 가능한 기능입니다");
+			model.addAttribute("msg", "로그인 후 사용 가능한 서비스입니다");
 		}
 		return "redirect:/favorite";
 	}
@@ -56,16 +56,13 @@ public class FavoriteController extends HttpServlet {
 		if(member!=null){
 			List<Apt> list;
 			try {
-				list = favoriteService.favoriteAreaSearch(member);
-				if(list.size() != 0) {
-					model.addAttribute("favoritedong", list.get(0).getDong());
-					model.addAttribute("favoriteinfo", list);
-				}
+				list = favoriteService.favoriteAreasSearch(member);
+				model.addAttribute("favoriteList", list);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}else {
-			model.addAttribute("msg", "회원만 사용 가능한 기능입니다");
+			model.addAttribute("msg", "로그인 후 사용 가능한 서비스입니다");
 		}
 		
 		return "favorite/list";

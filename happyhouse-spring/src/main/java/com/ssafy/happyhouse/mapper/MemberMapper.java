@@ -13,5 +13,6 @@ public interface MemberMapper {
 	Member loginMember(Member member) throws SQLException;
 	List<String> getIdList() throws Exception;
 	List<String> getEmailList() throws Exception;
+	Member getMemberFromEmail(Member member) throws Exception;
 }
 

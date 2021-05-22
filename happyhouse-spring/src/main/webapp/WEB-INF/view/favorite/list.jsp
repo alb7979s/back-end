@@ -12,97 +12,232 @@
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- 아이콘 라이브러리 -->
 <title>HappyHouse</title>
 <link rel="stylesheet" href="${root}/css/main.css">
 
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="${root}/" style="font-size:2em;"><span class="glyphicon glyphicon-home"></span></a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav navbar-left">
-            <li><a href="${root}/notice">공지사항</a></li>
-            <li><a href="${root}/favorite/">나의관심지역</a></li>
-            <li><a href="${root}/clinic">선별진료소</a></li>
-            <li><a href="${root}/hospital">국가안심병원</a></li>
-          </ul>
-          <%@ include file="../main/login.jsp" %>
-        </div>
-      </div>
-    </nav>
+    <%@include file="../main/header.jsp" %>
 
 	<div class="jumbotron text-center">
-      <h1>Happy House</h1> 
-      <c:if test="${userinfo == null}">
-      	<p style="font-size: 130%;">로그인이 필요한 서비스 입니다.</p>
-      </c:if>
-      <c:if test="${userinfo != null}">
-	      <c:if test="${favoriteinfo == null}">
-	      	<p style="font-size: 130%;">나의 관심 지역</p>
-	      	<button onclick = "location.href = '${root}/favorite/mvfavorite'">설정</button> 
-	      </c:if>
-	      <c:if test="${favoriteinfo != null}">
-	      	<p style="font-size: 130%;">나의 관심 지역: ${favoritedong}</p>
-	      	<button onclick = "location.href = '${root}/favorite/mvfavorite'">수정</button> 
-	      </c:if>
-      </c:if>
+      <h1>Happy House</h1>
     </div>
     
-    <div class="container-fluid" style="width:80%;">
-		<c:if test="${favoriteinfo.size() != 0}">
-			<c:forEach var="apt" items="${favoriteinfo}">
-				<div class="col-sm-4 col-xs-12">
-		            <div class="panel panel-default text-center">
-		              <div class="panel-heading">
-		                <h1>${apt.aptName}</h1>
-		              </div>
-		              <div class="panel-body" style="margin-top:15px;margin-bottom:15px;">
-		                <p><strong>거래금액</strong> ${apt.dealAmount}</p>
-		                <p><strong>면적</strong> ${apt.area}</p>
-		                <p><strong><span class="glyphicon glyphicon-calendar"></span></strong> ${apt.dealYear}.${apt.dealMonth}.${apt.dealDay}</p>
-		              </div>
-		              <div class="panel-footer">
-		                <div><button class="btn btn-lg" data-toggle="modal" data-target="#detailModal">상세정보</button></div>
-		                <div><button class="btn btn-lg" data-toggle="modal" data-target="#mapModal">지도보기</button></div>
-		              </div>
-		            </div>      
-		            <!-- 상세정보 Modal -->
-		            <div class="modal fade" id="detailModal" role="dialog" style="margin-top:50px;">
-		                <div class="modal-dialog">
-		                <!-- Modal content-->
-		                <div class="modal-content">
-		                    <div class="modal-header">
-		                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-		                    <h4 class="modal-title">e-편한세상</h4>
-		                    </div>
-		                    <div class="modal-body">
-		                        <div class="panel panel-default text-center" style="border:1px solid rgb(216, 216, 216);">
-		                            <div class="panel-body">
-		                                <p><strong>거래금액</strong> 52,200만원</p>
-		                                <p><strong>면적</strong> 84.56</p>
-		                                <p><strong>거래구분</strong> 아파트매매</p>
-		                                <p><strong><span class="glyphicon glyphicon-calendar"></span></strong> 2021.3.12</p>
-		                            </div>
-		                        </div>
-		                    </div>
-		                    <div class="modal-footer">
-		                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		                    </div>
-		                </div>
-		                </div>
-		            </div>
-		        </div>
-			</c:forEach>
-		</c:if>
-		<c:if test="${aptinfo.size() == 0}">
-			<div class="container-fluid" style="width:80%;">
-				<h2>검색결과가 없습니다.</h2>
-			</div>
-		</c:if>
+    <div class="fluid" style="margin:30px 20px 0px; ">
+	  <div class="row">
+	    <div class="col-md-4">
+	      <h2>나의 관심지역</h2>
+	      <button class="btn-for-fav" onclick="getCityList();" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i></button>
+	      </br></b2>
+	      <!-- 관심지역 리스트로 뿌려주기 -->
+	      <div>
+	      <c:if test="${empty favoriteList}">
+	      <h2>관심 지역을 추가해보세요!</h2>
+	      </c:if>
+	      <c:if test="${not empty favoriteList}">
+	      <table class="table" style="font-size: 20px">
+			  <thead>
+			    <tr>
+			      <th scope="col">#</th>
+			      <th scope="col">시도</th>
+			      <th scope="col">구군</th>
+			      <th scope="col">동</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  	<c:forEach var="list" items="${favoriteList}" varStatus="loop">
+			    <tr>
+			    <input type="hidden" value="${list.city}">
+			    <input type="hidden" value="${list.gugun}">
+			    <input type="hidden" value="${list.dong}">
+			      <th scope="row">${loop.index+1 }</th>
+			      <td>${list.city }</td>
+			      <td>${list.gugun }</td>
+			      <td>${list.dong }</td>
+			    </tr>
+			  	</c:forEach>
+			  </tbody>
+			</table>
+	      </c:if>
+	      </div>
+	    </div>
+	    
+	    <div class="col-md-8" id="favDetail">
+	     
+	    </div>
+	  </div>
 	</div>
+    
+    
+    <!-- 모달 -->
+    <div class="modal modal-center fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-fav" role="document">
+	    <div class="modal-content modal-content-fav">
+	      <div class="modal-header">
+	        <h3 class="modal-title" id="exampleModalLabel">관심지역 추가하기</h3>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        
+	      <select class="form-select" name="city" id="city" onchange="getGugunList(this.value)" aria-label="Default select example">
+			  <option value="" name="city">도/광역시</option>
+		  </select>
+	      <select class="form-select" name="gugun" id="gugun" onchange="getDongList(this.value)" aria-label="Default select example">
+			  <option value="" name='gugun'>시/구/군</option>
+		  </select>
+	      <select class="form-select" name="dong" id="dong" aria-label="Default select example">
+			  <option value="" name='dong'>동</option>
+		  </select>
+	        
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" onclick="save();" class="btn btn-primary">저장하기</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
+    <script>
+    	let msg = "${msg}"
+    	if(msg){
+    		console.log(msg);
+    		alert(msg);
+    		location.href="${root}/member/moveLogin";
+    	}
     	
+    	function getCityList(){
+    	 $.ajax({
+    		 url:"/sido",
+    		 method:"post",
+    		 dataType: "json",
+    		 contentType:"application/json; charset=UTF-8",
+    		 success:function(sido){
+    			 console.dir(sido)
+    			 $("#dong").empty().append( "<option value=''> 동 </option>" )
+
+    			 list = sido.sidoName;
+    			 list2 = sido.sidoCode;
+    			 
+    			 for(let i =0; i<list.length; i++){
+    				 //console.log(list[i]+" "+list2[i]);
+    				 $("#city").append( "<option value='"+list2[i]+"' name='city'> "+ list[i]+" </option>" )
+    			 }
+    			 
+    		 }
+    	 })
+    	}
+    	
+    	 function getGugunList(sidoCode){
+    		 console.log(sidoCode);
+    		 $.ajax({
+    		 url:"/gugun",
+    		 data: sidoCode,
+    		 method:"post",
+    		 dataType: "json",
+    		 contentType:"application/json; charset=UTF-8",
+    		 success:function(gugunList){
+    			
+    			 $("#gugun").empty().append( "<option value=''> 시/구/군 </option>" )
+    			 
+    			 //console.dir(sidoList)
+    			 for(gugun of gugunList){
+    				//console.log(gugun.code + ","+ gugun.name);
+    				$("#gugun").append( "<option value='"+gugun+"' name='gugun' >"+ gugun+" </option>" )
+    			 }
+    			 
+    		 }
+    	 	})
+    	 }
+    	 
+    	 function getDongList(gugun){
+    		 $.ajax({
+    			 url:"/dong",
+    			 data: gugun,
+    			 method:"post",
+        		 dataType: "json",
+        		 contentType:"application/json; charset=UTF-8",
+    			 success:function(dongList){
+    				
+    				 $("#dong").empty().append( "<option value=''> 동 </option>" )
+    				 
+    				 for(dong of dongList){
+    				 	$("#dong").append( "<option value='"+dong+"' name='dong' >"+ dong+" </option>" )
+    				 }
+    				 
+    			 }
+    		 	})
+    	 }
+    	 
+    	 function save(){
+ 
+    		 var datas = {
+    				 "city":$('#city option:selected').val(),
+    				 "gugun":$('#gugun option:selected').val(),
+    				 "dong":$('#dong option:selected').val()
+    		 };
+    		 //정보 디비에 저장하고
+    		 $.ajax({
+    			 url:"/save",
+    			 data: JSON.stringify(datas),
+    			 method:"post",
+        		 contentType:"application/json; charset=UTF-8",
+    			 success:function(data){
+    		 		//console.log("관심 지역 저장 "+data);
+    		 		location.reload();
+    			 }
+    		 })
+    	 }
+    	 
+    	 const tbody = document.querySelector("tbody");
+    		tbody.addEventListener('click',function(e){
+    			if(e.target.nodeName === "TD"){
+    		//		console.log("${root}");
+    				const city = e.target.parentNode.children[0].value;
+    				const gugun =e.target.parentNode.children[1].value;
+    				const dong = e.target.parentNode.children[2].value;
+    				
+    				 $.ajax({
+    	    			 url:"/favorite",
+    	    			 method:"post",
+    	        		 contentType:"application/json; charset=UTF-8",
+    	    			 success:function(data){
+    	    		 		//console.log("관심지역 상세 조회하기");
+    	    		 		makeDetail(city, gugun,dong);
+    	    			 }
+    	    		 })
+    				
+    			}else{
+    				//location.href="${root}/main?act=detail&number=" + e.target.children[0].value;			
+    			}
+    			
+    	},true);
+    		
+    	function makeDetail(city, gugun,dong){
+    		$("#favDetail").empty();
+    		//console.log(city+" "+gugun+" "+dong);
+    		details = ''
+    		
+    		details+='<h2>'+city+' '+gugun+' '+dong+'의 정보입니다.</h2>'
+    		details+='<button onclick="moveClinic(`'+city+'`,`'+gugun+'`);" style="margin-right:30px;" type="button" class="btn btn-lg btn-primary">선별 진료소 보러가기</button>'
+    		details+='<button onclick="moveHospital(`'+city+'`,`'+gugun+'`);" style="margin-right:30px;" type="button" class="btn btn-lg btn-primary">안심병원 보러가기</button>'
+    		//details+='<button type="button" class="btn btn-lg btn-primary">선별 진료소 보러가기</button>'
+    		details+='</br><h2>금주의 인기매물 TOP 3</h2>'
+    		
+    		$("#favDetail").append(details);
+    	}
+    	function moveClinic(city,gugun){
+    		//console.log(city+" "+gugun);
+    		location.href="${root}/clinic/search?city="+city+"&gugun="+gugun;
+    	}
+    	function moveHospital(city,gugun){
+    		//console.log(city+" "+gugun);
+    		location.href="${root}/hospital/search?city="+city+"&gugun="+gugun;
+    	}
+    </script>
 </body>
 </html>

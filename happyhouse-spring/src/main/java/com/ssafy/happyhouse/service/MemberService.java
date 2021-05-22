@@ -11,4 +11,6 @@ public interface MemberService {
 	Member login(Member memberDto) throws Exception;
 	List<String> getIdList() throws Exception;
 	List<String> getEmailList() throws Exception;
+	Member getMemberFromEmail(Member member) throws Exception;
+	Member getMemberFromId(Member member) throws Exception;
 }

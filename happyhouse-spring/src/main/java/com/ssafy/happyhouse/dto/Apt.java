@@ -13,6 +13,8 @@ package com.ssafy.happyhouse.dto;
 
 public class Apt {
 	private int no;
+	private String city;
+	private String gugun;
 	private String dong;
 	private String aptName;
 	private String code;
@@ -25,11 +27,26 @@ public class Apt {
 	private String floor;
 	private String jibun;
 	
+	private String lat;
+	private String lng;
+	
 	public int getNo() {
 		return no;
 	}
 	public void setNo(int no) {
 		this.no = no;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getGugun() {
+		return gugun;
+	}
+	public void setGugun(String gugun) {
+		this.gugun = gugun;
 	}
 	public String getDong() {
 		return dong;
@@ -97,5 +114,18 @@ public class Apt {
 	public void setJibun(String jibun) {
 		this.jibun = jibun;
 	}
+	public String getLat() {
+		return lat;
+	}
+	public void setLat(String lat) {
+		this.lat = lat;
+	}
+	public String getLng() {
+		return lng;
+	}
+	public void setLng(String lng) {
+		this.lng = lng;
+	}
+	
 	
 }

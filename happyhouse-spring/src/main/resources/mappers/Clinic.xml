@@ -20,5 +20,30 @@
 		SELECT count(*) as cnt 
 		FROM selection_clinic
 	</select>
+	
+	<!-- 검색 기능에 사용 -->
+ 	<select id="searchClinicPage" parameterType = "map" resultType="Clinic">
+		select *
+		from selection_clinic  
+		<if test="key != null and key!=''">
+			where `${key}` like '%${word}%' 
+		</if>
+		<if test="city != null and gugun != null">
+			where `sido` like '%${city}%' and `address` like '%${gugun}%'
+		</if> 
+		order by no 
+		LIMIT #{begin}, #{listSize} 
+	</select>
+	
+	<select id="searchClinicCount" parameterType = "map" resultType="int">
+		SELECT count(*) as cnt 
+		FROM selection_clinic 
+		<if test="key != null and key!=''">
+			where `${key}` like '%${word}%' 
+		</if>
+		<if test="city != null and gugun != null">
+			where `sido` like '%${city}%' and `address` like '%${gugun}%'
+		</if>
+	</select>
 </mapper>
 

@@ -2,7 +2,9 @@ package com.ssafy.happyhouse.controller;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +28,10 @@ public class NoticeController {
 		@Autowired
 		private NoticeService noticeService;
 		
+
+		
 		@GetMapping(value= {"","/list"}) // OK
 		public String list(Integer pageNo , Model model) throws SQLException {
-			//System.out.println("list");
 			if(pageNo == null) {
 				pageNo = 1;
 			}
@@ -40,9 +43,7 @@ public class NoticeController {
 		@ResponseBody
 		@PostMapping
 		public List<Notice> selectlist() throws SQLException {
-			System.out.println("tioio");
 			List<Notice> list = noticeService.selectList();
-			System.out.println("top "+list);
 			return list;
 		}
 		
@@ -53,6 +54,28 @@ public class NoticeController {
 			model.addAttribute("result",noticeService.search(searchNotice));
 			return "notice/list";
 		}*/
+		
+		@RequestMapping("/")
+		public String search(HttpServletRequest request, Integer pageNo, Model model) throws Exception {
+			
+			String key = request.getParameter("key");
+			String word = request.getParameter("word");
+
+			if(pageNo == null) { 
+				pageNo = 1; 
+			} 
+			 
+			Page page = new Page(pageNo);
+			 
+			Map<String, Object> list = noticeService.searchNoticePage(page, key, word);
+
+			list.put("word", word);
+			list.put("key", key);
+			
+			model.addAttribute("result", list);
+			
+			return "notice/list";
+		}
 		
 		@GetMapping("/modify") // OK
 		public String mvModify(int number,Model model) throws SQLException {

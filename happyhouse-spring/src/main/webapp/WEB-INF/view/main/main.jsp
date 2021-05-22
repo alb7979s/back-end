@@ -21,23 +21,8 @@
 </head>
 <body>
 
-	<nav class="navbar navbar-default navbar-fixed-top top">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="${root}/" style="font-size:2em;"><span class="glyphicon glyphicon-home"></span></a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav navbar-left">
-            <li><a href="${root}/notice">공지사항</a></li>
-            <li><a href="${root}/favorite">나의관심지역</a></li>
-            <li><a href="${root}/clinic">선별진료소</a></li>
-            <li><a href="${root}/hospital">국가안심병원</a></li>
-          </ul>
-          <%@ include file="../main/login.jsp" %>
-        </div>
-      </div>
-    </nav>
-    
+	<%@include file="header.jsp" %>
+
     <%@include file="../apt/search.jsp" %>
     
     <!-- Container (Portfolio Section) -->
@@ -136,8 +121,7 @@
 			 dataType: "json",
 			 contentType:"application/json; charset=UTF-8",
 			 success:function(data){
-				 console.dir("tds");
-				 console.log(data);
+				 /* console.log(data); */
 				
 				 var result = '';
 				 if(data==null){
@@ -145,7 +129,7 @@
 				 }
 				 else{
 					 $.each(data, function(index, item){
-						 console.log(index);
+						 /* console.log(index); */
 						 result+='<div class="col-sm-4">'
 						 result+='<div class="panel panel-default text-center" style="border:1px solid rgb(216, 216, 216);">'
 						 result+='<div class="panel-body">'

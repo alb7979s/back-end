@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ssafy.happyhouse.dto.Hospital;
 import com.ssafy.happyhouse.dto.Notice;
 import com.ssafy.happyhouse.dto.Page;
 import com.ssafy.happyhouse.dto.PageResult;
@@ -48,6 +49,7 @@ public class NoticeServiceImpl implements NoticeService{
 
 	@Override
 	public Notice getNotice(int noticeno) throws SQLException {
+		noticeMapper.countUpNotice(noticeno);
 		return noticeMapper.getNotice(noticeno);
 	}
 
@@ -74,13 +76,14 @@ public class NoticeServiceImpl implements NoticeService{
 		//게시물 목록
 		List<Notice> list = noticeMapper.listNoticePage(page);
 		//페이징을 위해서 게시물 전체 갯수
-		System.out.println(list);
+		
 		int count = noticeMapper.selectNoticeCount();
 		
 		PageResult prd = new PageResult(page.getPageNo(),count);
 		
 		Map<String, Object> result = new HashMap<>();
-		result.put("list",list);
+		
+		result.put("notices",list);
 		result.put("pageResult", prd);
 		
 		return result;
@@ -90,6 +93,29 @@ public class NoticeServiceImpl implements NoticeService{
 	public List<Notice> selectList() {
 		
 		return noticeMapper.selectNotice();
+	}
+
+	@Override
+	public Map<String, Object> searchNoticePage(Page page, String key, String word) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("key", key);
+		params.put("word", word);
+
+		int count = noticeMapper.searchNoticeCount(params);
+		
+		params.put("begin", page.getBegin());
+		params.put("listSize", page.getListSize());
+	
+		List<Hospital> list = noticeMapper.searchNoticePage(params);
+		
+		PageResult prd = new PageResult(page.getPageNo(),count);
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result.put("notices", list);
+		result.put("pageResult", prd);
+		
+		return result;
 	}
 
 }

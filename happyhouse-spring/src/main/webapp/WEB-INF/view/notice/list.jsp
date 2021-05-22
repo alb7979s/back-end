@@ -18,70 +18,55 @@
 <c:set var="pr" value="${result.pageResult}" />
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
-  <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="${root}/" style="font-size:2em;"><span class="glyphicon glyphicon-home"></span></a>
-      </div>
-      <div class="collapse navbar-collapse" id="myNavbar">
-     <ul class="nav navbar-nav navbar-left">
-          <li><a href="${root}/notice">공지사항</a></li>
-          <li><a href="${root}/favorite">나의관심지역</a></li>
-          <li><a href="${root}/clinic">선별진료소</a></li>
-          <li><a href="${root}/hospital">국가안심병원</a></li>
-        </ul>
-		<%@ include file="../main/login.jsp" %>
-      </div>
-    </div>
-  </nav>
+  <%@include file="../main/header.jsp" %>
 
   <div class="jumbotron text-center">
     <h1>공지사항</h1>
   </div>
 
-  <div class="container menu" id="board" style="padding-top: 50px;height: 1000px;">
+  <div class="container menu" id="board" style="padding-top: 50px;">
     <button id = "goWriteBtn" type="button" class="btn clickMakeBoard btn-primary">글쓰기</button>
-    <form action ="${root}/notice/search" method="GET">
+    
+	<form id="searchform">
 	    <div class="dropdown" style="float: right; height: 51px;">
 	    <!--    <button type="button" class="btn dropdown-toggle dropbtn" data-toggle="dropdown">검색</button>-->
-	     	<select class="btn dropdown-toggle dropbtn" data-toggle="dropdown" name="type" id="type">
-	   	 		<option value="userid">작성자</option>
-	    		<option value="subject">제목</option>
-			</select>
-	      <input type="text" name="word">
-	      <button id="searchBtn" type="button" class="btn btn-primary">검색</button>
+	     	<select class="btn dropdown-toggle dropbtn" data-toggle="dropdown" name="key" id="key" onchange="inputPlaceholder();">
+	   	 		<option value="userid" <c:if test="${result.key =='userid'}">selected</c:if>>작성자</option>
+	   	 		<option value="subject" <c:if test="${result.key =='subject'}">selected</c:if>>제목</option>
+	    		<option value="content" <c:if test="${result.key =='content'}">selected</c:if>>내용</option>
+	    	</select>
+	      <input type="text" name="word" id="word" value="${result.word}" placeholder="검색어를 입력해주세요.">
+	      <button id="searchBtn" onclick="search();" class="btn btn-primary">검색</button>
 	    </div>
-    </form>
-    <!--   <div class="dropdown-menu">
-        <h4 class="dropdown-item" onclick="dropSelectTitle()">제목</h4>
-        <h4 class="dropdown-item" onclick="dropSelectUser()">작성자</h4>
-      </div> -->
+     </form>
 
     <div class="w3-padding w3-white notranslate">
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>글번호</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>작성일</th>
+            <th class="col-md-2">글번호</th>
+            <th class="col-md-5">제목</th>
+            <th class="col-md-2">작성자</th>
+            <th class="col-md-2">작성일</th>
+            <th class="col-md-1">조회수</th>
           </tr>
         </thead>
         <tbody>
-		<c:forEach var="item" items = "${notices}">
+		<c:forEach var="item" items = "${result.notices}">
 			<tr>
 			<input type="hidden" value="${item.noticeno}">
-            	<td>${item.noticeno }</td>
-            	<td>${item.subject }</td>
-            	<td>${item.userid }</td>
-           	 	<td>${item.regtime}</td>
+            	<td class="col-md-2">${item.noticeno }</td>
+            	<td class="col-md-5">${item.subject }</td>
+            	<td class="col-md-2">${item.userid }</td>
+           	 	<td class="col-md-2">${item.regtime}</td>
+           	 	<td class="col-md-1">${item.views}</td>
           	</tr>
 		</c:forEach>
 
         </tbody>
       </table>
     </div>
-  </div>
+ 
   	<c:if test="${pr.count != 0}"> 
 		<nav>
 	<ul class="pagination botBar">
@@ -109,6 +94,8 @@
 	</ul>
 </nav>
      </c:if>
+     
+      </div>
 <!--  페이징
   <ul class="pagination botBar">
   	
@@ -141,13 +128,37 @@
 		}
 		
 	},true);
-	$("ul.nav > li ").removeClass("active");
-	$("ul.nav > li:eq(${pr.pageNo})").addClass("active");
+
 	function goPage(pageNo){
-	//	alert(pageNo);
-		location.href="${root}/notice/list?pageNo="+pageNo;
+		let key = document.getElementById("key").value;
+		let word = document.getElementById("word").value;
+    	if(key!='' && word!=''){
+    		location.href="${root}/notice/?pageNo="+pageNo+"&key="+key+"&word="+word;
+    	}
+    	
+    	else location.href="${root}/notice/list?pageNo="+pageNo;
 	}
   </script>
+  
+  <script type="text/javascript">
+		function inputPlaceholder(){
+			document.getElementById("word").value="";
+			document.getElementById("word").placeholder="검색어를 입력해주세요.";
+		}
+		
+		function search(){
+			let key = document.getElementById("key").value;
+			let word = document.getElementById("word").value;
+			if(document.getElementById("word").value == ""){
+				alert("검색어를 입력하세요");
+				return;
+			}
+
+			document.getElementById("searchform").action = '${ root }/notice/';
+			document.getElementById("searchform").submit();
+			
+		}
+	</script>
 </body>
 
 </html>

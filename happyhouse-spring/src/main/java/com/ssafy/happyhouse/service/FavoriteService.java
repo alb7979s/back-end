@@ -13,4 +13,6 @@ public interface FavoriteService {
 	
 	// return type <Apt>로 하면 깔끔하긴한데 뭔가 동 정보만 필요한데 굳이 Apt로 받아야하나? 사이즈 커지면 부하 올거같은데
 	List<String> getDongList() throws Exception;
+
+	List<Apt> favoriteAreasSearch(Member member);
 }

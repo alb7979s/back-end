@@ -57,5 +57,14 @@ public class MemberServiceImpl implements MemberService {
 	public List<String> getEmailList() throws Exception {
 		return memberMapper.getEmailList();
 	}
+
+	@Override
+	public Member getMemberFromEmail(Member member) throws Exception {
+		return memberMapper.getMemberFromEmail(member);
+	}
 	
+	@Override
+	public Member getMemberFromId(Member member) throws Exception {
+		return memberMapper.selectMember(member);
+	}
 }

@@ -10,4 +10,6 @@ public interface ClinicService {
 	public List<Clinic> clinicList() throws Exception;
 
 	public Map<String, Object> listclinicPage(Page page);
+
+	Map<String, Object> searchClinicPage(Page page, Map<String, Object> param);
 }

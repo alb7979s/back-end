@@ -29,8 +29,30 @@ public class HospitalServiceImpl implements HospitalService {
 
 	@Override
 	public Map<String, Object> listhospitalPage(Page page) {
+		
 		List<Hospital> list = hospitalMapper.listHospitalPage(page);
 		int count = hospitalMapper.selectHospitalCount();
+		
+		PageResult prd = new PageResult(page.getPageNo(),count);
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result.put("hospital", list);
+		result.put("pageResult", prd);
+		
+		return result;
+	}
+
+	@Override
+	public Map<String, Object> searchHospitalPage(Page page, Map<String, Object> params) {
+
+
+		int count = hospitalMapper.searchHospitalCount(params);
+
+		params.put("begin", page.getBegin());
+		params.put("listSize", page.getListSize());
+	
+		List<Hospital> list = hospitalMapper.searchHospitalPage(params);
 		
 		PageResult prd = new PageResult(page.getPageNo(),count);
 		

@@ -17,4 +17,5 @@ public interface NoticeService {
 	Map<String,Object> listNoticePage(Page page) throws SQLException;
 	
 	public List<Notice> selectList();
+	public Map<String, Object> searchNoticePage(Page page, String key, String word);
 }

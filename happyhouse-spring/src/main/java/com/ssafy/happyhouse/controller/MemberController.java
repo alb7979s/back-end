@@ -1,5 +1,7 @@
 package com.ssafy.happyhouse.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ssafy.happyhouse.dto.Member;
+import com.ssafy.happyhouse.service.MailSendService;
 import com.ssafy.happyhouse.service.MemberService;
 
 @Controller
@@ -20,6 +23,53 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
+	private MailSendService mailSendService;
+	
+	@PostMapping("/resetPwd")
+	public String resetPwd(Member param, Model model) throws Exception {
+		Member member = memberService.getMemberFromId(param);
+		member.setPwd(param.getPwd());
+		memberService.modify(member);
+		model.addAttribute("msg", "비밀번호 변경이 완료 되었습니다.");
+		return "member/login";
+	}
+	@GetMapping("/confirm")
+	public String confirm(@RequestParam Map<String, String> map, Model model) throws Exception {
+		String email = map.get("email");
+		String authkey = map.get("authkey");
+		Member member = memberService.getMemberFromEmail(new Member().setEmail(email));		
+		if(member.getAuthkey().equals(authkey)) {
+			model.addAttribute("searchedid", member.getId());
+			return "member/pwdReset";
+		}
+		model.addAttribute("msg", "인증키가 다릅니다. 잘못된 방식으로 접근하셨습니다.");
+		return "member/pwdSearch";
+	}
+	@PostMapping("/pwdSearch")
+	public String pwdSearch(Member param, Model model) throws Exception {
+		Member member = memberService.getMemberFromEmail(param);
+		if( member == null || !member.getId().equals(param.getId())) {
+			model.addAttribute("msg", "해당 아이디와 이메일이 일치하는 정보가 없습니다.");
+			return "member/pwdSearch";
+		}
+		member.setAuthkey(mailSendService.sendAuthMail(member.getEmail()));
+		memberService.modify(member);
+		model.addAttribute("msg", "'"+ member.getEmail() +"'로 메일이 전송되었습니다. 메일을 통해 인증해주세요.");
+		return "member/pwdSearch";
+	}
+	
+	@PostMapping("/idSearch")
+	public String idSearch(Member member, Model model) throws Exception {
+		member = memberService.getMemberFromEmail(member);
+		if( member == null) {	// 해당하는 이메일 없음
+			model.addAttribute("msg", "존재하는 이메일이 없습니다.");
+			return "member/idSearch";
+		}
+		model.addAttribute("msg", "귀하의 아이디는 '" + member.getId() + "' 입니다.");
+		model.addAttribute("searchedid", member.getId());
+		return "member/login";
+	}
 	@PostMapping("/join")
 	public String join(Member member, Model model, @RequestParam("emaildomain") String emaildomain) {
 		member.setEmail(member.getEmail() + "@" + emaildomain);
@@ -87,7 +137,7 @@ public class MemberController {
 	}
 	
 	@GetMapping("/moveLogin")
-	public String moveLogin() {
+	public String moveLogin() throws Exception {
 		return "member/login";
 	}
 	
@@ -103,6 +153,13 @@ public class MemberController {
 		model.addAttribute("emailList", memberService.getEmailList());
 		return "member/modify";
 	}
-	
+	@GetMapping("/moveIdSearch")
+	public String moveIdSearch() throws Exception {
+		return "member/idSearch";
+	}
+	@GetMapping("/movePwdSearch")
+	public String movePwdSearch() throws Exception {
+		return "member/pwdSearch";
+	}
 	
 }

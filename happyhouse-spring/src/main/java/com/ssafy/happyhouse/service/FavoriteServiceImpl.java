@@ -49,6 +49,11 @@ public class FavoriteServiceImpl implements FavoriteService {
 	public List<String> getDongList() throws Exception {
 		return favoriteMapper.getDongList();
 	}
+
+	@Override
+	public List<Apt> favoriteAreasSearch(Member member) {
+		return favoriteMapper.favoriteAreasSearch(member);
+	}
 	
 	
 }

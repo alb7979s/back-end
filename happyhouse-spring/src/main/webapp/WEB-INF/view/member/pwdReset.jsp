@@ -23,27 +23,28 @@
 <title>HappyHouse</title>
 <link rel="stylesheet" href="${root}/css/main.css">
 <script type="text/javascript">
-	function login() {
-		if (document.getElementById("id").value == "") {
-			alert("아이디를 입력하세요");
+	function resetPwd() {
+		if (document.getElementById("pwd").value == "") {
+			alert("비밀번호를 입력해주세요");
 			return;
-		} else if (document.getElementById("pwd").value == "") {
-			alert("비밀번호를 입력하세요");
+		}
+		else if (document.getElementById("pwdCheck").value == "") {
+			alert("비밀번호를 다시 입력해주세요");
+			return;
+		}
+		else if ($("#pwd").val() != $("#pwdCheck").val()) {
+			alert("비밀번호가 맞지 않습니다.");
 			return;
 		} else {
-			document.getElementById("loginform").action = "${root}/member/login";
-			document.getElementById("loginform").submit();
+			alert("비밀번호 변경이 완료되었습니다.");
+			document.getElementById("searchform").submit();
 		}
 	}
 
-	function moveJoin(){
-		location.href="${root}/member/moveJoin";
-	}
-	
 	function keyCheck(){
 		// enter
 		if(event.keyCode == 13){
-			login();
+			resetPwd();
 		}
 	}
 </script>
@@ -57,23 +58,19 @@
 	</div>
 
 	<div class="container" align="center">
-		<form id="loginform" method="post" action="${root}/member/login">
-			<input type="hidden" name="act" id="act" value="login">
+		<form id="searchform" method="post" action="${root}/member/resetPwd">
+			<input type="hidden" name="id" id="id" value="${searchedid}">
 			<div class="form-group">
-				<label for="">아이디</label>
-				<input type="text" class="form-control" onKeydown="keyCheck()" id="id" name="id" value="${searchedid}" placeholder="" style="width:300px">
+				<label for="id">새로운 비밀번호를 입력해주세요</label>
+				<input type="password" class="form-control" value="" onKeydown="keyCheck()" id="pwd" name="pwd" placeholder="" style="width:300px">
 			</div>
 			<div class="form-group">
-				<label for="">비밀번호</label>
-				<input type="password" class="form-control" onKeydown="keyCheck()" id="pwd" name="pwd" placeholder="" style="width:300px">
-			</div>
-			<div class="form-group" align="center">
-				<button type="button" class="btn btn-warning" onclick="login();">로그인</button>
-				<button type="button" class="btn btn-primary" onclick="moveJoin();">회원가입</button>
+				<label for="email">비밀번호 확인</label>
+				<input type="password" class="form-control" value="" onKeydown="keyCheck()" id="pwdCheck" name="pwdCheck" placeholder="" style="width:300px">
 			</div>
 			<div class="text-danger">${msg}</div>
-			<div>
-				<a href="${root}/member/moveIdSearch">아이디 찾기</a> | <a href="${root}/member/movePwdSearch">비밀번호 찾기</a>
+			<div class="form-group" align="center">
+				<button type="button" class="btn btn-warning" onclick="resetPwd();">비밀번호 변경</button>
 			</div>
 		</form>
 	</div>

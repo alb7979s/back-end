@@ -95,22 +95,7 @@
 </script>
 </head>
 <body>
-	<nav class="navbar navbar-default navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="${root}/"  style="font-size: 2em;"><span
-					class="glyphicon glyphicon-home"></span></a>
-			</div>
-			<div class="collapse navbar-collapse" id="myNavbar">
-				<ul class="nav navbar-nav navbar-left">
-					<li><a href="${root}/notice">공지사항</a></li>
-		            <li><a href="${root}/favorite">나의관심지역</a></li>
-		            <li><a href="${root}/clinic">선별진료소</a></li>
-		            <li><a href="${root}/hospital">국가안심병원</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+	<%@include file="../main/header.jsp" %>
 	
 	<div class="jumbotron2 text-center" align="center">
 		<p style="font-size: 130%;">회원가입</p>

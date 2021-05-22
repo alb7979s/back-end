@@ -37,4 +37,12 @@
 		values ( #{id}, #{dong})
 	</insert>
 	
+	<select id = "favoriteAreasSearch" parameterType="String" resultType="Apt">
+		SELECT city, gugun, dong 
+		FROM interestlocation 
+		where userid = #{id}  
+		order by no 
+	</select>
+	
+	
 </mapper>

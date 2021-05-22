@@ -33,7 +33,7 @@ function searchCity() {
       <h1>Happy House</h1> 
       <p style="font-size: 130%;">내 집 마련의 꿈을 이루세요 !</p>
       <div style="display: inline-block; text-align:center;">
-        <form id="searchform" method="post" action="">
+        <form id="searchform" method="get" action="">
             <div class="input-group">
                 <select class="form-control" name="key" id="key" style="width:100px;">
                     <option value="dong" selected="selected">동</option>

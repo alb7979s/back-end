@@ -89,7 +89,7 @@ tbody > tr:hover {
   transition: box-shadow 0.5s;
 }
 .panel:hover {
-  box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+  box-shadow: 5px 5px 40px rgba(0,0,0, .2);
 }
 .panel-footer .btn:hover {
   border: 1px solid #3588b8;
@@ -99,12 +99,18 @@ tbody > tr:hover {
 .panel-heading {
   color: #fff !important;
   background-color: #3588b8 !important;
-  padding: 25px;
+  padding: 5px;
   border-bottom: 1px solid transparent;
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
+}
+.panel-heading p{
+	font-size:30px;
+}
+.panel-body p{
+	font-size:20px;
 }
 .panel-footer {
   background-color: white !important;
@@ -202,4 +208,74 @@ footer .glyphicon {
   .logo {
     font-size: 150px;
   }
+}
+
+.btn-for-fav {
+  background-color: #3588b8;
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Darker background on mouse-over */
+.btn-for-fav:hover {
+  background-color: RoyalBlue;
+}
+
+.form-select {
+width: 200px;
+padding: .8em .5em;
+border: 1px solid #999;
+font-family: inherit;
+background: url('arrow.jpg') no-repeat 95% 50%;
+border-radius: 0px;
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+}
+
+.form-select::-ms-expand {
+    display: none;
+}
+
+.modal-dialog.modal-dialog-fav {
+  width: 30%;
+  height: 30%;
+  margin: 0;
+  padding: 0;
+}
+
+.modal-content.modal-content-fav {
+  height: auto;
+  min-height: 80%;
+}
+
+.modal.modal-center {
+  text-align: center;
+}
+
+@media screen and (min-width: 300px) {
+  .modal.modal-center:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog.modal-dialog-fav {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.pList{
+	font-weight: bold; 
+	font-size: 1.5em;"
+}
+
+.aptInfo > p{
+	font-size: 20px;
 }

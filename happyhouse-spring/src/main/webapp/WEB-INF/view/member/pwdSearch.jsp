@@ -22,6 +22,27 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <title>HappyHouse</title>
 <link rel="stylesheet" href="${root}/css/main.css">
+<script type="text/javascript">
+	function pwdSearch() {
+		if (document.getElementById("id").value == "") {
+			alert("아이디를 입력해주세요");
+			return;
+		}
+		else if (document.getElementById("email").value == "") {
+			alert("이메일을 입력해주세요");
+			return;
+		} else {
+			document.getElementById("searchform").submit();
+		}
+	}
+
+	function keyCheck(){
+		// enter
+		if(event.keyCode == 13){
+			pwdSearch();
+		}
+	}
+</script>
 </head>
 <body>
 	<%@include file="../main/header.jsp" %>
@@ -30,23 +51,21 @@
 		<h1>Happy House</h1>
 		<p style="font-size: 130%;">내 집 마련의 꿈을 이루세요 !</p>
 	</div>
-	
+
 	<div class="container" align="center">
-		<form id="favoriteform" method="post" action="${root}/favorite/favoriteSet">
-			<input type="hidden" name="act" id="act" value="set">
-			<div class="form-group" align="left">
-					<div id="dong" class="custom-control-inline">
-						<select class="form-control" id="dong" name="dong">
-							<c:forEach var="dong" items="${dongList}">
-								<option value="${dong}">${dong}</option>
-							</c:forEach>
-						</select>
-					</div>
-				</div>
-				<div class="form-group" align="center">
-					<button type="submit" id="registerBtn" class="btn btn-primary">설정</button>
-					<button type="reset" class="btn btn-warning">초기화</button>
-				</div>
+		<form id="searchform" method="post" action="${root}/member/pwdSearch">
+			<div class="form-group">
+				<label for="id">아이디를 입력해주세요</label>
+				<input type="text" class="form-control" value="" onKeydown="keyCheck()" id="id" name="id" placeholder="" style="width:300px">
+			</div>
+			<div class="form-group">
+				<label for="email">이메일을 입력해주세요</label>
+				<input type="text" class="form-control" value="" onKeydown="keyCheck()" id="email" name="email" placeholder="" style="width:300px">
+			</div>
+			<div class="text-danger">${msg}</div>
+			<div class="form-group" align="center">
+				<button type="button" class="btn btn-warning" onclick="pwdSearch();">email 인증</button>
+			</div>
 		</form>
 	</div>
 
