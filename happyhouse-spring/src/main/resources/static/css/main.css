@@ -26,7 +26,59 @@ tbody > tr:hover {
   box-shadow: 1px 1px 10px 5px rgba(200, 195, 195, 0.637);
   cursor: pointer;
 }
+#memberform, .profile { 
+	margin: 0 auto;
+    width: 80%;
+    border: 1px solid #345;
+    padding: 20px;
+    background: #e4e9f41a;
+    box-shadow: 1px 1px 3px #456;}
+.profile { width: 200px; }
+.img {
+	display:block; 
+	width:100px;  
+	height:105px; 
+	line-height:105px; 
+	margin-left:0; 
+	margin-bottom:10px; 
+	border:2px solid #777; 
+	border-radius: 50px;
+	background:url('../images/icons/icon-profile.png') no-repeat center; 
+	background-size:70px 50px; 
+	overflow:hidden;
+}        
+.img img { width:100%; }
 
+.file {
+	display:block; 
+	width:104px; 
+	height:30px; 
+}        
+.file input {
+	width:104px; 
+	height:30px; 
+	overflow:hidden; 
+	/*  파일 선택 버튼 숨기기 */
+	text-indent:-5000px; 
+	cursor:pointer; 
+	/*  선택된 파일 정보 숨기기*/
+	color:transparent; 
+}
+
+.txt-photo {
+	margin: 10px 0;
+	background-repeat:no-repeat;
+	background-position:center;
+	background-image:url('../images/icons/txt-photo.png');
+	background-color:#00528c;
+	border:1px solid #092b68;
+}
+
+span.file.txt-photo {}
+
+.center {
+	text-align: center;
+}
 .hello-text {
 	font-size: 14px;
 	color: #ffffff;

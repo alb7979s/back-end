@@ -12,11 +12,29 @@
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-		  
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+<!-- 카카오톡 -->
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<meta property="og:image" content="../images/apt.jpg">
+
 <title>HappyHouse</title>
 <link rel="stylesheet" href="${root}/css/main.css">
 
 <script type="text/javascript">
+/* function sendLinkCustom() {
+    Kakao.init("67a19357a9e3b8adf36e200722572e65");
+    Kakao.Link.sendCustom({
+        templateId: 'happyhouse_info'
+    });
+} */
+
+Kakao.init('67a19357a9e3b8adf36e200722572e65');
+
 
 function searchCity() {
 	if (document.getElementById("word").value == "") {
@@ -57,8 +75,9 @@ let contentString2 = '<div style="width:100px;height:50px;">ssssssssss</div>';
 			
 			var image = '../images/icons/home.png'; 
 		    $('.aptPanel').each((index, item) => {
-		    	const latitude = parseFloat(item.childNodes[1].value); 
-		    	const longtitude = parseFloat(item.childNodes[3].value);
+		    	const latitude = parseFloat(item.childNodes[1].value)+parseFloat(Math.random()*0.0005); //위,경도가 같은 경우 떄문에 값 조정 
+		    	const longtitude = parseFloat(item.childNodes[3].value)+parseFloat(Math.random()*0.0005);
+		    	
 		    	const param = item.childNodes[5].value;
 		 
 		    	const aptName = item.childNodes[7].innerText;
@@ -81,6 +100,8 @@ let contentString2 = '<div style="width:100px;height:50px;">ssssssssss</div>';
 		    	if(maxy<latitude) maxy=latitude;
 		    	if(maxx<longtitude) maxx=longtitude;
 		    	
+		    	//latitude = latitude+1;
+		    	//longtitude = longtitude+Math.random();
 		       	var loc={lat:latitude, lng:longtitude};
 		       	
 		    	marker = new google.maps.Marker({
@@ -88,7 +109,7 @@ let contentString2 = '<div style="width:100px;height:50px;">ssssssssss</div>';
 					title:aptName,
 					center: loc,
 					map:map,
-					zoom:15,
+					zoom:13,
 					icon:image
 				});
 		    	google.maps.event.addListener(marker, 'mouseover', (function(marker, index) {
@@ -174,7 +195,7 @@ let contentString2 = '<div style="width:100px;height:50px;">ssssssssss</div>';
 		      	<c:forEach var="apt" items="${result.aptinfo}">
 		      	 <!-- <div class="col-sm-6"> -->
 		            <div  class="aptPanel panel panel-default text-center" 
-		            onclick="showDetail(`${apt.dong}/${apt.aptName}/${apt.dealAmount}/${apt.dealYear}.${apt.dealMonth}.${apt.dealDay}/${apt.area}/${apt.floor}/${apt.jibun}/${apt.lat}/${apt.lng}`)">
+		            onclick="showDetail(`${apt.dong}/${apt.aptName}/${apt.dealAmount}/${apt.dealYear}.${apt.dealMonth}.${apt.dealDay}/${apt.area}/${apt.floor}/${apt.jibun}/${apt.lat}/${apt.lng}/${apt.no }`);">
 		            
 	                <input type="hidden" value="${apt.lat}">
 	                <input type="hidden" value="${apt.lng}">
@@ -204,15 +225,25 @@ let contentString2 = '<div style="width:100px;height:50px;">ssssssssss</div>';
 				</div>
 			</div>
 			<div class="col-md-4" id="aptDetail">
-				div 3
 				<!-- 아파트 상세 정보를 띄울 부분 -->
 			</div>
 		</div>
 	</div>
 	
 	
+	
 <!-- 구글 지도 -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB85YwpkRQ0wsKpmlijWPoSs7ENVtJdkfg&callback=initMap" async defer></script>
+
+
+<!-- <script type="text/javascript">
+    function sendLinkCustom() {
+        Kakao.init("67a19357a9e3b8adf36e200722572e65");
+        Kakao.Link.sendCustom({
+            templateId: [templete id]
+        });
+    }
+</script> -->
 
 <script>
 
@@ -227,18 +258,72 @@ function showDetail(aptinfo){
     } */
 	//지도 변경
 	showLocation(info[7],info[8]);
-
+	
+    clickUp(info[9]);
+    
 	details=''
     details+='<img></img>'
-    details='<h2>['+info[0]+'] <strong>' +info[1]+'</strong></h2>'
+    
+    details='<div class="row"> <h2>['+info[0]+'] <strong>' +info[1]+'</strong></h2>'
+    details+='<button id="shareButton" style="font-size:24px" ><i class="fas fa-share-square"></i>공유하기</button> </div>'
+
     details+='<table class="table">'
     details+='<tr><th>거래금액</th><td>'+info[2]+'</td><th>거래일</th><td>'+info[3]+'</td></tr>'
     details+='<tr><th>평수</th><td>'+info[4]+'</td><th>층</th><td>'+info[5]+'</td></tr>'
     //details+='<tr><th>건설년도</th><td>'+info[6]+'</td><th><td></td></th></tr>'
    	details+='</table>'
+    details+='<button class="btn"><i class="fa fa-heart" style="font-size:30px;color:pink;"></i>찜하기</button>'
     
+    details+='<img id="img" src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png" width="10px" style="display:none;"/>'
+    //details+='<button id="shareButton2" style="font-size:24px" ><i class="fas fa-share-square"></i>페이스북 공유하기</button>'
+
     //details+=
     $("#aptDetail").append(details);
+
+    let shareinfo = info[0]+" "+info[1];
+    console.log( window.location.href);
+    
+     shareButton.addEventListener("click", async () => {
+    	  // 카카오링크 버튼 생성
+    	  Kakao.Link.createDefaultButton({
+    	    container: '#shareButton', // 카카오공유버튼ID
+    	    objectType: 'feed',
+    	    content: {
+    	    //templateId : 54030,
+    	      title: shareinfo, // 보여질 제목
+    	      description: "아파트 조회 정보를 공유합니다", // 보여질 설명
+    	      //imageUrl: document.images[0].src, // 콘텐츠 URL
+    	      imageUrl: $( 'meta[property="og:image"]' ).attr( 'content' ),
+    	      link: {
+    	         mobileWebUrl: window.location.href,
+    	         webUrl: window.location.href
+    	      }
+    	    },
+    	    buttons: [
+  	          {
+  	            title: '웹에서 보기',
+  	            link: {
+  	              mobileWebUrl:window.location.href,
+  	              webUrl:window.location.href
+  	            }
+  	          }
+  	        ],
+    	  });
+	}); 
+}
+
+function clickUp(no){
+	console.log(no);
+	$.ajax({
+		url:'/clickUp',
+		data: no,
+		method:'put',	    			
+		dataType: "json",
+		contentType:"application/json; charset=UTF-8",
+		success:function(data){
+			//console.log(data+" 뷰 카운트 증가 성공")
+		}  
+	}); 
 }
 </script>
 

@@ -62,7 +62,7 @@
 	        <th>시도</th>
 	        <th>시군구</th>
 	        <th>기관명</th>
-	        <th>유형</th>
+	        <!-- <th>유형</th> -->
 	        <th>전화번호</th>
 	      </tr>
 	    </thead>
@@ -73,7 +73,7 @@
 		        <td>${hospital.sido}</td>
 		        <td>${hospital.sigungu}</td>
 		        <td>${hospital.medi_name}</td>
-		        <td>${hospital.type}</td>
+		        <%-- <td>${hospital.type}</td> --%>
 		        <td>${hospital.phone_no}</td>
 		      </tr>
 		    </c:forEach>

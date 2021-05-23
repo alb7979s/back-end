@@ -9,7 +9,7 @@
 		where ${key} like '%${word}%'
 	</select> -->
 	<select id="aptSearch" parameterType="map" resultType="apt">
-		SELECT hd.dong, hd.AptName ,hd.code ,hd.dealAmount ,hd.buildYear ,hd.dealYear ,hd.dealMonth ,hd.dealDay ,hd.area , hd.floor, hd.jibun ,hi.lat, hi.lng
+		SELECT hd.no, hd.dong, hd.AptName ,hd.code ,hd.dealAmount ,hd.buildYear ,hd.dealYear ,hd.dealMonth ,hd.dealDay ,hd.area , hd.floor, hd.jibun ,hi.lat, hi.lng
 		FROM houseinfo hi 
 		JOIN housedeal hd 
 		on hi.AptName = hd.AptName AND hi.dong =hd.dong 
@@ -61,4 +61,18 @@
 		)
 	</update>
 	
+	<update id="clickUp" parameterType="Integer">
+		update housedeal 
+		set click_view = click_view+1 
+		where no = #{no} 
+	</update>
+	
+	
+	<select id="selectTop3" parameterType="map" resultType="apt">
+		select *     
+		from housedeal   
+		where dong='${dong}'  
+		order by click_view DESC 
+		limit 3 
+	</select>
 </mapper>

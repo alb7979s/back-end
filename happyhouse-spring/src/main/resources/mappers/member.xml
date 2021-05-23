@@ -6,9 +6,9 @@
 
 	<insert id="insertMember" parameterType="member">
 		insert into member(
-			id, pwd, dpt, email, authkey
+			id, pwd, dpt, email, authkey, profilename, profilepath
 		) values (
-			#{id}, #{pwd}, #{dpt}, #{email}, #{authkey}
+			#{id}, #{pwd}, #{dpt}, #{email}, #{authkey}, #{profilename}, #{profilepath}
 		)
 	</insert>
 	
@@ -19,13 +19,13 @@
 	</delete>
 	
 	<select id="selectMember" parameterType="member" resultType="member">
-		select id, pwd, dpt, email, authkey
+		select id, pwd, dpt, email, authkey, profilename, profilepath
 		  from member
 		 where id = #{id}
 	</select>
 	
 	<select id="getMemberFromEmail" parameterType="member" resultType="member">
-		select id, pwd, dpt, email, authkey
+		select id, pwd, dpt, email, authkey, profilename, profilepath
 		  from member
 		 where email = #{email}
 	</select>
@@ -40,7 +40,7 @@
 	</update>
 	
 	<select id="loginMember" parameterType="member" resultType="member">
-		select id, email
+		select id, pwd, dpt, email, authkey, profilename, profilepath
 		from member
 		where id = #{id} and pwd = #{pwd}
 	</select>

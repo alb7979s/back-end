@@ -1,6 +1,11 @@
 package com.ssafy.happyhouse.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,10 +16,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ssafy.happyhouse.dto.Member;
+import com.ssafy.happyhouse.dto.Preference;
 import com.ssafy.happyhouse.service.MailSendService;
 import com.ssafy.happyhouse.service.MemberService;
+import com.ssafy.happyhouse.service.PreferenceService;
+import com.ssafy.happyhouse.util.ThumbnailUtil;
+
+import net.coobird.thumbnailator.Thumbnails;
 
 @Controller
 @RequestMapping("/member")
@@ -22,9 +33,12 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
-	
+	@Autowired
+	private PreferenceService preferenceService;
 	@Autowired
 	private MailSendService mailSendService;
+	@Autowired
+	private ThumbnailUtil thumbnailUtil;
 	
 	@PostMapping("/resetPwd")
 	public String resetPwd(Member param, Model model) throws Exception {
@@ -71,10 +85,13 @@ public class MemberController {
 		return "member/login";
 	}
 	@PostMapping("/join")
-	public String join(Member member, Model model, @RequestParam("emaildomain") String emaildomain) {
+	public String join(@RequestParam("profile") MultipartFile files, Member member, Preference preference, Model model, @RequestParam("emaildomain") String emaildomain) {
 		member.setEmail(member.getEmail() + "@" + emaildomain);
+		//System.out.println(preference.toString());
 		try {
+			member = thumbnailUtil.setThumbnail(member, files);
 			memberService.join(member);
+			preferenceService.regist(preference);
 			return "index";
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -86,6 +103,7 @@ public class MemberController {
 	@PostMapping("/modify")
 	public String modify(Member member, Model model, @RequestParam("emaildomain") String emaildomain) {
 		member.setEmail(member.getEmail() + "@" + emaildomain);
+		//System.out.println(preference);
 		try {
 			memberService.modify(member);
 			return "index";

@@ -21,4 +21,10 @@ public interface AptMapper {
 
 
 	public void saveFavoriteInfo(Map<String, String> map);
+
+
+	public void clickUp(int no);
+
+
+	public List<Apt> selectTop3(Map<String, String> param);
 }

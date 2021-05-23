@@ -207,7 +207,21 @@
     	        		 contentType:"application/json; charset=UTF-8",
     	    			 success:function(data){
     	    		 		//console.log("관심지역 상세 조회하기");
-    	    		 		makeDetail(city, gugun,dong);
+    	    		 		
+    	    		 		var datas= {
+								//"gugun":gugun,
+								"dong":dong
+							}
+    	    		 		$.ajax({
+								 url:'/selectTop3',
+								 data: JSON.stringify(datas),
+					   			 method:"post",
+					       		 contentType:"application/json; charset=UTF-8",
+					   			 success:function(top3){
+					   		 		//console.log(top3);
+		    	    		 		makeDetail(city, gugun,dong, top3);			   		 		
+					   			 }
+							});
     	    			 }
     	    		 })
     				
@@ -217,7 +231,7 @@
     			
     	},true);
     		
-    	function makeDetail(city, gugun,dong){
+    	function makeDetail(city, gugun,dong, top3){
     		$("#favDetail").empty();
     		//console.log(city+" "+gugun+" "+dong);
     		details = ''
@@ -226,7 +240,33 @@
     		details+='<button onclick="moveClinic(`'+city+'`,`'+gugun+'`);" style="margin-right:30px;" type="button" class="btn btn-lg btn-primary">선별 진료소 보러가기</button>'
     		details+='<button onclick="moveHospital(`'+city+'`,`'+gugun+'`);" style="margin-right:30px;" type="button" class="btn btn-lg btn-primary">안심병원 보러가기</button>'
     		//details+='<button type="button" class="btn btn-lg btn-primary">선별 진료소 보러가기</button>'
-    		details+='</br><h2>금주의 인기매물 TOP 3</h2>'
+    		//details+='</br></br><h2>금주의 인기매물 TOP 3</h2>'
+    		
+    		
+    		console.log(top3);
+    		details+='<div class="container-fluid" style="width:100%;">'
+    		details+='</br></br><h2>금주의 인기매물 TOP 3</h2>'
+    		for(apt of top3){
+    			details+='<div class="col-sm-4"> <div class="panel panel-default text-center">'
+				details+='<div class="panel-heading"> <h1>'+apt.aptName+'</h1></div>'
+    		    details+='<div class="panel-body" style="margin-top:15px;margin-bottom:15px;">'
+    		    details+='<p><strong>거래금액</strong>'+ apt.dealAmount+'</p>'
+    		    details+='<p><strong>면적</strong>'+ apt.area+'</p>'
+    		    details+='<p><strong><span class="glyphicon glyphicon-calendar"></span></strong>'+ apt.dealYear+'.'+apt.dealMonth+'.'+apt.dealDay+'</p>'
+    	
+    		              /* <div class="panel-body" style="margin-top:15px;margin-bottom:15px;">
+    		                <p><strong>거래금액</strong> ${apt.dealAmount}</p>
+    		                <p><strong>면적</strong> ${apt.area}</p>
+    		                <p><strong><span class="glyphicon glyphicon-calendar"></span></strong> ${apt.dealYear}.${apt.dealMonth}.${apt.dealDay}</p>
+    		              </div>
+    		              <div class="panel-footer">
+    		                <div><button class="btn btn-lg" data-toggle="modal" data-target="#detailModal">상세정보</button></div>
+    		                <div><button class="btn btn-lg" data-toggle="modal" data-target="#mapModal">지도보기</button></div>
+    		              </div>
+    		            </div>' */
+    		     details+='</div></div></div>'
+    		}
+			details+='</div>' 		
     		
     		$("#favDetail").append(details);
     	}

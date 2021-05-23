@@ -8,7 +8,23 @@ public class Member {
 	private String dpt;		//department
 	private String email;
 	private String authkey;
+	private String profilepath;
+	private String profilename;
 	
+	public String getProfilepath() {
+		return profilepath;
+	}
+	public Member setProfilepath(String profilepath) {
+		this.profilepath = profilepath;
+		return this;
+	}
+	public String getProfilename() {
+		return profilename;
+	}
+	public Member setProfilename(String profilename) {
+		this.profilename = profilename;
+		return this;
+	}
 	public String getAuthkey() {
 		return authkey;
 	}

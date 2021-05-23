@@ -54,7 +54,16 @@ public class AptServiceImpl implements AptService {
 	@Override
 	public void saveFavoriteInfo(Map<String, String> map) {
 		aptMapper.saveFavoriteInfo(map);
-		
+	}
+
+	@Override
+	public void clickUp(int no) {
+		aptMapper.clickUp(no);
+	}
+
+	@Override
+	public List<Apt> selectTop3(Map<String, String> param) {
+		return aptMapper.selectTop3(param);
 	}
 
 }

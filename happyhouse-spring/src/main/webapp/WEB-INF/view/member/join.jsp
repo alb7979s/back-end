@@ -18,6 +18,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>회원가입</title>
 <link rel="stylesheet" href="${root}/css/main.css">
 
@@ -95,52 +96,218 @@
 </script>
 </head>
 <body>
-	<%@include file="../main/header.jsp" %>
-	
-	<div class="jumbotron2 text-center" align="center">
+	<%@include file="../main/header.jsp"%>
+
+	<div class="jumbotron2 text-center" align="center" style="margin: 70px 0 0">
 		<p style="font-size: 130%;">회원가입</p>
 	</div>
-	
-	<div class="container" align="center"  style="width:40%;">
-		<form id="memberform" method="post" action="${root}/member/join">
-					<input type="hidden" name="act" id="act" value="join">
-					<div class="form-group" align="left">
-						<label for="">아이디</label> <input type="text" class="form-control"  id="id"
-							onKeyUp="idCheck()" name="id" >
-						<div id="idDupMsg"></div>
-					</div>
-					<div class="form-group" align="left">
-						<label for="">비밀번호</label> <input type="password"
-							class="form-control" id="pwd" name="pwd">
-					</div>
-					<div class="form-group" align="left">
-						<label for="">비밀번호재입력</label> <input type="password"
-							class="form-control" id="pwdcheck" name="pwdcheck">
-					</div>
-					<div class="form-group" align="left">
-						<label for="name">소속</label> <input type="text"
-							class="form-control" id="dpt" name="dpt">
-					</div>
-					<div class="form-group" align="left">
-						<label for="email">이메일</label><br>
-						<div class="custom-control-inline input-inline" id="email">
-							<input type="text" class="form-control" onKeyUp="emailCheck()" id="emailinput" name="email" size="25" >
-							@ <select class="form-control" id="emaildomain" name="emaildomain" onchange="emailCheck()">
-								<option value="naver.com">naver.com</option>
-								<option value="google.com">google.com</option>
-								<option value="daum.net">daum.net</option>
-								<option value="nate.com">nate.com</option>
-								<option value="hanmail.net">hanmail.net</option>
-							</select>
-						</div>
-						<div id="emailDupMsg"></div>
-					</div>
-					<div class="form-group" align="center">
-						<button type="button" id="registerBtn" class="btn btn-primary" >회원가입</button>
-						<button type="reset" class="btn btn-warning">초기화</button>
-					</div>
+	<div class="container" align="center" style="width: 40%;">
+		<form id="memberform" method="post" action="${root}/member/join"
+			enctype="multipart/form-data">
+			<div class="profile">
+				<span class="img"></span> 
+				<span class="file txt-photo">
+					<input type="file" id="profile" name="profile" />
+				</span>
+			</div>
+			<div class="form-group" align="left">
+				<label for="">아이디</label> <input type="text" class="form-control"
+					id="id" onKeyUp="idCheck()" name="id">
+				<div id="idDupMsg"></div>
+			</div>
+			<div class="form-group" align="left">
+				<label for="">비밀번호</label> <input type="password"
+					class="form-control" id="pwd" name="pwd">
+			</div>
+			<div class="form-group" align="left">
+				<label for="">비밀번호재입력</label> <input type="password"
+					class="form-control" id="pwdcheck" name="pwdcheck">
+			</div>
+			<div class="form-group" align="left">
+				<label for="name">소속</label> <input type="text" class="form-control"
+					id="dpt" name="dpt">
+			</div>
+			<div class="form-group" align="left">
+				<label for="email">이메일</label><br>
+				<div class="custom-control-inline input-inline" id="email">
+					<input type="text" class="form-control" onKeyUp="emailCheck()"
+						id="emailinput" name="email" size="25"> @ <select
+						class="form-control" id="emaildomain" name="emaildomain"
+						onchange="emailCheck()">
+						<option value="naver.com">naver.com</option>
+						<option value="google.com">google.com</option>
+						<option value="daum.net">daum.net</option>
+						<option value="nate.com">nate.com</option>
+						<option value="hanmail.net">hanmail.net</option>
+					</select>
+				</div>
+				<div id="emailDupMsg"></div>
+			</div>
+
+			<!-- 취향? 선호도 입력 -->
+			<label>내가 선호하는 아파트, 동네 정보를 입력해주세요!</label><br>
+			<div class="form-group" align="left">
+				<label for="type">거래</label><br> <input type="radio"
+					name="type" value="deposit">전세 <input type="radio"
+					name="type" value="month">월세 <input type="radio"
+					name="type" value="deal">매매
+			</div>
+			<div class="form-group" align="left">
+				<label for="prefernce2">동네</label><br> <select
+					class="form-select" name="city" id="city"
+					onchange="getGugunList(this.value)"
+					aria-label="Default select example">
+					<option value="" name="city">도/광역시</option>
+				</select> <select class="form-select" name="gugun" id="gugun"
+					onchange="getDongList(this.value)"
+					aria-label="Default select example">
+					<option value="" name='gugun'>시/구/군</option>
+				</select> <select class="form-select" name="dong" id="dong"
+					aria-label="Default select example">
+					<option value="" name='dong'>동</option>
+				</select>
+			</div>
+			<div class="form-group" align="left">
+				<label for="floor_high">층수</label><br> <input type="radio"
+					name="floor_high" value="low">저층 <input type="radio"
+					name="floor_high" value="mid">중층 <input type="radio"
+					name="floor_high" value="high">고층
+			</div>
+
+			<div class="form-group" align="left">
+				<label for="facilities">주변 시설(최대 3개 선택 가능)</label><br> <label><input
+					onclick="CountChecked(this)" type="checkbox" name="facilities"
+					value="school"> 학군</label> <label><input
+					onclick="CountChecked(this)" type="checkbox" name="facilities"
+					value="coffee"> 커피숍</label> <label><input
+					onclick="CountChecked(this)" type="checkbox" name="facilities"
+					value="hospital"> 병원</label> <label><input
+					onclick="CountChecked(this)" type="checkbox" name="facilities"
+					value="convenience_store"> 편의점</label> <label><input
+					onclick="CountChecked(this)" type="checkbox" name="facilities"
+					value="mart"> 마트</label> <label><input
+					onclick="CountChecked(this)" type="checkbox" name="facilities"
+					value="bank"> 은행</label>
+			</div>
+
+			<div class="form-group" align="center">
+				<button type="button" id="registerBtn" class="btn btn-primary">회원가입</button>
+				<button type="reset" class="btn btn-warning">초기화</button>
+			</div>
 		</form>
 	</div>
+
+	<script>
+	$(document).ready(function() {
+		$.ajax({
+	   		 url:"/sido",
+	   		 method:"post",
+	   		 dataType: "json",
+	   		 contentType:"application/json; charset=UTF-8",
+	   		 success:function(sido){
+	   			 console.dir(sido)
+	   			 $("#dong").empty().append( "<option value=''> 동 </option>" )
+
+	   			 list = sido.sidoName;
+	   			 list2 = sido.sidoCode;
+	   			 
+	   			 for(let i =0; i<list.length; i++){
+	   				 //console.log(list[i]+" "+list2[i]);
+	   				 $("#city").append( "<option value='"+list2[i]+"' name='city'> "+ list[i]+" </option>" )
+	   			 }
+	   			 
+	   		 }
+	   	 })
+	});
 	
+	var maxCount = 3;								
+	var count = 0;   					
+	function CountChecked(field){ 		
+		if (field.checked) 			
+			count += 1;						
+		else count -= 1;						
+		
+		if (count > maxCount) {
+			alert("최대 3개까지만 선택가능합니다!");
+		field.checked = false;						
+		count -= 1;		
+		}
+	}
+   	
+   	 function getGugunList(sidoCode){
+   		 console.log(sidoCode);
+   		 $.ajax({
+   		 url:"/gugun",
+   		 data: sidoCode,
+   		 method:"post",
+   		 dataType: "json",
+   		 contentType:"application/json; charset=UTF-8",
+   		 success:function(gugunList){
+   			
+   			 $("#gugun").empty().append( "<option value=''> 시/구/군 </option>" )
+   			 
+   			 //console.dir(sidoList)
+   			 for(gugun of gugunList){
+   				//console.log(gugun.code + ","+ gugun.name);
+   				$("#gugun").append( "<option value='"+gugun+"' name='gugun' >"+ gugun+" </option>" )
+   			 }
+   			 
+   		 }
+   	 	})
+   	 }
+   	 
+   	 function getDongList(gugun){
+   		 $.ajax({
+   			 url:"/dong",
+   			 data: gugun,
+   			 method:"post",
+       		 dataType: "json",
+       		 contentType:"application/json; charset=UTF-8",
+   			 success:function(dongList){
+   				
+   				 $("#dong").empty().append( "<option value=''> 동 </option>" )
+   				 
+   				 for(dong of dongList){
+   				 	$("#dong").append( "<option value='"+dong+"' name='dong' >"+ dong+" </option>" )
+   				 }
+   				 
+   			 }
+   		 	})
+   	 }
+   	// html file API
+   	let uploadFile = null;
+	let profile = document.querySelector("#profile");
+	profile.onchange = function (event) {		// onchange:여기선 인풋창에 있는 값이 바뀌었을 때 호출
+		
+    	let file = event.target.files[0];		// event.target: 이벤트가 발생한 그 객체 자체
+		console.dir(event.target);
+		console.dir(event.target.files);
+		
+    	if (file.type.substring(0, 5) != 'image') {
+    		alert("이미지를 선택하세요");
+    		return false;
+    	}
+    	uploadFile = file;
+    	// 이미지 동적 추가
+    	// URL.createObjectURL(file): file 정보 주면 이미지 정보를 줄 수 있는 URL을 만들어줌
+    	$('.img').html(`<img src="\${URL.createObjectURL(file)}" alt='profile' />`);
+    };    
+    
+    // 아래 두 문단 드래그&드랍 할 수 있도록
+    let imgFrame = document.querySelector(".img");	//드랍 대상 정함
+    imgFrame.ondragover = function (event) {
+        return false;	// 1. ondragover false로 줘야행
+    }
+    imgFrame.ondrop = function (event) {			// 2. ondrop: 그 영역으로 drop할 수 있는 이벤트(여기선 대상이 .img)
+    	uploadFile = event.dataTransfer.files[0];	// 실제 드랍된애에 대한 정보 뽑아냄, 여러개면 files for루프로 돌려서 하면 됨
+    	if (uploadFile.type.substring(0, 5) != 'image') {
+    		alert("이미지를 선택하세요");
+    		return false;
+    	}
+    	console.log(uploadFile)
+        this.innerHTML = `<img src="\${URL.createObjectURL(uploadFile)}">`;
+        return false;
+    }
+	</script>
 </body>
 </html>
