@@ -26,6 +26,16 @@ tbody > tr:hover {
   box-shadow: 1px 1px 10px 5px rgba(200, 195, 195, 0.637);
   cursor: pointer;
 }
+.profileimg {
+	display:block; 
+	width: 5rem;
+	height: 5rem; 
+	line-height:105px; 
+	margin: 2px 0;
+	border: 0.5px solid #bbb; 
+	border-radius: 50px;
+	background-size:70px 50px; 
+}
 #memberform, .profile { 
 	margin: 0 auto;
     width: 80%;

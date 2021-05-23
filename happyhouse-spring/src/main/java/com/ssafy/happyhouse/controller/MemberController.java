@@ -1,12 +1,12 @@
 package com.ssafy.happyhouse.controller;
 
 import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.FileInputStream;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +25,6 @@ import com.ssafy.happyhouse.service.MemberService;
 import com.ssafy.happyhouse.service.PreferenceService;
 import com.ssafy.happyhouse.util.ThumbnailUtil;
 
-import net.coobird.thumbnailator.Thumbnails;
-
 @Controller
 @RequestMapping("/member")
 public class MemberController {
@@ -40,6 +38,20 @@ public class MemberController {
 	@Autowired
 	private ThumbnailUtil thumbnailUtil;
 	
+	@GetMapping("/loadImage")
+	public String displayPhoto(HttpServletResponse response, HttpSession session)throws Exception{
+		response.setContentType("image/jpg");
+	    ServletOutputStream bout = response.getOutputStream();
+	    Member member = (Member) session.getAttribute("userinfo");
+	    if(member == null || member.getProfilepath() == null) return null;
+	    FileInputStream f = new FileInputStream(member.getProfilepath()+"\\"+member.getProfilename());
+	    int length;
+	    byte[] buffer = new byte[10];
+	    while((length=f.read(buffer)) != -1){
+	    	bout.write(buffer,0,length);
+	    }
+	    return null;
+	}
 	@PostMapping("/resetPwd")
 	public String resetPwd(Member param, Model model) throws Exception {
 		Member member = memberService.getMemberFromId(param);

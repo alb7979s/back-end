@@ -32,10 +32,9 @@ public class ThumbnailUtil {
 		files.transferTo(f);
 		Thumbnails.of(f)
 			.size(300, 200)
-			.outputFormat("jpg")
-			.toFile(new File(f.getParent(), "\\thumb_" + f.getName()));
+			.toFile(new File(f.getParent(), "thumb_" + f.getName()));
 		member.setProfilepath(f.getParent());
-		member.setProfilename("\\thumb_" + f.getName());
+		member.setProfilename("thumb_" + f.getName());
 		return member;
 	}
 }
