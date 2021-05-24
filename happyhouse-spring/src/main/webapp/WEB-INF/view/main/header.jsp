@@ -24,6 +24,7 @@
 	         <li><a href="${root}/clinic" onclick="active(3)">선별진료소</a></li>
 	         <li><a href="${root}/hospital" onclick="active(4)">국가안심병원</a></li>
 	         <li><a href="${root}/apt" onclick="active(5)">실거래가 검색</a></li>
+	         <li><a href="${root}/community" onclick="active(6)">커뮤니티</a></li>
 	       </ul>
 	       <%@ include file="../main/login.jsp" %>
 	     </div>

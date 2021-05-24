@@ -1,12 +1,12 @@
 package com.ssafy.happyhouse.dto;
 
 public class Board {
-	int no;
-	int views;
-	String userid;
-	String subject;
-	String content;
-	String regtime;
+	private int no;
+	private int views;
+	private String userid;
+	private String subject;
+	private String content;
+	private String regtime;
 	
 	public int getNo() {
 		return no;

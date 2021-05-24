@@ -92,7 +92,11 @@
 	function emailCheck() {
 		dupCheck("${emailList}".substr(1, "${emailList}".length-2).split(", "), "#emailinput", true);
 	}
-	
+	function keyCheck(){
+		if(event.keyCode == 13){
+			join();
+		}
+	}
 </script>
 </head>
 <body>
@@ -130,13 +134,13 @@
 			<div class="form-group" align="left">
 				<label for="email">이메일</label><br>
 				<div class="custom-control-inline input-inline" id="email">
-					<input type="text" class="form-control" onKeyUp="emailCheck()"
+					<input type="text" class="form-control" onKeyUp="emailCheck(); keyCheck()"
 						id="emailinput" name="email" size="25"> @ <select
 						class="form-control" id="emaildomain" name="emaildomain"
 						onchange="emailCheck()">
 						<option value="naver.com">naver.com</option>
+						<option value="kakao.com">kakao.com</option>
 						<option value="google.com">google.com</option>
-						<option value="daum.net">daum.net</option>
 						<option value="nate.com">nate.com</option>
 						<option value="hanmail.net">hanmail.net</option>
 					</select>

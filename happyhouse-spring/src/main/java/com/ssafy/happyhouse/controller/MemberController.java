@@ -1,8 +1,6 @@
 package com.ssafy.happyhouse.controller;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
@@ -50,6 +48,7 @@ public class MemberController {
 	    while((length=f.read(buffer)) != -1){
 	    	bout.write(buffer,0,length);
 	    }
+	    f.close();
 	    return null;
 	}
 	@PostMapping("/resetPwd")
@@ -63,7 +62,7 @@ public class MemberController {
 	@GetMapping("/confirm")
 	public String confirm(@RequestParam Map<String, String> map, Model model) throws Exception {
 		String email = map.get("email");
-		String authkey = map.get("authkey");
+		String authkey = map.get("authkey").substring(0, 6);
 		Member member = memberService.getMemberFromEmail(new Member().setEmail(email));		
 		if(member.getAuthkey().equals(authkey)) {
 			model.addAttribute("searchedid", member.getId());
@@ -101,7 +100,7 @@ public class MemberController {
 		member.setEmail(member.getEmail() + "@" + emaildomain);
 		//System.out.println(preference.toString());
 		try {
-			member = thumbnailUtil.setThumbnail(member, files);
+			if(!files.getOriginalFilename().equals(""))member = thumbnailUtil.setThumbnail(member, files);
 			memberService.join(member);
 			preferenceService.regist(preference);
 			return "index";
