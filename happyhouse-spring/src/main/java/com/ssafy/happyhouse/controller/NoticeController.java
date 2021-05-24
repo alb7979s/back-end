@@ -27,9 +27,6 @@ public class NoticeController {
 
 		@Autowired
 		private NoticeService noticeService;
-		
-
-		
 		@GetMapping(value= {"","/list"}) // OK
 		public String list(Integer pageNo , Model model) throws SQLException {
 			if(pageNo == null) {
@@ -39,25 +36,14 @@ public class NoticeController {
 			model.addAttribute("result",noticeService.listNoticePage(page));
 			return "notice/list";
 		}
-		
 		@ResponseBody
 		@PostMapping
 		public List<Notice> selectlist() throws SQLException {
 			List<Notice> list = noticeService.selectList();
 			return list;
 		}
-		
-/*		@GetMapping("/search") 
-		public String list(SearchNotice searchNotice , Model model) throws SQLException {
-			System.out.println("search");
-			System.out.println(searchNotice);
-			model.addAttribute("result",noticeService.search(searchNotice));
-			return "notice/list";
-		}*/
-		
 		@RequestMapping("/")
 		public String search(HttpServletRequest request, Integer pageNo, Model model) throws Exception {
-			
 			String key = request.getParameter("key");
 			String word = request.getParameter("word");
 
@@ -117,13 +103,6 @@ public class NoticeController {
 		@PostMapping("/write") // OK
 		public String doWrite(Notice notice,HttpSession session , Model model) throws SQLException {
 			System.out.println("postWrite");
-			/*
-			 * 
-			 * 
-			 * session으로 사용자 받아서 등록하기
-			 * 
-			 * 
-			 * */
 			Member member = (Member)session.getAttribute("userinfo");
 			System.out.println(member);
 			notice.setUserid(member.getId());

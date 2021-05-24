@@ -8,14 +8,13 @@ import com.ssafy.happyhouse.dto.Notice;
 import com.ssafy.happyhouse.dto.Page;
 
 public interface NoticeService {
-	public void writeNotice(Notice notice) throws SQLException;
-	public List<Notice> search(Map<String,String> param) throws SQLException;
-	public List<Notice> listNoticeAll() throws SQLException;
-	public Notice getNotice(int noticeno) throws SQLException;
-	public void modifyNotice(Notice notice) throws SQLException;
-	public void deleteNotice(int noticeno) throws SQLException;
+	void writeNotice(Notice notice) throws SQLException;
+	List<Notice> search(Map<String,String> param) throws SQLException;
+	List<Notice> listNoticeAll() throws SQLException;
+	Notice getNotice(int noticeno) throws SQLException;
+	void modifyNotice(Notice notice) throws SQLException;
+	void deleteNotice(int noticeno) throws SQLException;
 	Map<String,Object> listNoticePage(Page page) throws SQLException;
-	
-	public List<Notice> selectList();
-	public Map<String, Object> searchNoticePage(Page page, String key, String word);
+	List<Notice> selectList();
+	Map<String, Object> searchNoticePage(Page page, String key, String word);
 }

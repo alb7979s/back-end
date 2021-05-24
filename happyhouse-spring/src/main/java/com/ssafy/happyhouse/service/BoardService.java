@@ -8,12 +8,12 @@ import com.ssafy.happyhouse.dto.Board;
 import com.ssafy.happyhouse.dto.Page;
 
 public interface BoardService {
-	public void write(Board board) throws SQLException;
-	public List<Board> search(Map<String,String> param) throws SQLException;
-	public List<Board> listAll() throws SQLException;
-	public Board getBoard(int no) throws SQLException;
-	public void modify(Board board) throws SQLException;
-	public void delete(int no) throws SQLException;
+	void write(Board board) throws SQLException;
+	List<Board> search(Map<String,String> param) throws SQLException;
+	List<Board> listAll() throws SQLException;
+	Board getBoard(int no) throws SQLException;
+	void modify(Board board) throws SQLException;
+	void delete(int no) throws SQLException;
 	Map<String,Object> listPage(Page page) throws SQLException;
-	public List<Board> search(String word) throws SQLException;
+	List<Board> search(String word) throws SQLException;
 }

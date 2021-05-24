@@ -16,15 +16,10 @@ import com.ssafy.happyhouse.mapper.CommunityMapper;
 
 @Service
 public class CommunityServiceImpl implements CommunityService{
-//	private CommunityMapper CommunityMapper;
 	
 	@Autowired
 	private CommunityMapper CommunityMapper;
 	
-//	public CommunityServiceImpl() {
-//		CommunityMapper = new CommunityMapperImpl();
-//	}
-
 	@Override
 	public List<Community> search(Map<String,String> param) throws SQLException {
 		if(param.get("pageNo")== null) {
@@ -82,7 +77,7 @@ public class CommunityServiceImpl implements CommunityService{
 		
 		Map<String, Object> result = new HashMap<>();
 		
-		result.put("Communitys",list);
+		result.put("communities",list);
 		result.put("pageResult", prd);
 		
 		return result;
@@ -111,7 +106,7 @@ public class CommunityServiceImpl implements CommunityService{
 		
 		Map<String, Object> result = new HashMap<>();
 		
-		result.put("Communitys", list);
+		result.put("communities", list);
 		result.put("pageResult", prd);
 		
 		return result;

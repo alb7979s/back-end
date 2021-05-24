@@ -8,7 +8,7 @@
  	
 <!-- 	public void writeCommunity(Community Community) throws SQLException; -->
 	<insert id="writeCommunity" parameterType="Community">
-		insert into community (userid, subject, content )
+		insert into community_board (userid, subject, content )
 		values (#{userid},#{subject},#{content})
 	</insert>
 
@@ -16,14 +16,14 @@
 <!-- 	public List<Community> listCommunityAll() throws SQLException; -->
 	<select id="listCommunityAll" resultType="Community">
 		select * 
-		from community
+		from community_board
 		order by no desc
 	</select>
 	
 <!-- 	public List<Community> listCommunityPage(Page page) throws SQLException; -->
 	<select id="listCommunityPage" parameterType = "Page" resultType="Community">
 		select * 
-		from community 
+		from community_board 
 		order by no desc 
 		LIMIT #{begin}, #{listSize} 
 	</select>
@@ -31,36 +31,36 @@
 <!-- 	public int selectCommunityCount() throws SQLException; -->
 	<select id="selectCommunityCount" resultType="int">
 		SELECT count(*) as cnt 
-		FROM community 
+		FROM community_board 
 	</select>
 
 <!-- 	public Community getCommunity(int no) throws SQLException; -->
 	<select id="getCommunity" parameterType="int" resultType="Community">
 		select * 
-		from community 
+		from community_board 
 		where no = #{no}
 	</select>
 
 <!-- 	public void modifyCommunity(Community Community) throws SQLException; -->
 	<update id="modifyCommunity" parameterType="Community">
-		update community set subject = #{subject}, content = #{content} where no = #{no}
+		update community_board set subject = #{subject}, content = #{content} where no = #{no}
 	</update>
 
 <!-- 	public void deleteCommunity(int no) throws SQLException; -->
 	<delete id="deleteCommunity" parameterType="int">
-		delete from community where no = #{no}
+		delete from community_board where no = #{no}
 	</delete>
 	
 	<select id="selectCommunity" resultType="Community">
 		select *
-		from community
+		from community_board
 		order by no desc 
 		LIMIT 0, 6
 	</select>
 	
 	<!-- 조회수 1 증가 -->
 	<update id="countUpCommunity" parameterType="int">
-		update community 
+		update community_board 
 		set views = views+1 
 		where no = #{no}
 	</update>
@@ -68,7 +68,7 @@
 	<!-- 검색 기능에 사용 -->
  	<select id="searchCommunityPage" parameterType = "map" resultType="Community">
 		select *
-		from community  
+		from community_board  
 		where `${key}` like '%${word}%' 
 		order by no desc
 		LIMIT #{begin}, #{listSize} 
@@ -76,7 +76,7 @@
 	
 	<select id="searchCommunityCount" parameterType = "map" resultType="int">
 		SELECT count(*) as cnt 
-		FROM community 
+		FROM community_board 
 		where `${key}` like '%${word}%'
 	</select>
 </mapper>

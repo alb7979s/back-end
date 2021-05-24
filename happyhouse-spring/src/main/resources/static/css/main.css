@@ -26,6 +26,12 @@ tbody > tr:hover {
   box-shadow: 1px 1px 10px 5px rgba(200, 195, 195, 0.637);
   cursor: pointer;
 }
+
+.container-fluid>.navbar-collapse, .container-fluid>.navbar-header, .container>.navbar-collapse, .container>.navbar-header {
+    margin-right: 0;
+    margin-left: -30px;
+}
+
 .profileimg {
 	display:block; 
 	width: 5rem;
@@ -203,6 +209,7 @@ span.file.txt-photo {}
 .navbar li a, .navbar .navbar-brand {
   color: #fff !important;
 }
+
 .navbar-nav li a:hover, .navbar-nav li.active a {
   color: #3588b8 !important;
   background-color: #fff !important;

@@ -22,7 +22,7 @@ import com.ssafy.happyhouse.dto.Page;
 import com.ssafy.happyhouse.service.CommunityService;
 
 @Controller
-@RequestMapping("/commnuity")
+@RequestMapping("/community")
 public class CommunityController {
 
 		@Autowired

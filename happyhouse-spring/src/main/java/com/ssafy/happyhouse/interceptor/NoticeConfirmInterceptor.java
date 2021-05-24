@@ -18,8 +18,7 @@ public class NoticeConfirmInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		Member member = (Member) session.getAttribute("userinfo");
 		if (member == null || !"admin".equals(member.getId())) {
-			System.out.println(request.getContextPath());
-			response.sendRedirect(request.getContextPath());
+			response.sendRedirect("/notice");
 			return false;
 		}
 		return true;
