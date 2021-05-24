@@ -22,6 +22,7 @@
 
   <div class="jumbotron text-center">
     <h1>공지사항</h1>
+    <h5>(공지사항은 관리자만 작성 가능합니다)</h5>
   </div>
 
   <div class="container menu" id="board" style="padding-top: 50px;">

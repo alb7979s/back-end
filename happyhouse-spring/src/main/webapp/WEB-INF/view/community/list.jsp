@@ -49,17 +49,19 @@
             <th class="col-md-2">작성자</th>
             <th class="col-md-2">작성일</th>
             <th class="col-md-1">조회수</th>
+            <th class="col-md-1">♥</th>
           </tr>
         </thead>
         <tbody>
 		<c:forEach var="item" items = "${result.communities}">
 			<tr>
-			<input type="hidden" value="${item.no}">
+			<input type="hidden" value="${item.no}"/>
             	<td class="col-md-2">${item.no }</td>
             	<td class="col-md-5">${item.subject }</td>
             	<td class="col-md-2">${item.userid }</td>
            	 	<td class="col-md-2">${item.regtime}</td>
            	 	<td class="col-md-1">${item.views}</td>
+           	 	<td class="col-md-1">${item.like}</td>
           	</tr>
 		</c:forEach>
 
