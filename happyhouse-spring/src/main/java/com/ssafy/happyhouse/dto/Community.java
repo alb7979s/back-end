@@ -11,4 +11,7 @@ public class Community extends Board{
 		this.like = like;
 	}
 	
+	public String toString() {
+		return super.toString("CommunityDto", Integer.toString(like));
+	}
 }

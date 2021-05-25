@@ -9,16 +9,17 @@ import com.ssafy.happyhouse.dto.Community;
 import com.ssafy.happyhouse.dto.Page;
 
 public interface CommunityMapper {
-	public void writeCommunity(Community community) throws SQLException;
-	public List<Community> search(Map<String,Object> param) throws SQLException;
-	public List<Community> listCommunityAll() throws SQLException;
-	public List<Community> listCommunityPage(Page page) throws SQLException;
-	public int selectCommunityCount() throws SQLException;
-	public Community getCommunity(int no) throws SQLException;
-	public void modifyCommunity(Community community) throws SQLException;
-	public void deleteCommunity(int no) throws SQLException;
-	public List<Community> selectCommunity();
-	public void countUpCommunity(int no);
-	public int searchCommunityCount(Map<String, Object> params);
-	public List<Hospital> searchCommunityPage(Map<String, Object> params);
+	void writeCommunity(Community community) throws SQLException;
+	List<Community> search(Map<String,Object> param) throws SQLException;
+	List<Community> listCommunityAll() throws SQLException;
+	List<Community> listCommunityPage(Page page) throws SQLException;
+	int selectCommunityCount() throws SQLException;
+	Community getCommunity(int no) throws SQLException;
+	void modifyCommunity(Community community) throws SQLException;
+	void deleteCommunity(int no) throws SQLException;
+	List<Community> selectCommunity();
+	void countUpCommunity(int no);
+	int searchCommunityCount(Map<String, Object> params);
+	List<Hospital> searchCommunityPage(Map<String, Object> params);
+	int getMaxNo();
 }

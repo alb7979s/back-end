@@ -19,12 +19,12 @@ public class NoticeConfirmInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		Member member = (Member) session.getAttribute("userinfo");
 		for(String admin: admins) {
-			if (member == null || !admin.equals(member.getId())) {
-				response.sendRedirect("/notice");
-				return false;
+			if (member != null && admin.equals(member.getId())) {
+				return true;
 			}
 		}
-		return true;
+		response.sendRedirect("/notice");
+		return false;
 	}
 
 }

@@ -58,7 +58,7 @@
 			<input type="hidden" value="${item.no}"/>
             	<td class="col-md-2">${item.no }</td>
             	<td class="col-md-5">${item.subject }</td>
-            	<td class="col-md-2">${item.userid }</td>
+            	<td class="col-md-2">익명</td>
            	 	<td class="col-md-2">${item.regtime}</td>
            	 	<td class="col-md-1">${item.views}</td>
            	 	<td class="col-md-1">${item.like}</td>

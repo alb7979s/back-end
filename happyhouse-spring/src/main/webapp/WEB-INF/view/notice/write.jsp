@@ -59,14 +59,14 @@
 				style="display: none;">저장</button>
 			<button type="button" class="btn btn-danger">삭제</button>
 		</div>
-		<div id="post"
-			style="text-align: center; margin-top: 50px; padding-bottom: 100px; padding-bottom: 0;">
-			<button id="postBtn" type="button" class="btn btn-lg postBoard">POST</button>
-		</div>
-		<div id="back"
-			style="text-align: center; margin-top: 50px; padding-bottom: 100px;">
-			<button id="backBtn" type="button" class="btn btn-lg backBoard">BACK</button>
-		</div>
+		<div style="text-align: center;">
+            <span id="post">
+                <button id="postBtn" type="button" class="btn btn-lg postBoard">POST</button>
+            </span>
+            <span id="back">
+                <button id="backBtn" type="button" class="btn btn-lg backBoard">BACK</button>
+            </span>
+	    </div>
 	</div>
 
 	<script>

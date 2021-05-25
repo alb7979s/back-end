@@ -44,9 +44,13 @@ public class Board {
 	public void setRegtime(String regtime) {
 		this.regtime = regtime;
 	}
-	@Override
+	
 	public String toString() {
-		return "NoticeDto [no=" + no + ", views=" + views + ", userid=" + userid + ", subject=" + subject + ", content="
+		return "BoardDto [no=" + no + ", views=" + views + ", userid=" + userid + ", subject=" + subject + ", content="
 				+ content + ", regtime=" + regtime + "]";
+	}
+	public String toString(String dto, String like) {
+		return dto + " [no=" + no + ", views=" + views + ", userid=" + userid + ", subject=" + subject + ", content="
+				+ content + ", regtime=" + regtime + ", like=" + like + "]";
 	}
 }

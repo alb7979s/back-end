@@ -22,7 +22,6 @@
 </head>
 
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
-
 	<%@include file="../main/header.jsp" %>
 
 	<div class="jumbotron text-center">
@@ -31,19 +30,16 @@
 	<div class="container menu" id="makeBoard"
 		style="padding-top: 50px; height: 1000px;">
 		<h1 style="color: black;">게시판</h1>
-		<form action="" id="writeform" method="post">
-		<!--
-		
-		
-		input hidden
-		
-		
-		 -->
+		<form action="" id="writeform" method="post" enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="exampleFormControlInput1"
 					style="color: black; font-size: 20px; font-weight: bold">제목</label>
 				<input type="title" class="form-control" name = "subject"
 					id="exampleFormControlInput1">
+			</div>
+			<div>
+				<label for="file">첨부파일</label>
+				<input type="file" id="file" name="files" multiple="multiple"  />
 			</div>
 			<div class="form-group">
 				<label for="exampleFormControlTextarea1"
@@ -59,16 +55,15 @@
 				style="display: none;">저장</button>
 			<button type="button" class="btn btn-danger">삭제</button>
 		</div>
-		<div id="post"
-			style="text-align: center; margin-top: 50px; padding-bottom: 100px; padding-bottom: 0;">
-			<button id="postBtn" type="button" class="btn btn-lg postBoard">POST</button>
-		</div>
-		<div id="back"
-			style="text-align: center; margin-top: 50px; padding-bottom: 100px;">
-			<button id="backBtn" type="button" class="btn btn-lg backBoard">BACK</button>
-		</div>
+		<div style="text-align: center;">
+            <span id="post">
+                <button id="postBtn" type="button" class="btn btn-lg postBoard">POST</button>
+            </span>
+            <span id="back">
+                <button id="backBtn" type="button" class="btn btn-lg backBoard">BACK</button>
+            </span>
+	    </div>
 	</div>
-
 	<script>
 		const writeform = document.querySelector("#writeform");
 		const backBtn = document.querySelector("#backBtn");

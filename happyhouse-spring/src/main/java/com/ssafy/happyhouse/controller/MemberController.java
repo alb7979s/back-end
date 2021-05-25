@@ -18,10 +18,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ssafy.happyhouse.dto.Member;
 import com.ssafy.happyhouse.dto.Preference;
+import com.ssafy.happyhouse.service.FileService;
 import com.ssafy.happyhouse.service.MailSendService;
 import com.ssafy.happyhouse.service.MemberService;
 import com.ssafy.happyhouse.service.PreferenceService;
-import com.ssafy.happyhouse.util.ThumbnailUtil;
 
 @Controller
 @RequestMapping("/member")
@@ -34,7 +34,7 @@ public class MemberController {
 	@Autowired
 	private MailSendService mailSendService;
 	@Autowired
-	private ThumbnailUtil thumbnailUtil;
+	private FileService fileService;
 	
 	@GetMapping("/loadImage")
 	public String displayPhoto(HttpServletResponse response, HttpSession session)throws Exception{
@@ -96,11 +96,10 @@ public class MemberController {
 		return "member/login";
 	}
 	@PostMapping("/join")
-	public String join(@RequestParam("profile") MultipartFile files, Member member, Preference preference, Model model, @RequestParam("emaildomain") String emaildomain) {
+	public String join(@RequestParam("profile") MultipartFile mf, Member member, Preference preference, Model model, @RequestParam("emaildomain") String emaildomain) {
 		member.setEmail(member.getEmail() + "@" + emaildomain);
-		//System.out.println(preference.toString());
 		try {
-			if(!files.getOriginalFilename().equals(""))member = thumbnailUtil.setThumbnail(member, files);
+			if(!mf.getOriginalFilename().equals(""))member = fileService.setThumbnail(member, mf);
 			memberService.join(member);
 			preferenceService.regist(preference);
 			return "index";

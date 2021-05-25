@@ -8,7 +8,7 @@ import com.ssafy.happyhouse.dto.Community;
 import com.ssafy.happyhouse.dto.Page;
 
 public interface CommunityService {
-	void writeCommunity(Community community) throws SQLException;
+	int writeCommunity(Community community) throws SQLException;
 	List<Community> search(Map<String,String> param) throws SQLException;
 	List<Community> listCommunityAll() throws SQLException;
 	Community getCommunity(int no) throws SQLException;

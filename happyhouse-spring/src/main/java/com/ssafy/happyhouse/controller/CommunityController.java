@@ -1,5 +1,6 @@
 package com.ssafy.happyhouse.controller;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -15,11 +16,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ssafy.happyhouse.dto.Community;
 import com.ssafy.happyhouse.dto.Member;
+import com.ssafy.happyhouse.dto.MyFile;
 import com.ssafy.happyhouse.dto.Page;
 import com.ssafy.happyhouse.service.CommunityService;
+import com.ssafy.happyhouse.service.FileService;
 
 @Controller
 @RequestMapping("/community")
@@ -27,6 +31,8 @@ public class CommunityController {
 
 		@Autowired
 		private CommunityService communityService;
+		@Autowired
+		private FileService fileService;
 		
 		@GetMapping(value= {"","/list"}) // OK
 		public String list(Integer pageNo , Model model) throws SQLException {
@@ -104,10 +110,13 @@ public class CommunityController {
 		}
 		
 		@PostMapping("/write") // OK
-		public String doWrite(Community community,HttpSession session , Model model) throws SQLException {
+		public String doWrite(@RequestParam("files") MultipartFile[] files,
+				Community community, HttpSession session , Model model) throws SQLException, IOException {
+			// 트랜잭션 단위로 service에 묶어줘야하는데 이거 그럼 서비스 있는곳에 파라미터로 다 넘겨줘야하나? 일단 냅두고 후에 수정
 			Member member = (Member)session.getAttribute("userinfo");
 			community.setUserid(member.getId());
-			communityService.writeCommunity(community);
+			int boardNo = communityService.writeCommunity(community);
+			fileService.setFiles(files, boardNo);
 			model.addAttribute("result",communityService.listCommunityPage(new Page(1)));
 			return "community/list";
 		}

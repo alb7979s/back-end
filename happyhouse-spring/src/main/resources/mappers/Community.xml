@@ -79,5 +79,10 @@
 		FROM community_board 
 		where `${key}` like '%${word}%'
 	</select>
+	
+	<select id="getMaxNo" resultType="int">
+		select max(no)
+		from community_board
+	</select>
 </mapper>
 
