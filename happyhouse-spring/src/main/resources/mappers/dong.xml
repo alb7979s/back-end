@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ssafy.happyhouse.mapper.DongMapper">
+	<select id ="getDongInfo" parameterType="String" resultType="Dong">
+		SELECT big_classify_name, count(big_classify_name) AS count 
+		FROM store_info si 
+		WHERE dong_name = '${dong}'
+		GROUP BY big_classify_name 
+		HAVING COUNT(big_classify_name) > 1 ;
+	</select>
+</mapper>

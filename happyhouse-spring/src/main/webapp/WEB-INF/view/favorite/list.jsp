@@ -15,7 +15,14 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- 아이콘 라이브러리 -->
 <title>HappyHouse</title>
 <link rel="stylesheet" href="${root}/css/main.css">
-
+<script>
+	let msg = "${msg}"
+	if(msg){
+		console.log(msg);
+		alert(msg);
+		location.href="${root}/member/moveLogin";
+	}
+</script>
 </head>
 <body>
     <%@include file="../main/header.jsp" %>
@@ -24,9 +31,9 @@
       <h1>Happy House</h1>
     </div>
     
-    <div class="fluid" style="margin:30px 20px 0px; ">
+    <div class="container" style="margin:auto; ">
 	  <div class="row">
-	    <div class="col-md-4">
+	    <div class="col-md-5">
 	      <h2>나의 관심지역</h2>
 	      <button class="btn-for-fav" onclick="getCityList();" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i></button>
 	      </br></b2>
@@ -63,7 +70,7 @@
 	      </div>
 	    </div>
 	    
-	    <div class="col-md-8" id="favDetail">
+	    <div class="col-md-7" id="favDetail">
 	     
 	    </div>
 	  </div>
@@ -103,13 +110,6 @@
 
 
     <script>
-    	let msg = "${msg}"
-    	if(msg){
-    		console.log(msg);
-    		alert(msg);
-    		location.href="${root}/member/moveLogin";
-    	}
-    	
     	function getCityList(){
     	 $.ajax({
     		 url:"/sido",
@@ -249,11 +249,11 @@
     		for(apt of top3){
     			details+='<div class="col-sm-4"> <div class="panel panel-default text-center">'
 				details+='<div class="panel-heading"> <h1>'+apt.aptName+'</h1></div>'
-    		    details+='<div class="panel-body" style="margin-top:15px;margin-bottom:15px;">'
-    		    details+='<p><strong>거래금액</strong>'+ apt.dealAmount+'</p>'
+    		    //details+='<div class="panel-body" style="margin-top:15px;margin-bottom:15px;">'
+    		    /* details+='<p><strong>거래금액</strong>'+ apt.dealAmount+'</p>'
     		    details+='<p><strong>면적</strong>'+ apt.area+'</p>'
     		    details+='<p><strong><span class="glyphicon glyphicon-calendar"></span></strong>'+ apt.dealYear+'.'+apt.dealMonth+'.'+apt.dealDay+'</p>'
-    	
+    	 */
     		              /* <div class="panel-body" style="margin-top:15px;margin-bottom:15px;">
     		                <p><strong>거래금액</strong> ${apt.dealAmount}</p>
     		                <p><strong>면적</strong> ${apt.area}</p>
@@ -264,7 +264,7 @@
     		                <div><button class="btn btn-lg" data-toggle="modal" data-target="#mapModal">지도보기</button></div>
     		              </div>
     		            </div>' */
-    		     details+='</div></div></div>'
+    		     details+='</div></div>'
     		}
 			details+='</div>' 		
     		

@@ -54,4 +54,8 @@ public class FileServiceImpl implements FileService {
 		}
 		return;
 	}
+	@Override
+	public List<MyFile> getFiles(int boardNo) {
+		return fileMapper.getFile(boardNo);
+	}
 }

@@ -1,17 +1,21 @@
 package com.ssafy.happyhouse.controller;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -96,16 +100,37 @@ public class CommunityController {
 			return "community/list";
 		}
 		
+		// 겹쳐서 나옴... ResponseEntity 공부해서 수정하기
+		@GetMapping("/loadImage/{boardNo}")
+		public String displayPhoto(HttpServletResponse response, @PathVariable("boardNo") Integer boardNo)throws Exception{
+			response.setContentType("image/jpg");
+		    ServletOutputStream bout = response.getOutputStream();
+		    List<MyFile> fileList = fileService.getFiles(boardNo);
+		    if(fileList.size() == 0) return null;
+		    for(MyFile file: fileList) {
+		    	System.out.println(file);
+		    	FileInputStream f = new FileInputStream(file.getPath() + "\\" + file.getSystemname());
+		    	int length;
+		    	byte[] buffer = new byte[10];
+		    	while((length=f.read(buffer)) != -1){
+		    		bout.write(buffer,0,length);
+		    	}
+		    	f.close();
+		    }
+		    return null;
+		}
+		
 		@GetMapping("/detail") // OK
 		public String detail(@RequestParam(value="number") Integer number, Model model) throws SQLException {
-			System.out.println("detail");
 			Community community = communityService.getCommunity(number);
 			model.addAttribute("community", community);
 			return "/community/detail";
 		}
 		
 		@GetMapping("/write") //OK
-		public String mvWrite() {
+		public String mvWrite(Model model, HttpSession session) {
+			Member member = (Member) session.getAttribute("userinfo");
+			if(member == null) model.addAttribute("msg", "로그인 후 사용 가능한 서비스입니다");
 			return "/community/write";
 		}
 		

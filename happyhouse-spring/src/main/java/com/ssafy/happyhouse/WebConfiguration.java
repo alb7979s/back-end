@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import com.ssafy.happyhouse.interceptor.ModifyConfirmInterceptor;
+import com.ssafy.happyhouse.interceptor.ConfirmInterceptor;
 import com.ssafy.happyhouse.interceptor.NoticeConfirmInterceptor;
 
 @Configuration
@@ -14,7 +14,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter{
 	@Autowired
 	private NoticeConfirmInterceptor noticeComfirmInterceptor;
 	@Autowired
-	private ModifyConfirmInterceptor modifyComfirmInterceptor;
+	private ConfirmInterceptor comfirmInterceptor;
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
@@ -23,7 +23,9 @@ public class WebConfiguration extends WebMvcConfigurerAdapter{
 		.excludePathPatterns("/notice/detail")
 		.excludePathPatterns("/notice/");
 		
-		registry.addInterceptor(modifyComfirmInterceptor).addPathPatterns("/member/moveModify");
+		registry.addInterceptor(comfirmInterceptor).addPathPatterns("/member/moveModify");
+//		registry.addInterceptor(comfirmInterceptor).addPathPatterns("/community/write");
+		
 	}
 
 }

@@ -30,6 +30,14 @@ public class Apt {
 	private String lat;
 	private String lng;
 	
+	private int price;
+	
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
 	public int getNo() {
 		return no;
 	}

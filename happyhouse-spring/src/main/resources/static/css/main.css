@@ -74,10 +74,10 @@ tbody > tr:hover {
 	width:104px; 
 	height:30px; 
 	overflow:hidden; 
-	/*  ÆÄÀÏ ¼±ÅÃ ¹öÆ° ¼û±â±â */
+	/*  ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ï¿½ */
 	text-indent:-5000px; 
 	cursor:pointer; 
-	/*  ¼±ÅÃµÈ ÆÄÀÏ Á¤º¸ ¼û±â±â*/
+	/*  ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½*/
 	color:transparent; 
 }
 
@@ -342,9 +342,26 @@ appearance: none;
 
 .pList{
 	font-weight: bold; 
-	font-size: 1.5em;"
+	font-size: 1.5em;
 }
 
 .aptInfo > p{
 	font-size: 20px;
+}
+
+ .shadow1 {
+ 	box-shadow: 2px -5px 5px 0px black;
+ }
+
+
+.aptPanelSub >div {
+	margin-top:10px;
+	margin-bottom:20px;
+	/* border: 1px solid black; */
+}
+
+
+.aptPanelSub > div > p{
+	font-weight: bold; 
+	font-size: 1.5em;
 }

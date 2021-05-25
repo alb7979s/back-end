@@ -9,11 +9,21 @@
 		where ${key} like '%${word}%'
 	</select> -->
 	<select id="aptSearch" parameterType="map" resultType="apt">
-		SELECT hd.no, hd.dong, hd.AptName ,hd.code ,hd.dealAmount ,hd.buildYear ,hd.dealYear ,hd.dealMonth ,hd.dealDay ,hd.area , hd.floor, hd.jibun ,hi.lat, hi.lng
+		SELECT DISTINCT hd.dong, hd.AptName ,hi.lat, hi.lng
 		FROM houseinfo hi 
 		JOIN housedeal hd 
 		on hi.AptName = hd.AptName AND hi.dong =hd.dong 
 		where hd.${key} like '%${word}%' 
+	</select>
+
+	<select id="getDealInfo" parameterType="map" resultType="apt">
+		SELECT hd.no, hd.dong, hd.AptName ,hd.code ,hd.dealAmount ,hd.buildYear ,hd.dealYear ,hd.dealMonth ,hd.dealDay ,hd.area , hd.floor, hd.jibun ,hi.lat, hi.lng
+		FROM houseinfo hi 
+		JOIN housedeal hd 
+		on hi.AptName = hd.AptName AND hi.dong =hd.dong 
+		where hd.dong = '${dong}' 
+		and hd.aptName = '${aptName}'  
+		order by dealYear , dealMonth, dealDay 
 	</select>
 	
 	
@@ -61,18 +71,31 @@
 		)
 	</update>
 	
-	<update id="clickUp" parameterType="Integer">
+	<update id="clickUp" parameterType="map">
 		update housedeal 
 		set click_view = click_view+1 
-		where no = #{no} 
+		where dong = '${dong}' and AptName='${aptName}' 
 	</update>
 	
 	
 	<select id="selectTop3" parameterType="map" resultType="apt">
-		select *     
-		from housedeal   
-		where dong='${dong}'  
-		order by click_view DESC 
+		SELECT DISTINCT AptName 
+		FROM housedeal h 
+		WHERE dong = '${dong}'  
+		ORDER BY click_view DESC 
 		limit 3 
+	</select>
+	
+	<select id="graphInfo" parameterType="map" resultType="apt">
+		SELECT aptName, dealAmount 
+		FROM housedeal 
+		where ${key} like '%${word}%' 
+	</select>
+	
+	
+	
+	<select id="getStore" resultType="store">
+		select * 
+		from store 
 	</select>
 </mapper>

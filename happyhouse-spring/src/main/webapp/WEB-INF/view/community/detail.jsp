@@ -35,15 +35,14 @@
 			<div class="form-group">
 				<label for="exampleFormControlInput1"
 					style="color: black; font-size: 20px; font-weight: bold">제목</label>
-				<input type="title" class="form-control"
-					id="exampleFormControlInput1" readonly="readonly" value="${community.subject}">
 			</div>
+			${community.subject}
 			<div class="form-group">
 				<label for="exampleFormControlTextarea1"
 					style="resize: horizontal; color: black; font-size: 20px; font-weight: bold">내용</label>
-				<textarea class="form-control" id="exampleFormControlTextarea1"
-					rows="25" readonly="readonly">${community.content}</textarea>
 			</div>
+			<div><img src="/community/loadImage/${community.no}"/></div>
+			${community.content}
 		</form>
 		<div id="upde" style="text-align: center;">
 			<button type="button" class="btn btn-warning" 

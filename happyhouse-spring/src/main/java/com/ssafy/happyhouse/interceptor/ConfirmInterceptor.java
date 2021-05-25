@@ -17,9 +17,8 @@ public class ConfirmInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 		HttpSession session = request.getSession();
 		Member member = (Member) session.getAttribute("userinfo");
-		if (member == null || !"admin".equals(member.getId())) {
-			System.out.println(request.getContextPath());
-			response.sendRedirect(request.getContextPath());
+		if (member == null) {
+			response.sendRedirect("/");
 			return false;
 		}
 		return true;

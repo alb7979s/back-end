@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.happyhouse.dto.Apt;
+import com.ssafy.happyhouse.dto.Store;
 import com.ssafy.happyhouse.mapper.AptMapper;
 
 
@@ -57,13 +58,28 @@ public class AptServiceImpl implements AptService {
 	}
 
 	@Override
-	public void clickUp(int no) {
-		aptMapper.clickUp(no);
+	public void clickUp(Map<String, String> map) {
+		aptMapper.clickUp(map);
 	}
 
 	@Override
 	public List<Apt> selectTop3(Map<String, String> param) {
 		return aptMapper.selectTop3(param);
+	}
+
+	@Override
+	public List<Apt> graphInfo(Map<String, String> param) {
+		return aptMapper.getGraphInfo(param);
+	}
+
+	@Override
+	public List<Apt> getDealInfo(Map<String, String> param) {
+		return aptMapper.getDealInfo(param);
+	}
+
+	@Override
+	public List<Store> getStore() {
+		return aptMapper.getStore();
 	}
 
 }

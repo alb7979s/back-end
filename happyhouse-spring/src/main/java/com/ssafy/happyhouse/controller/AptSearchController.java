@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ssafy.happyhouse.dto.Apt;
 import com.ssafy.happyhouse.dto.Member;
+import com.ssafy.happyhouse.dto.Store;
 import com.ssafy.happyhouse.service.AptService;
+
 
 @Controller
 public class AptSearchController extends HttpServlet {
@@ -36,13 +38,22 @@ public class AptSearchController extends HttpServlet {
 		}
 		
 		List<Apt> list = aptService.aptSearch(key, word);
-		change(list);
+		List<Store> list_store = aptService.getStore();
+		for(Store s : list_store) {
+			//System.out.println(s.toString());
+		}
+		//change(list);
 		
 		//System.out.println(list);
 		
 		result.put("key", key);
 		result.put("word", word);
 		result.put("aptinfo", list);
+		
+		/*
+		 * JSONArray jsonArray = new JSONArray(); model.addAttribute("storeinfo",
+		 * jsonArray.fromObject(list_store));
+		 */
 		model.addAttribute("result", result);
 //		System.out.println(key+" "+word);//검색 key, word 출력 ok
 //		System.out.println(list);
@@ -65,7 +76,10 @@ public class AptSearchController extends HttpServlet {
 		//매매 가격을 X억 XXXX으로 보여주기 위해서
 				for(Apt item : list) {
 					String price = item.getDealAmount().trim();
+					
+					
 					price = price.replace("," , "");
+					item.setPrice(Integer.parseInt(price));
 					
 					String t = price.substring(price.length()-4, price.length());
 					String m = price.substring(0, price.length()-4);
@@ -154,8 +168,8 @@ public class AptSearchController extends HttpServlet {
 	
 	@RequestMapping(value="/clickUp", method=RequestMethod.PUT)
 	@ResponseBody
-	public String clickUp (@RequestBody String no) throws Exception {
-		aptService.clickUp(Integer.parseInt(no));
+	public String clickUp (@RequestBody Map<String, String> param) throws Exception {
+		aptService.clickUp(param);
 		return "success";
 	}
 	
@@ -166,7 +180,14 @@ public class AptSearchController extends HttpServlet {
 		 * Map<String, String> map = new HashMap<String, String>(); map.put("gugun",
 		 * param.get("gugun")); map.put("dong", param.get("dong"));
 		 */
-		return change(aptService.selectTop3(param));
+		return aptService.selectTop3(param);
+	}
+	
+	@RequestMapping(value="/aptDealInfo", method=RequestMethod.POST)
+	@ResponseBody
+	public List<Apt> aptDealInfo (@RequestBody Map<String, String> param) throws Exception {
+		
+		return change(aptService.getDealInfo(param));
 	}
 
 }

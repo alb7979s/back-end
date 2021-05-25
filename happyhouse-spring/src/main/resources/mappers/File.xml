@@ -12,4 +12,10 @@
 		)
 	</insert>
 	
+	<select id="getFile" parameterType="Integer" resultType="myFile">
+		SELECT *
+		FROM file f
+		WHERE f.boardno = #{boardNo}
+	</select>
+	
 </mapper>

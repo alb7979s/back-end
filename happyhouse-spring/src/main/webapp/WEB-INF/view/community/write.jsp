@@ -19,6 +19,14 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <title>HappyHouse</title>
   <link rel="stylesheet" href="${root}/css/main.css">
+ <script>
+ 	let msg = "${msg}"
+ 	if(msg){
+ 		console.log(msg);
+ 		alert(msg);
+ 		location.href="${root}/member/moveLogin";
+ 	}
+ </script>
 </head>
 
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
