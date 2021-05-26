@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace="com.ssafy.happyhouse.mapper.CommentMapper">
+ 
+    <select id="commentCount" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM COMMENT
+    </select>
+    
+    <select id="commentList" resultType="comment">
+        SELECT *
+        FROM COMMENT
+    </select>
+    
+    
+    <insert id="commentInsert" parameterType="comment">
+        INSERT INTO
+        COMMENT (no, boardno, content, userid)
+        VALUES(#{no},#{boardno},#{content},#{userid}) 
+    </insert>
+    
+    <update id="commentUpdate" parameterType="comment">
+        UPDATE COMMENT
+            SET
+            CONTENT = #{content}
+        WHERE no = #{no}
+    </update>
+    
+    <delete id="commentDelete" parameterType="int">
+        DELETE FROM COMMENT WHERE no = #{no}
+    </delete>
+</mapper>

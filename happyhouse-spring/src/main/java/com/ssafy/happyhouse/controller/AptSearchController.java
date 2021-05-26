@@ -38,6 +38,7 @@ public class AptSearchController extends HttpServlet {
 		}
 		
 		List<Apt> list = aptService.aptSearch(key, word);
+		
 		List<Store> list_store = aptService.getStore();
 		for(Store s : list_store) {
 			//System.out.println(s.toString());

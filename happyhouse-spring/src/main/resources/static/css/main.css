@@ -152,7 +152,7 @@ span.file.txt-photo {}
   font-style: normal;
 }
 .panel {
-  border: 1px solid #3588b8; 
+  border: 1px solid #bddbec; 
   border-radius:0 !important;
   transition: box-shadow 0.5s;
 }
@@ -165,8 +165,8 @@ span.file.txt-photo {}
   color: #3588b8;
 }
 .panel-heading {
-  color: #fff !important;
-  background-color: #3588b8 !important;
+  color: #000000!important;
+  background-color: #fff!important;
   padding: 5px;
   border-bottom: 1px solid transparent;
   border-top-left-radius: 0px;
@@ -353,15 +353,23 @@ appearance: none;
  	box-shadow: 2px -5px 5px 0px black;
  }
 
-
+.aptPanelSub{
+	background-color: #5758bb;
+  box-shadow: 20px 20px 20px grey;
+}
 .aptPanelSub >div {
 	margin-top:10px;
 	margin-bottom:20px;
 	/* border: 1px solid black; */
+	text-align:left;
 }
 
 
-.aptPanelSub > div > p{
+.aptPanelSub > div > .p1{
 	font-weight: bold; 
-	font-size: 1.5em;
+	font-size: 1em;
+}
+.aptPanelSub > div > .p2{
+	font-weight: bold; 
+	font-size: 1.2em;
 }

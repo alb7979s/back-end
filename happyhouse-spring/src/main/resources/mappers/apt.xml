@@ -98,4 +98,60 @@
 		select * 
 		from store 
 	</select>
+	
+	
+	<select id="getDealCnt" parameterType="map" resultType="Integer">
+		select count(*) 
+		from housedeal 
+		where dong = '${dong}'
+	</select>
+	<select id="getCmpDealCnt" parameterType="map" resultType="Integer">
+		select count(*) 
+		from housedeal 
+		where dong = '${compare}'
+	</select>
+	
+	<select id="getDealAmount" parameterType="map" resultType="Apt">
+		select dealAmount 
+		from housedeal 
+		where dong = '${dong}'
+	</select>
+	<select id="getCmpDealAmount" parameterType="map" resultType="Apt">
+		select dealAmount 
+		from housedeal 
+		where dong = '${compare}'
+	</select>
+	
+	
+	
+	
+	<select id="getMaxDealAmount" parameterType="map" resultType="String">
+		select dealAmount 
+		from housedeal 
+		where dong = '${dong}'
+		order by dealAmount DESC 
+		limit 1 
+	</select>
+	<select id="getMaxCmpDealAmount" parameterType="map" resultType="String">
+		select dealAmount 
+		from housedeal 
+		where dong = '${compare}' 
+		order by dealAmount DESC 
+		limit 1
+	</select>
+	
+	<select id="getMinDealAmount" parameterType="map" resultType="String">
+		select dealAmount 
+		from housedeal 
+		where dong = '${dong}'
+		order by dealAmount 
+		limit 1 
+	</select>
+	<select id="getMinCmpDealAmount" parameterType="map" resultType="String">
+		select dealAmount 
+		from housedeal 
+		where dong = '${compare}' 
+		order by dealAmount 
+		limit 1
+	</select>
 </mapper>

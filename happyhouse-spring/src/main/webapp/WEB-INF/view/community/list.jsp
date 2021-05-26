@@ -31,7 +31,6 @@
 	    <div class="dropdown" style="float: right; height: 51px;">
 	    <!--    <button type="button" class="btn dropdown-toggle dropbtn" data-toggle="dropdown">검색</button>-->
 	     	<select class="btn dropdown-toggle dropbtn" data-toggle="dropdown" name="key" id="key" onchange="inputPlaceholder();">
-	   	 		<option value="userid" <c:if test="${result.key =='userid'}">selected</c:if>>작성자</option>
 	   	 		<option value="subject" <c:if test="${result.key =='subject'}">selected</c:if>>제목</option>
 	    		<option value="content" <c:if test="${result.key =='content'}">selected</c:if>>내용</option>
 	    	</select>

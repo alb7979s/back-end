@@ -32,6 +32,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
+
 <title>HappyHouse</title>
 <link rel="stylesheet" href="${root}/css/main.css">
 
@@ -86,36 +87,18 @@ function searchCity() {
 .placeinfo .tel {color:#0f7833;}
 .placeinfo .jibun {color:#999;font-size:11px;margin-top:0;}
 
-
-      html,
-      body {
-        width: 100%;
-        height: 100%;
-      }
-      .container {
-        width: 100%;
-        height: 80%;
-      }
-
 </style>
 
 </head>
-<body>
+<body style="height:100%; margin-top:60px">
 
     <%@include file="../main/header.jsp" %>
 
-	
-	<div style="height:80px">
-	</div>
-<!-- 	<div class="jumbotron text-center">
-      <h1>Happy House</h1> 
-    </div> -->
-    
 	<div class="container" style="width:100%; max-height: 100%; ">
 		<div class="row">
 			<div class="col-md-3" style="height:70%">
 			  <p style="font-size: 130%;">실거래가를 검색해보세요!</p>
-		      <div style="margin-left:10px; display: inline-block; text-align:center; width:100%; height:30%;" >
+		      <div style="margin-left:5px; display: inline-block; text-align:center; width:100%; height:30%;" >
 		        <form id="searchform" method="get" action="">
 		            <div class="input-group">
 		                <select class="form-control" name="key" id="key" style="width:100px;">
@@ -149,14 +132,15 @@ function searchCity() {
 		            </div>
 		            
 		            <div class="aptPanelSub">
-				      	<div  style="width:30%; height:150px; float:left;">
+				      	<div  style="width:30%; height:100px; float:left;">
 							<img src="../images/apt.jpg" style="height:100%; width:80%;"></img>
 						</div>
-						<div  style="width:70%; height:150px; float:left;">
-							<p>${apt.dong}</p>
-							<p>${apt.aptName}</p>
+						<div  style="width:70%; height:100px; float:left;">
+							<p class="p1">${apt.dong}</p>
+							<p class="p2">${apt.aptName}</p>
 						</div>
 					</div>
+					
 				</div>
 		      	 
 				</c:forEach>
@@ -169,64 +153,107 @@ function searchCity() {
 			
 				<div id="map" style="width:100%; height:700px;">
 					<ul id="category">
-				        <li id="SC4" data-order="0"> 
+				        <li id="BK9" data-order="0"> 
 				            <span class="category_bg bank"></span>
-				            학교
-				        </li> 
-				        <li id="SW8" data-order="1"> 
-				            <span class="category_bg oil"></span>
-				            지하철
-				        </li>  
-				        <li id="MT1" data-order="2"> 
+				            은행
+				        </li>       
+				        <li id="MT1" data-order="1"> 
 				            <span class="category_bg mart"></span>
 				            마트
 				        </li>  
-				        <li id="PM9" data-order="3"> 
+				        <li id="PM9" data-order="2"> 
 				            <span class="category_bg pharmacy"></span>
 				            약국
 				        </li>  
-				          
-				        <li id="HP8" data-order="4"> 
-				            <span class="category_bg cafe"></span>
-				            병원
+				        <li id="OL7" data-order="3"> 
+				            <span class="category_bg oil"></span>
+				            주유소
 				        </li>  
-				        <li id="CE7" data-order="5"> 
-				            <span class="category_bg store"></span>
+				        <li id="CE7" data-order="4"> 
+				            <span class="category_bg cafe"></span>
 				            카페
-				        </li>      
-				        <li id="CS2" data-order="6"> 
+				        </li>  
+				        <li id="CS2" data-order="5"> 
 				            <span class="category_bg store"></span>
 				            편의점
 				        </li>      
 				    </ul>
 				</div>
 			</div>
-			<div class="col-md-3" id="details" style="display:none; overflow-y:auto;" >
-				<!-- 아파트 상세 정보를 띄울 부분 -->
-				<div id="aptName"></div>
-				<div id="aptDetail">
-				</div>
-				
-				<div class="card-body"  style="height:120;"> 
-					<canvas id="aptChart"></canvas>
-				</div>
-				
-				<div id="aptSearchCnt" style="margin:auto;"></div>
-				<div id="compareBtn">거래내역 상세 조회하기
-				  <div id="slideTogglebox" style="display:none;">
-				  </div>
-				</div>
-				
-				<div id="card-body" style="height: 270px; width: 100%;">
-					<canvas id="chartContainer"></div>
-				</div>
-				
-				</div>
-			</div>
 			
+			<div class="col-md-3" id="details" style="display:none; overflow-y:auto; height:700px" >
+				<!-- <div class = "my-custom-scrollbar my-custom-scrollbar-primary" style="overflow-y:auto; position:absolute; text-align:center; height:600px;"> -->
+					<!-- 아파트 상세 정보를 띄울 부분 -->
+					<div id="aptName"></div>
+					<div id="aptDetail"></div>
+					
+					<div class="card-body"  style="height:120;"> 
+						<canvas id="aptChart"></canvas>
+					</div>
+					
+					<div id="aptSearchCnt" style="margin:auto;"></div>
+					<div id="compareBtn">
+					  <div style="width:100%; margin:10px auto; border-bottom:1px solid black"><h3>거래내역 상세 조회하기▼</h3></div>
+					  <div id="slideTogglebox" style="display:none;"></div>
+					</div>
+					
+					<div style="text-align:center; margin-top:40px"><p>동네 인구 정보</p></div>
+					<div id="card-body" style="width: 100%; border-bottom:1px solid black">
+						<canvas id="chartContainer_population_info"></canvas>
+						<div id="people" style="text-align:center; margin-top:20px;"></div>
+						<div id="over65" style="margin-top:10px"></div>
+						<div id="percentLabel" style="text-align:center; margin-top:40px"></div>
+						<canvas id="chartContainer_population" style="margin-bottom:40px;"></canvas>
+					</div>
+					<div style="text-align:center; margin-top:40px"><p>동네 상권 정보</p></div>
+					<div id="card-body" style="height: 270px; width: 100%;">
+						<canvas id="chartContainer"></canvas>
+					</div>
+					
+					<div class="card-body" style="width:100%; margin:auto; margin-bottom:50px;"> 
+					<button type="button" class="form-select" style="width:100%; margin:auto;" 
+						data-toggle="modal" data-target="#myModal"> 다른 동네와 비교하기 </button>
+					</div>
+					
+					</div>
+				<!-- </div> -->
+			
+			</div> 
+			</div>
+			</div>
 		</div>
 	</div>
 	
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">동네 비교하기</h4>
+	      </div>
+	      <div class="modal-body">
+	        <div  style="width:100%; margin:auto;">
+				      <select style="width:30%" class="form-select" name="gugun" id="gugun" onchange="getDongList(this.value)" aria-label="Default select example">
+						  <option value="" name='gugun'>시/구/군</option>
+					  </select>
+				      <select style="width:30%" class="form-select" name="dong" id="dong" aria-label="Default select example">
+						  <option value="" name='dong'>동</option>
+					  </select>
+					  
+					  <button class="form-select" style="width:30%;" onclick="compare();">비교하기</button>
+			</div>
+			
+			<div class="card-body" id="comparediv" style="margin:auto;"> 
+			
+	      </div>
+	      
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+	      </div>
+	    </div>
+	  </div>
+	  </div>
 
 <!-- <script type="text/javascript">
     function sendLinkCustom() {
@@ -238,16 +265,310 @@ function searchCity() {
 </script> -->
 
 <script>
+let label=[];
+let d=[];
+let curdongData=[], searchdongData=[];
+let curdongPopData=[], searchdongPopData=[];
+
+$('#myModal').on('hide.bs.modal', function () {
+	  //console.log("dsfdsfd");
+	  $("#comparediv").empty();
+		$('#comparediv').empty();
+		$("#dong").empty().append( "<option value=''> 동 </option>" );
+		$("#gugun").empty().append( "<option value=''> 시/구/군 </option>" );
+		makeGugun();
+});
+function compare(){
+	gugun = $('#gugun option:selected').val();
+	dong = $('#dong option:selected').val();
+
+	if(gugun=='' || dong=='') {
+		alert("비교할 동네를 선택해주세요");
+		return;
+	}
+	curdong = $('#aptName').text();
+	curdong = curdong.replace("[","");
+	curdong = curdong.replace(']', "");
+	curdong=curdong.split(" ");
+	
+	console.log(curdong[1]);
+	
+	 var datas = {
+			"dong":curdong[1],
+	 		"compare":dong
+	 };
+	 
+	 $.ajax({
+		 url:"/compare",
+		 data: JSON.stringify(datas),
+		 method:"post",
+		 dataType: "json",
+		 contentType:"application/json; charset=UTF-8",
+		 success:function(data){
+			
+			//console.log(data);
+			 $("#comparediv").empty();
+			 info=""
+			 info+='<table class="table justify-content-center " style="width:100%; margin-top:10px; text-align: center; ">'
+			 info+='<tr><th class="text-center">'+curdong[1]+'</th><th></th><th class="text-center">'+dong+'</th></tr>'
+			 info+='<tr><td>'+data.dongcnt+'건</td><td>거래수</td><td>'+data.comparecnt+'건</td></tr>'
+			 info+='<tr><td>'+data.dongamount+'</td><td>평균거래가</td><td>'+data.compareamount+'</td></tr>'
+			 info+='<tr><td>'+data.dongmax+'</td><td>최고거래가</td><td>'+data.comparemax+'</td></tr>'
+			 info+='<tr><td>'+data.dongmin+'</td><td>최저거래가</td><td>'+data.comparemin+'</td></tr>'
+			 info+='</table>'
+			 
+			 info+='<div class="row">'
+			 info+='<div style="text-align:center"><h3>인구수 비교</h3></div>'
+			 info+='<div><canvas id="percentChart0" ></canvas></div>'
+			 info+='<div id="people_modal" style="text-align:center; margin-top:5px;"></div>'
+			 
+			 info+='<div id="dong1" style="text-align:center; margin-top:20px; width:50%; float:left"></div>'
+			 info+='<div id="dong2" style="text-align:center; margin-top:20px; width:50%; float:left"></div>'
+			
+			 info+='<div style="width:50%; float:left;"><canvas id="percentChart" ></canvas></div>'
+			 info+='<div style="width:50%; float:left;"><canvas id="percentChart2" style="width:50%"></canvas></div>'
+			 info+='</div>'
+			 
+			
+			 info+='<div style="text-align:center"><h3>상권 비교</h3></div>'
+			 info+='<canvas id="storeChart"></canvas>'
+			 
+			$("#comparediv").append(info);
+			 
+				 $.ajax({
+						url:'/dongInfo',
+						data: dong,
+						method:'post',	    			
+						dataType: "json",
+						async:false,
+						contentType:"application/json; charset=UTF-8",
+						success:function(data){
+							data.sort(function (a, b) {
+							    let x = a.big_classify_name;
+							    let y = b.big_classify_name;
+							    if (x < y) {
+							        return -1;
+							    }
+							    if (x > y) {
+							        return 1;
+							    }
+							    return 0;
+							});
+							
+							searchdongData=data;
+						}
+					});
+				 
+				 $.ajax({
+					 url:'/populationInfo',
+						data: dong,
+						method:'post',	    			
+						dataType: "json",
+						contentType:"application/json; charset=UTF-8",
+						success:function(d){
+							console.log("서치한 값 출력");
+							console.log(d);	
+							searchdongPopData=d;
+							
+							console.log(searchdongPopData);
+							console.log(curdongPopData);
+							
+							family = parseInt(searchdongPopData.family);
+							population = parseInt(searchdongPopData.population);
+							//console.log(data1);
+							family2 = parseInt(curdongPopData.family);
+							population2 = parseInt(curdongPopData.population);
+							//console.log(data2);
+							
+							data1 = [family, population];
+							data2 = [family2, population2];
+							
+							maxLabel = searchdongPopData.dong;
+							minLabel = curdongPopData.dong;
+							var ctx = document.getElementById('percentChart0').getContext('2d');
+							var chart = new Chart(ctx, { 
+								// type : 'bar' = 막대차트를 의미합니다. 
+								type: 'bar', 
+								data: { 
+									labels: ['세대수', '인구수'], // 큰 분류(하단 데이터 이름) 
+									datasets: [ 
+										{ label: maxLabel, //작은 분류 
+											backgroundColor: [ '#fd999a',  '#fd999a'], 
+											//borderColor: 'rgb(255, 99, 132)', 
+											data: data1
+										}, 
+										{ label: minLabel, //작은 분류 
+											backgroundColor: [ '#fec8c9',  '#fec8c9'],  
+											//borderColor: 'rgb(255, 99, 132)', 
+											data: data2
+										} 
+									] },
+
+							});
+
+							 //console.log(d);
+							 str = '<i class="glyphicon glyphicon-home"></i>'+searchdongPopData.dong+' 세대당 인구: '+searchdongPopData.family_population;
+							 str += '</br><i class="glyphicon glyphicon-home"></i>'+curdongPopData.dong+' 세대당 인구: '+curdongPopData.family_population;
+							 $('#people_modal').append(str);
+							 
+							 $('#dong1').append(searchdongPopData.dong+" 외국인 비율(%)");
+							 $('#dong2').append(curdongPopData.dong+" 외국인 비율(%)");
+							 
+							 
+							console.log(searchdongPopData);
+							console.log(curdongPopData);
+							
+							
+							var pictx_percent = document.getElementById('percentChart').getContext('2d');
+							
+							 var data={
+									labels:['한국인','외국인'],
+									datasets:[{
+										data:[searchdongPopData.percentage_k, searchdongPopData.percentage_f],
+										backgroundColor: [
+										      '#fd999a',
+										      '#fec8c9',
+										    ],
+									}]
+							}; 
+							var PChart_percent = new Chart(pictx_percent,{
+								type:'pie',
+								data:data,
+							}); 
+							
+							var pictx_percent2 = document.getElementById('percentChart2').getContext('2d');
+							
+							 var data={
+									labels:['한국인','외국인'],
+									datasets:[{
+										data:[curdongPopData.percentage_k, curdongPopData.percentage_f],
+										backgroundColor: [
+										      '#fd999a',
+										      '#fec8c9',
+										    ],
+									}]
+							}; 
+							var PChart_percent2 = new Chart(pictx_percent2,{
+								type:'pie',
+								data:data,
+							}); 
+						}
+				 });
+					
+			
+			 
+			 console.log(curdongData);
+			
+			 curdongData.sort(function (a, b) {
+			    let x = a.big_classify_name;
+			    let y = b.big_classify_name;
+			    if (x < y) {
+			        return -1;
+			    }
+			    if (x > y) {
+			        return 1;
+			    }
+			    return 0;
+			});
+			console.log(searchdongData);
+			
+			maxData = curdongData;
+			minData = searchdongData;
+			
+			maxLabel = curdong[1];
+			minLabel = dong;
+			if(maxData.length<minData.length){
+				temp=minData;
+				minData=maxData;
+				maxData=temp;
+				
+				temps = minLabel;
+				minLabel = maxLabel;
+				maxLabel=temps;
+			}
+			
+			var index=0,k=0;
+			let label =[];
+			let maxdatas=[];
+			let mindatas=[];
+			let storedata=[];
+			for(var key in maxData) {
+				var key1 = maxData[key].big_classify_name;
+				var key2 = minData[index].big_classify_name;
+				
+				label[k]=key1;
+			
+				if(key1 == key2){
+					maxdatas[k] = maxData[k].count;
+					mindatas[k] = minData[index].count;
+					index++;
+				}
+				else{
+					maxdatas[k] = maxData[k].count;
+					mindatas[k] = 0;
+				}
+				k++;
+			}
+			
+			console.log(maxdatas);
+			console.log(mindatas);
+			
+			var ctx = document.getElementById('storeChart').getContext('2d');
+			var chart = new Chart(ctx, { 
+				// type : 'bar' = 막대차트를 의미합니다. 
+				type: 'bar', 
+				data: { 
+					labels: label, // 큰 분류(하단 데이터 이름) 
+					datasets: [ 
+						{ label: maxLabel, //작은 분류 
+							backgroundColor: [ '#99bbad','#99bbad','#99bbad','#99bbad','#99bbad','#99bbad','#99bbad','#99bbad','#99bbad' ], 
+							//borderColor: 'rgb(255, 99, 132)', 
+							data: maxdatas
+						}, 
+						{ label: minLabel, //작은 분류 
+							backgroundColor: [ '#c6a9a3','#c6a9a3','#c6a9a3','#c6a9a3','#c6a9a3','#c6a9a3','#c6a9a3','#c6a9a3','#c6a9a3' ], 
+							//borderColor: 'rgb(255, 99, 132)', 
+							data: mindatas 
+						} 
+					] },
+
+			});
+			
+			
+			
+		 }
+	 });
+}
+
+	 function getDongList(gugun){
+		 $.ajax({
+			 url:"/dong",
+			 data: gugun,
+			 method:"post",
+	   		 dataType: "json",
+	   		 contentType:"application/json; charset=UTF-8",
+			 success:function(dongList){
+				
+				 $("#dong").empty().append( "<option value=''> 동 </option>" )
+				 
+				 for(dong of dongList){
+				 	$("#dong").append( "<option value='"+dong+"' name='dong' >"+ dong+" </option>" )
+				 }
+				 
+			 }
+		 	})
+	 }
 
 $(document).ready(function(){
 	  $('#compareBtn').click(function(){
 	    $('#slideTogglebox').slideToggle();
-	  })	  
+	  });
+	  
 });
 	
 $( document ).ready(function(){
 	var result = get_query();
-	console.log(result);
+	console.log(result); 
 });
 
 function get_query(){
@@ -261,14 +582,34 @@ function get_query(){
 }
 
 let details='';
-let dctx, ctx;
-let DChart, chart;
+let dctx, ctx, pctx, pictx;
+let DChart, chart, PChart, PIChart;
 
+function makeGugun(){
+	  $.ajax({
+			 url:"/gugun",
+			 data: "11",
+			 method:"post",
+			 dataType: "json",
+			 contentType:"application/json; charset=UTF-8",
+			 success:function(gugunList){
+				
+				 $("#gugun").empty().append( "<option value=''> 시/구/군 </option>" )
+				 
+				 //console.dir(sidoList)
+				 for(gugun of gugunList){
+					//console.log(gugun.code + ","+ gugun.name);
+					$("#gugun").append( "<option value='"+gugun+"' name='gugun' >"+ gugun+" </option>" )
+				 }
+				 
+			 }
+		 	});
+}
 function showDetail(aptinfo){
 	$("#details").css("display", "block");
 	$("#aptDetail").empty();
 	
-	//console.log(aptinfo);
+	makeGugun(); //모달창에서 쓸 select box 만들어줌
 	
 	var info = aptinfo.split('/');
     /*  for ( var i in info ) {
@@ -277,9 +618,7 @@ function showDetail(aptinfo){
     
 	//지도 변경
 	panTo(new kakao.maps.LatLng(info[2], info[3]));
-    //zoom();
     map.setLevel(2);
-	//showLocation(info[2],info[3]);
 	
     clickUp(info[0], info[1]);
 
@@ -290,11 +629,9 @@ function showDetail(aptinfo){
     $("#aptName").append(details);
     //details+='<button id="shareButton" style="font-size:24px" ><i class="fas fa-share-square"></i>공유하기</button>'
     //details+='<button class="btn" style="font-size:24px"><i class="fa fa-heart" style="font-size:30px;color:pink;"></i>찜하기</button>'
-    
-
-
-	//details+='<div id="roadview" style="width:100%;height:300px;"></div>'
-	//makeView(info[2],info[3]);
+  
+	/* details+='<div id="roadview" style="width:100%;height:300px;"></div>'
+	makeView(info[2],info[3]); */
 
 	$("#slideTogglebox").empty();
 	
@@ -310,8 +647,28 @@ function showDetail(aptinfo){
 			dataType: "json",
 			contentType:"application/json; charset=UTF-8",
 			success:function(d){
-				makeTable(d);
+				makeTable(d); //거래내역 테이블
 			}  
+		}); 
+		$.ajax({
+			url:'/populationInfo',
+			data: info[0],
+			method:'post',	    			
+			dataType: "json",
+			contentType:"application/json; charset=UTF-8",
+			success:function(d){
+				//console.log(d);
+				curdongPopData = d;
+				makePopulationInfoChart(d);
+				makePopulationChart(d); //인구정보 차트
+				
+				str = '<i class="glyphicon glyphicon-home"></i> 세대당 인구: '+d.family_population;
+				$('#people').append(str);
+				
+				/* p = d.
+				str='<i class="glyphicon glyphicon-user"></i>65세 고령 인구 비율: '
+				$('#over65').append(str); */
+			}
 		}); 
 		$.ajax({
 			url:'/dongInfo',
@@ -320,37 +677,17 @@ function showDetail(aptinfo){
 			dataType: "json",
 			contentType:"application/json; charset=UTF-8",
 			success:function(d){
-				console.log(d);
-				
-				makeChart(d);
-				
-				/* var dctx = document.getElementById('chartContainer').getContext('2d'); 
-				var chart = new Chart(ctx, { 
-					// 챠트 종류를 선택 
-					type: 'line', 
-					// 챠트를 그릴 데이타 
-					data: { 
-						labels: dealDay, 
-						datasets: [{ label: '실거래가', 
-						backgroundColor: 'transparent',
-						borderColor: 'blue', 
-						data: dealAmount
-					}] }, 
-					// 옵션 
-					options: {} 
-				}); */
+				//console.log(d);
+				curdongData = d;
+				makeChart(d); //상권정보 차트	
 			}
 		}); 
 		
 		
-		
-		
-		//$("#aptDetail").append(details);
-		
-		/* let shareinfo = info[0]+" "+info[1];
+		let shareinfo = info[0]+" "+info[1];
 	    console.log( window.location.href);
 	    
-		shareButton.addEventListener("click", async () => {
+/* 		shareButton.addEventListener("click", async () => {
 	    	  // 카카오링크 버튼 생성
 	    	  Kakao.Link.createDefaultButton({
 	    	    container: '#shareButton', // 카카오공유버튼ID
@@ -375,13 +712,75 @@ function showDetail(aptinfo){
 	  	            }
 	  	          }
 	  	        ],
-	    	  });
-		}); */
-		
+	    	  }); 
+		});*/	
 }
+
+function makePopulationInfoChart(infos){
+	$('#percentLabel').append("<p>"+infos.dong+"외국인 비율(%)</p>");
+	family = parseInt(infos.family.replace(",",""));
+	population = parseInt(infos.population.replace(",",""));
+	
+	pictx = document.getElementById('chartContainer_population_info').getContext('2d');
+	var data_info={
+			labels:[infos.dong],
+			datasets:[{
+				label: "세대수",
+				data: [family],
+				backgroundColor: [
+				      '#fd999a',
+				    ],
+			},{
+				label: "인구수",
+				data: [population],
+				backgroundColor: [
+				      '#fec8c9',
+				    ],
+			}]
+	};
+	
+	
+	if(PIChart!=null){
+		PIChart.destroy();
+	}
+	PIChart = new Chart(pictx,{
+		type:'bar',
+		data:data_info,
+	}); 
+	PIChart.render();	
+}
+
+function makePopulationChart(infos){
+	
+	
+	pctx = document.getElementById('chartContainer_population').getContext('2d');
+	
+	 var data={
+			labels:['한국인','외국인'],
+			datasets:[{
+				data:[infos.percentage_k, infos.percentage_f],
+				backgroundColor: [
+				      '#fd999a',
+				      '#fec8c9',
+				    ],
+			}]
+	}; 
+	
+	if(PChart!=null){
+		//console.log("not null");
+		DChart.destroy();
+	}
+	
+	PChart = new Chart(pctx,{
+		type:'pie',
+		data:data,
+	}); 
+	PChart.render();	
+}
+
 function makeChart(infos){
-	let label=[];
-	let d=[];
+	label=[];
+	d=[];
 	console.log(label + " "+d)
 	i=0;
 	for(info of infos){
@@ -389,16 +788,6 @@ function makeChart(infos){
 		d[i]=info.count;
 		i++;
 	}
-	
-	/* if (window.dctx != undefined)
-	{
-	    window.dctx.destroy();
-	} */
-	/* if(dctx!=null){
-		dctx.destroy();
-	} */
-	//dctx.destroy();
-	//document.getElementById('chartContainer').getContext("2d").clearRect(0, 0, this.width, this.height);
 
 	dctx = document.getElementById('chartContainer').getContext('2d');
 	
@@ -421,21 +810,20 @@ function makeChart(infos){
 	
 	
 	if(DChart!=null){
-		console.log("not null");
+		//console.log("not null");
 		DChart.destroy();
-		//document.getElementById('chartContainer').getContext("2d").clearRect(0, 0, this.width, this.height);
 	}
 	
 	DChart = new Chart(dctx,{
-		type:'doughnut',
+		type:'pie',
 		data:data,
 	}); 
-	DChart.render();
-	
+	DChart.render();	
 }
+
 function makeTable(data){
 	$("#aptSearchCnt").empty();
-	$("#aptSearchCnt").append("조회된 실거래 수 " + data.length);
+	$("#aptSearchCnt").append("조회된 실거래 수: " + data.length+"건");
 	
 	let dealDay=[];
 	let dealAmount=[];
@@ -454,21 +842,14 @@ function makeTable(data){
 		j++;
 	}
 	details+='</table>'
-	//console.log("DDDDD" + details);
-	//linkKaKao(info[0],info[1]);
 	
 	$("#slideTogglebox").append(details);
 	
-	//console.log(dealDay);
-	//console.log(dealAmount);
-	
-	//$("#aptChart").empty();
 	var ctx = document.getElementById('aptChart').getContext('2d'); 
 	
 	if(chart!=null){
 		console.log("not null");
 		chart.destroy();
-		//document.getElementById('chartContainer').getContext("2d").clearRect(0, 0, this.width, this.height);
 	}
 	
 	chart = new Chart(ctx, { 
@@ -478,49 +859,15 @@ function makeTable(data){
 		data: { 
 			labels: dealDay, 
 			datasets: [{ label: '실거래가', 
-			backgroundColor: 'transparent',
-			borderColor: 'blue', 
+			fill: true,
+		    borderColor: 'rgb(211,211, 211)',
+		    tension: 0.1,
 			data: dealAmount
 		}] }, 
 		// 옵션 
 		options: {} 
 	});
-	
-	
 }
-
-/* function linkKaKao(, aptName){
-	let shareinfo = info[0]+" "+info[1];
-    console.log( window.location.href);
-    
-    shareButton.addEventListener("click", async () => {
-    	  / 카카오링크 버튼 생성
-    	  Kakao.Link.createDefaultButton({
-    	    container: '#shareButton', // 카카오공유버튼ID
-    	    objectType: 'feed',
-    	    content: {
-    	    //templateId : 54030,
-    	      title: shareinfo, // 보여질 제목
-    	      description: "아파트 조회 정보를 공유합니다", // 보여질 설명
-    	      //imageUrl: document.images[0].src, // 콘텐츠 URL
-    	      imageUrl: $( 'meta[property="og:image"]' ).attr( 'content' ),
-    	      link: {
-    	         mobileWebUrl: window.location.href,
-    	         webUrl: window.location.href
-    	      }
-    	    },
-    	    buttons: [
-  	          {
-  	            title: '웹에서 보기',
-  	            link: {
-  	              mobileWebUrl:window.location.href,
-  	              webUrl:window.location.href
-  	            }
-  	          }
-  	        ],
-    	  });
-	});
-} */
 
 function clickUp(dong, aptName){
 	var datas = {
@@ -574,7 +921,7 @@ $('.aptPanel').each((index, item) => {
 	const aptName = item.childNodes[7].innerText;
 	
 	// 마커 이미지의 이미지 크기 입니다
-	imageSize = new kakao.maps.Size(24, 35); 
+	imageSize = new kakao.maps.Size(30, 45); 
 	
 	// 마커 이미지를 생성합니다    
     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 

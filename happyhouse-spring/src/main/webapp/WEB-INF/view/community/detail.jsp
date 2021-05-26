@@ -30,20 +30,42 @@
 	</div>
 	<div class="container menu" id="makeBoard"
 		style="padding-top: 50px; height: 1000px;">
-		<h1 style="color: black;">게시판</h1>
-		<form action="" id="updateform" method="GET">
-			<div class="form-group">
-				<label for="exampleFormControlInput1"
-					style="color: black; font-size: 20px; font-weight: bold">제목</label>
-			</div>
-			${community.subject}
-			<div class="form-group">
+		<div>
+			<form action="" id="updateform" method="GET">
+				<div class="form-group">
+					<label for="exampleFormControlInput1"
+						style="color: black; font-size: 40px; font-weight: bold">제목: &nbsp;${community.subject}</label>
+				</div>
+				<hr/>
+				<div class="like"><a></a></div>
+				<div class="form-group">
+					
+				</div>
+				<div><img src="/community/loadImage/${community.no}"/></div>
 				<label for="exampleFormControlTextarea1"
-					style="resize: horizontal; color: black; font-size: 20px; font-weight: bold">내용</label>
-			</div>
-			<div><img src="/community/loadImage/${community.no}"/></div>
-			${community.content}
-		</form>
+						style="resize: horizontal; color: black; font-size: 25px;">${community.content}</label>
+			</form>
+		</div>
+		<hr/>
+		<!--  댓글  -->
+	    <div class="container">
+	        <label for="content">comment</label>
+	        <form name="commentInsertForm">
+	            <div class="input-group">
+	               <input type="hidden" name="no" value="${community.no}"/>
+	               <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
+	               <span class="input-group-btn">
+	                    <button class="btn btn-default" type="button" name="commentInsertBtn">등록</button>
+	               </span>
+	              </div>
+	        </form>
+	    </div>
+	    <div class="container">
+	        <div class="commentList"></div>
+	    </div>
+		<%@ include file="commentScript.jsp" %>
+
+		<hr/>
 		<div id="upde" style="text-align: center;">
 			<button type="button" class="btn btn-warning" 
 				style="" id="updateBtn">수정</button>

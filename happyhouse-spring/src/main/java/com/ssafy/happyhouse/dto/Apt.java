@@ -31,7 +31,14 @@ public class Apt {
 	private String lng;
 	
 	private int price;
+	private String space;
 	
+	public String getSpace() {
+		return space;
+	}
+	public void setSpace(String space) {
+		this.space = space;
+	}
 	public int getPrice() {
 		return price;
 	}

@@ -37,4 +37,28 @@ public interface AptMapper {
 
 
 	public List<Store> getStore();
+
+
+	public int getDealCnt(Map<String, String> param);
+
+
+	public int getCmpDealCnt(Map<String, String> param);
+
+
+	public List<Apt> getDealAmount(Map<String, String> param);
+
+
+	public List<Apt> getCmpDealAmount(Map<String, String> param);
+
+
+	public String getMaxDealAmount(Map<String, String> param);
+
+
+	public String getMaxCmpDealAmount(Map<String, String> param);
+
+
+	public String getMinDealAmount(Map<String, String> param);
+
+
+	public String getMinCmpDealAmount(Map<String, String> param);
 }

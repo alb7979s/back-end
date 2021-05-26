@@ -82,4 +82,55 @@ public class AptServiceImpl implements AptService {
 		return aptMapper.getStore();
 	}
 
+	@Override
+	public int getDealCnt(Map<String, String> param) {
+		return aptMapper.getDealCnt(param);
+	}
+
+	@Override
+	public int getCmpDealCnt(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return aptMapper.getCmpDealCnt(param);
+	}
+
+	@Override
+	public List<Apt> getDealAmount(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return aptMapper.getDealAmount(param);
+	}
+
+	@Override
+	public List<Apt> getCmpDealAmount(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return aptMapper.getCmpDealAmount(param);
+	}
+
+	@Override
+	public String getMaxDealAmount(Map<String, String> param) {
+		return makeFormat(aptMapper.getMaxDealAmount(param));
+	}
+
+	@Override
+	public String getMaxCmpDealAmount(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return makeFormat(aptMapper.getMaxCmpDealAmount(param));
+	}
+
+	@Override
+	public String getMinDealAmount(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return makeFormat(aptMapper.getMinDealAmount(param));
+	}
+
+	@Override
+	public String getMinCmpDealAmount(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return makeFormat(aptMapper.getMinCmpDealAmount(param));
+	}
+
+	public String makeFormat(String s) {
+		String price = s.trim();
+		price = price.replace(",", "");
+		return price;
+	}
 }

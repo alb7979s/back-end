@@ -88,17 +88,17 @@
 	        </button>
 	      </div>
 	      <div class="modal-body">
-	        
-	      <select class="form-select" name="city" id="city" onchange="getGugunList(this.value)" aria-label="Default select example">
-			  <option value="" name="city">도/광역시</option>
-		  </select>
-	      <select class="form-select" name="gugun" id="gugun" onchange="getDongList(this.value)" aria-label="Default select example">
-			  <option value="" name='gugun'>시/구/군</option>
-		  </select>
-	      <select class="form-select" name="dong" id="dong" aria-label="Default select example">
-			  <option value="" name='dong'>동</option>
-		  </select>
-	        
+	        <div  style="width:100%; margin:auto;">
+			      <select style="width:30%" class="form-select" name="city" id="city" onchange="getGugunList(this.value)" aria-label="Default select example">
+					  <option value="" name="city">도/광역시</option>
+				  </select>
+			      <select style="width:30%" class="form-select" name="gugun" id="gugun" onchange="getDongList(this.value)" aria-label="Default select example">
+					  <option value="" name='gugun'>시/구/군</option>
+				  </select>
+			      <select style="width:30%" class="form-select" name="dong" id="dong" aria-label="Default select example">
+					  <option value="" name='dong'>동</option>
+				  </select>
+	        </div>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" onclick="save();" class="btn btn-primary">저장하기</button>
@@ -236,25 +236,26 @@
     		//console.log(city+" "+gugun+" "+dong);
     		details = ''
     		
+    		details+='<div class="container-fluid" style="width:100%; height:150px">'
     		details+='<h2>'+city+' '+gugun+' '+dong+'의 정보입니다.</h2>'
     		details+='<button onclick="moveClinic(`'+city+'`,`'+gugun+'`);" style="margin-right:30px;" type="button" class="btn btn-lg btn-primary">선별 진료소 보러가기</button>'
     		details+='<button onclick="moveHospital(`'+city+'`,`'+gugun+'`);" style="margin-right:30px;" type="button" class="btn btn-lg btn-primary">안심병원 보러가기</button>'
     		//details+='<button type="button" class="btn btn-lg btn-primary">선별 진료소 보러가기</button>'
     		//details+='</br></br><h2>금주의 인기매물 TOP 3</h2>'
-    		
+    		details+='</div>'
     		
     		console.log(top3);
     		details+='<div class="container-fluid" style="width:100%;">'
-    		details+='</br></br><h2>금주의 인기매물 TOP 3</h2>'
+    		details+='<h2>금주의 인기매물 TOP 3</h2>'
     		for(apt of top3){
-    			details+='<div class="col-sm-4"> <div class="panel panel-default text-center">'
+    			//details+='<li>'+apt.aptName+'</li>'
+    			details+='<div class="panel panel-default text-center">'
 				details+='<div class="panel-heading"> <h1>'+apt.aptName+'</h1></div>'
     		    //details+='<div class="panel-body" style="margin-top:15px;margin-bottom:15px;">'
-    		    /* details+='<p><strong>거래금액</strong>'+ apt.dealAmount+'</p>'
-    		    details+='<p><strong>면적</strong>'+ apt.area+'</p>'
-    		    details+='<p><strong><span class="glyphicon glyphicon-calendar"></span></strong>'+ apt.dealYear+'.'+apt.dealMonth+'.'+apt.dealDay+'</p>'
-    	 */
-    		              /* <div class="panel-body" style="margin-top:15px;margin-bottom:15px;">
+    		    //details+='<p><strong>거래금액</strong>'+ apt.dealAmount+'</p>'
+    		    //details+='<p><strong>면적</strong>'+ apt.area+'</p>'
+    		    //details+='<p><strong><span class="glyphicon glyphicon-calendar"></span></strong>'+ apt.dealYear+'.'+apt.dealMonth+'.'+apt.dealDay+'</p>'
+    		    /* details+='<div class="panel-body" style="margin-top:15px;margin-bottom:15px;">''
     		                <p><strong>거래금액</strong> ${apt.dealAmount}</p>
     		                <p><strong>면적</strong> ${apt.area}</p>
     		                <p><strong><span class="glyphicon glyphicon-calendar"></span></strong> ${apt.dealYear}.${apt.dealMonth}.${apt.dealDay}</p>
@@ -262,9 +263,9 @@
     		              <div class="panel-footer">
     		                <div><button class="btn btn-lg" data-toggle="modal" data-target="#detailModal">상세정보</button></div>
     		                <div><button class="btn btn-lg" data-toggle="modal" data-target="#mapModal">지도보기</button></div>
-    		              </div>
-    		            </div>' */
-    		     details+='</div></div>'
+    		              </div> */
+    		             
+    		     details+='</div>'
     		}
 			details+='</div>' 		
     		
