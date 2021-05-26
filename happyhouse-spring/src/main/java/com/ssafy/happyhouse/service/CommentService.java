@@ -8,7 +8,7 @@ import com.ssafy.happyhouse.dto.Comment;
 
 @Service
 public interface CommentService {
-	List<Comment> commentListService() throws Exception;
+	List<Comment> commentListService(int boardno) throws Exception;
     int commentInsertService(Comment comment) throws Exception;
     int commentUpdateService(Comment comment) throws Exception;
     int commentDeleteService(int no) throws Exception;

@@ -9,7 +9,7 @@ public interface CommentMapper {
     public int commentCount() throws Exception;
  
     // 댓글 목록
-    public List<Comment> commentList() throws Exception;
+    public List<Comment> commentList(Integer boardno) throws Exception;
  
     // 댓글 작성
     public int commentInsert(Comment comment) throws Exception;

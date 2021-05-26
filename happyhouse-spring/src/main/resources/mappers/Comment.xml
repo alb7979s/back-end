@@ -10,9 +10,10 @@
         FROM COMMENT
     </select>
     
-    <select id="commentList" resultType="comment">
+    <select id="commentList" resultType="comment" parameterType="int">
         SELECT *
         FROM COMMENT
+        where boardno = #{boardno}
     </select>
     
     

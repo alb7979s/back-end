@@ -31,7 +31,9 @@ tbody > tr:hover {
     margin-right: 0;
     margin-left: -30px;
 }
-
+.float-right {
+	float: right;
+}
 .profileimg {
 	display:block; 
 	width: 5rem;
@@ -74,10 +76,8 @@ tbody > tr:hover {
 	width:104px; 
 	height:30px; 
 	overflow:hidden; 
-	/*  ���� ���� ��ư ����� */
 	text-indent:-5000px; 
 	cursor:pointer; 
-	/*  ���õ� ���� ���� �����*/
 	color:transparent; 
 }
 
@@ -295,6 +295,17 @@ footer .glyphicon {
 
 .form-select {
 width: 200px;
+padding: .8em .5em;
+border: 1px solid #999;
+font-family: inherit;
+background: url('arrow.jpg') no-repeat 95% 50%;
+border-radius: 0px;
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+}
+.form-select2 {
+width: 50px;
 padding: .8em .5em;
 border: 1px solid #999;
 font-family: inherit;

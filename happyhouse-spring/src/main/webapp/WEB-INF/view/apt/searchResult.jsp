@@ -27,7 +27,6 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=67a19357a9e3b8adf36e200722572e65"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=67a19357a9e3b8adf36e200722572e65"></script>
 
-
 <!-- 차트 -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
@@ -287,14 +286,15 @@ function compare(){
 		return;
 	}
 	curdong = $('#aptName').text();
+	console.log(curdong);
 	curdong = curdong.replace("[","");
 	curdong = curdong.replace(']', "");
 	curdong=curdong.split(" ");
 	
-	console.log(curdong[1]);
+	console.log(curdong[0]);
 	
 	 var datas = {
-			"dong":curdong[1],
+			"dong":curdong[0],
 	 		"compare":dong
 	 };
 	 
@@ -310,11 +310,11 @@ function compare(){
 			 $("#comparediv").empty();
 			 info=""
 			 info+='<table class="table justify-content-center " style="width:100%; margin-top:10px; text-align: center; ">'
-			 info+='<tr><th class="text-center">'+curdong[1]+'</th><th></th><th class="text-center">'+dong+'</th></tr>'
-			 info+='<tr><td>'+data.dongcnt+'건</td><td>거래수</td><td>'+data.comparecnt+'건</td></tr>'
-			 info+='<tr><td>'+data.dongamount+'</td><td>평균거래가</td><td>'+data.compareamount+'</td></tr>'
-			 info+='<tr><td>'+data.dongmax+'</td><td>최고거래가</td><td>'+data.comparemax+'</td></tr>'
-			 info+='<tr><td>'+data.dongmin+'</td><td>최저거래가</td><td>'+data.comparemin+'</td></tr>'
+			 info+='<tr><th class="text-center">'+dong+'</th><th></th><th class="text-center">'+curdong[0]+'</th></tr>'
+			 info+='<tr><td>'+data.comparecnt+'건</td><td>거래수</td><td>'+data.dongcnt+'건</td></tr>'
+			 info+='<tr><td>'+data.compareamount+'</td><td>평균거래가</td><td>'+data.dongamount+'</td></tr>'
+			 info+='<tr><td>'+data.comparemax+'</td><td>최고거래가</td><td>'+data.dongmax+'</td></tr>'
+			 info+='<tr><td>'+data.comparemin+'</td><td>최저거래가</td><td>'+data.dongmin+'</td></tr>'
 			 info+='</table>'
 			 
 			 info+='<div class="row">'
@@ -564,6 +564,34 @@ $(document).ready(function(){
 	    $('#slideTogglebox').slideToggle();
 	  });
 	  
+	    // 파라미터가 담길 배열
+	    var param = new Array();
+	 
+	    // 현재 페이지의 url
+	    var url = decodeURIComponent(location.href);
+	    // url이 encodeURIComponent 로 인코딩 되었을때는 다시 디코딩 해준다.
+	    url = decodeURIComponent(url);
+	 
+	    var params;
+	    // url에서 '?' 문자 이후의 파라미터 문자열까지 자르기
+	    params = url.substring( url.indexOf('?')+1, url.length );
+	    // 파라미터 구분자("&") 로 분리
+	    params = params.split("&");
+	 
+	    // params 배열을 다시 "=" 구분자로 분리하여 param 배열에 key = value 로 담는다.
+	    var size = params.length;
+	    var key, value;
+	    for(var i=0 ; i < size ; i++) {
+	        key = params[i].split("=")[0];
+	        value = params[i].split("=")[1];
+	 
+	        param[key] = value;
+	    }
+	  
+	  if(params.length==3){
+		  console.log(params[2]);
+		  showDetail(params[2]);
+	  }
 });
 	
 $( document ).ready(function(){
@@ -623,13 +651,24 @@ function showDetail(aptinfo){
     clickUp(info[0], info[1]);
 
 	let details=''
-    
+		//style="width:30%; height:100px; float:left;"
     $("#aptName").empty();
-    details=' <h2>['+info[0]+'] <strong>' +info[1]+'</strong></h2>'
-    $("#aptName").append(details);
-    //details+='<button id="shareButton" style="font-size:24px" ><i class="fas fa-share-square"></i>공유하기</button>'
+    details='<div style="width:90%; float:left;"><h2>['+info[0]+'] <strong>' +info[1]+'</strong></h2></div>'
+    details+='<div style="width:10%; height:70%; float:left;"><button id="shareButton" class="form-select2"  ><i class="fas fa-share-square"></i></button></div>'
     //details+='<button class="btn" style="font-size:24px"><i class="fa fa-heart" style="font-size:30px;color:pink;"></i>찜하기</button>'
-  
+  	
+    details+='<div id="roadview" style="width:100%;height:200px;"></div>'
+    $("#aptName").append(details);
+    var roadviewContainer = document.getElementById('roadview'); //로드뷰를 표시할 div
+	var roadview = new kakao.maps.Roadview(roadviewContainer); //로드뷰 객체
+	var roadviewClient = new kakao.maps.RoadviewClient(); //좌표로부터 로드뷰 파노ID를 가져올 로드뷰 helper객체
+
+	var position = new kakao.maps.LatLng(info[2], info[3]);
+
+	// 특정 위치의 좌표와 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄운다.
+	roadviewClient.getNearestPanoId(position, 100, function(panoId) {
+	    roadview.setPanoId(panoId, position); //panoId와 중심좌표를 통해 로드뷰 실행
+	});
 	/* details+='<div id="roadview" style="width:100%;height:300px;"></div>'
 	makeView(info[2],info[3]); */
 
@@ -662,6 +701,7 @@ function showDetail(aptinfo){
 				makePopulationInfoChart(d);
 				makePopulationChart(d); //인구정보 차트
 				
+				$('#people').empty();
 				str = '<i class="glyphicon glyphicon-home"></i> 세대당 인구: '+d.family_population;
 				$('#people').append(str);
 				
@@ -687,7 +727,8 @@ function showDetail(aptinfo){
 		let shareinfo = info[0]+" "+info[1];
 	    console.log( window.location.href);
 	    
-/* 		shareButton.addEventListener("click", async () => {
+	    let urlstr = info[0]+'/'+info[1]+'/'+info[2]+'/'+info[3];
+		shareButton.addEventListener("click", async () => {
 	    	  // 카카오링크 버튼 생성
 	    	  Kakao.Link.createDefaultButton({
 	    	    container: '#shareButton', // 카카오공유버튼ID
@@ -699,24 +740,30 @@ function showDetail(aptinfo){
 	    	      //imageUrl: document.images[0].src, // 콘텐츠 URL
 	    	      imageUrl: $( 'meta[property="og:image"]' ).attr( 'content' ),
 	    	      link: {
-	    	         mobileWebUrl: window.location.href,
-	    	         webUrl: window.location.href
+	    	         mobileWebUrl: window.location.href+"&"+urlstr,
+	    	         webUrl: window.location.href+"&"+urlstr
 	    	      }
 	    	    },
 	    	    buttons: [
 	  	          {
 	  	            title: '웹에서 보기',
 	  	            link: {
-	  	              mobileWebUrl:window.location.href,
-	  	              webUrl:window.location.href
+	  	              mobileWebUrl:window.location.href+"&"+urlstr,
+	  	              webUrl:window.location.href+"&"+urlstr
 	  	            }
 	  	          }
 	  	        ],
 	    	  }); 
-		});*/	
+		});
+}
+
+function getRoadView(lat, lng){
+	console.log(lat, lng);
+	
 }
 
 function makePopulationInfoChart(infos){
+	$('#percentLabel').empty();
 	$('#percentLabel').append("<p>"+infos.dong+"외국인 비율(%)</p>");
 	family = parseInt(infos.family.replace(",",""));
 	population = parseInt(infos.population.replace(",",""));
@@ -1162,19 +1209,6 @@ function makeClickListener(aptinfo, location) {
 	};
 }
 
-function makeView(loc1, loc2){
-	var roadviewContainer = document.getElementById('roadview'); //로드뷰를 표시할 div
-	var roadview = new kakao.maps.Roadview(roadviewContainer); //로드뷰 객체
-	var roadviewClient = new kakao.maps.RoadviewClient(); //좌표로부터 로드뷰 파노ID를 가져올 로드뷰 helper객체
-	
-	console.log(loc1+" "+loc2);
-	/* var position = location;
-	
-	// 특정 위치의 좌표와 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄운다.
-	roadviewClient.getNearestPanoId(position, 50, function(panoId) {
-	    roadview.setPanoId(panoId, position); //panoId와 중심좌표를 통해 로드뷰 실행
-	}); */
-}
 </script>
 </body>
 </html>

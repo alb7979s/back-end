@@ -27,8 +27,9 @@ public class CommentController {
     CommentService commentService;
     
     @GetMapping
-    private List<Comment> commentServiceList(Model model) throws Exception{
-        return commentService.commentListService();
+    private List<Comment> commentServiceList(Model model, @RequestParam("boardno") Integer boardno) throws Exception{
+    	System.out.println(boardno);
+        return commentService.commentListService(boardno);
     }
     
     @PostMapping 

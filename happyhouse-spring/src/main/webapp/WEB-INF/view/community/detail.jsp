@@ -60,34 +60,37 @@
 	              </div>
 	        </form>
 	    </div>
+	    <br/><br/>
 	    <div class="container">
 	        <div class="commentList"></div>
 	    </div>
 		<%@ include file="commentScript.jsp" %>
 
 		<hr/>
-		<div id="upde" style="text-align: center;">
-			<button type="button" class="btn btn-warning" 
-				style="" id="updateBtn">수정</button>
-			<button type="button" class="btn btn-warning" id="boardUdateFinish"
-				style="display: none;">저장</button>
-			<button id ="deleteBtn" type="button" class="btn btn-danger" >삭제</button>
-		</div>
+		<c:if test="${userinfo.id == community.userid}">
+			<div id="upde" style="text-align: center;">
+				<button type="button" class="btn btn-warning" 
+					style="" id="updateBtn">수정</button>
+				<button type="button" class="btn btn-warning" id="boardUdateFinish"
+					style="display: none;">저장</button>
+				<button id ="deleteBtn" type="button" class="btn btn-danger" >삭제</button>
+			</div>
+		</c:if>
 		<div id="back"
 			style="text-align: center; margin-top: 50px; padding-bottom: 100px;">
-			<button id="backBtn" type="button " class="btn btn-lg backBoard">BACK</button>
+			<button id="backBtn" type="button" class="btn btn-lg backBoard">BACK</button>
 		</div>
 	</div>
 
-	</div>
-	  <script>
+   <script>
 	const deleteBtn = document.querySelector("#deleteBtn");
 	const updateform = document.querySelector("#updateform");
 	let hiddeninput = document.querySelector("#hiddeninput");
-	deleteBtn.addEventListener('click',function(){
-		console.log("${root}/community/delete?number=${community.no}");
-		location.href="${root}/community/delete?number=${community.no}";
-	});
+	if(deleteBtn){
+		deleteBtn.addEventListener('click',function(){
+			console.log("${root}/community/delete?number=${community.no}");
+			location.href="${root}/community/delete?number=${community.no}";
+		})};
 	
 	const backBtn = document.querySelector("#backBtn");
 	backBtn.addEventListener('click',function() {
@@ -95,9 +98,10 @@
 		location.href="${root}/community/list";
 	});
 	const updateBtn = document.querySelector("#updateBtn");
-	updateBtn.addEventListener('click',function(){
-		location.href="${root}/community/modify?number=${community.no}";
-	});
+	if(updateBtn){
+		updateBtn.addEventListener('click',function(){
+			location.href="${root}/community/modify?number=${community.no}";
+		})};
 
   </script>
 </body>
