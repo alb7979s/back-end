@@ -155,8 +155,15 @@ span.file.txt-photo {}
   border: 1px solid #bddbec; 
   border-radius:0 !important;
   transition: box-shadow 0.5s;
+  height:100px;
 }
-.panel:hover {
+.panel2 {
+  border: 1px solid #bddbec; 
+  border-radius:0 !important;
+  transition: box-shadow 0.5s;
+  margin-top:10px;
+}
+.panel2:hover {
   box-shadow: 5px 5px 40px rgba(0,0,0, .2);
 }
 .panel-footer .btn:hover {
@@ -365,9 +372,14 @@ appearance: none;
  }
 
 .aptPanelSub{
-	background-color: #5758bb;
-  box-shadow: 20px 20px 20px grey;
+	background-color: #ffffff;
+	box-shadow: 5px 5px 5px rgba(0,0,0, .2);
 }
+
+/* .aptPanel:hover {
+  box-shadow: 5px 5px 5px rgba(0,0,0, .5);
+} */
+
 .aptPanelSub >div {
 	margin-top:10px;
 	margin-bottom:20px;

@@ -71,11 +71,11 @@
      
     </div>
     
-   	<div class="container-fluid bg-grey">
+<!--    	<div class="container-fluid bg-grey">
       <h2 class="text-center">뉴스기사</h2>
       <div class="row slideanim">
         <div class="col-sm-4">
-            <div class="panel panel-default text-center" style="border:1px solid rgb(216, 216, 216);">
+            <div class="panel2 panel-default text-center" style="border:1px solid rgb(216, 216, 216);">
                 <div class="panel-body">
                     <p><strong>무슨무슨일</strong></p>
                     <p>lalalalalalalala </p>
@@ -84,7 +84,7 @@
             </div>
         </div>
         <div class="col-sm-4">
-          <div class="panel panel-default text-center" style="border:1px solid rgb(216, 216, 216);">
+          <div class="panel2 panel-default text-center" style="border:1px solid rgb(216, 216, 216);">
             <div class="panel-body">
                 <p><strong>무슨무슨일</strong></p>
                 <p>lalalalalalalala </p>
@@ -93,7 +93,7 @@
         </div>
         </div>
         <div class="col-sm-4">
-            <div class="panel panel-default text-center" style="border:1px solid rgb(216, 216, 216);">
+            <div class="panel2 panel-default text-center" style="border:1px solid rgb(216, 216, 216);">
                 <div class="panel-body">
                     <p><strong>무슨무슨일</strong></p>
                     <p>lalalalalalalala</p>
@@ -102,7 +102,7 @@
             </div>
         </div>
       </div>
-    </div>
+    </div> -->
     
     <footer class="container-fluid text-center">
       <a href="#top" title="To Top">
@@ -129,7 +129,7 @@
 					 $.each(data, function(index, item){
 						 /* console.log(index); */
 						 result+='<div class="col-sm-4">'
-						 result+='<div class="panel panel-default text-center" style="border:1px solid rgb(216, 216, 216);">'
+						 result+='<div class="panel2 panel-default text-center" style="border:1px solid rgb(216, 216, 216);">'
 						 result+='<div class="panel-body">'
 						 result+='<p><strong>공지  #'+item.noticeno+'</strong></p>'
 						 result+='<p>'+item.subject+'</p>'

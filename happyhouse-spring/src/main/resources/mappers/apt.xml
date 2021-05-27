@@ -96,7 +96,7 @@
 	
 	<select id="getStore" resultType="store">
 		select * 
-		from store 
+		from store_info 
 	</select>
 	
 	

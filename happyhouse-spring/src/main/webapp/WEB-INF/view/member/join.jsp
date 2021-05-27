@@ -148,51 +148,6 @@
 				<div id="emailDupMsg"></div>
 			</div>
 
-			<!-- 취향? 선호도 입력 -->
-			<label>내가 선호하는 아파트, 동네 정보를 입력해주세요!</label><br>
-			<div class="form-group" align="left">
-				<label for="type">거래</label><br> <input type="radio"
-					name="type" value="deposit">전세 <input type="radio"
-					name="type" value="month">월세 <input type="radio"
-					name="type" value="deal">매매
-			</div>
-			<div class="form-group" align="left">
-				<label for="prefernce2">동네</label><br> <select
-					class="form-select" name="city" id="city"
-					onchange="getGugunList(this.value)"
-					aria-label="Default select example">
-					<option value="" name="city">도/광역시</option>
-				</select> <select class="form-select" name="gugun" id="gugun"
-					onchange="getDongList(this.value)"
-					aria-label="Default select example">
-					<option value="" name='gugun'>시/구/군</option>
-				</select> <select class="form-select" name="dong" id="dong"
-					aria-label="Default select example">
-					<option value="" name='dong'>동</option>
-				</select>
-			</div>
-			<div class="form-group" align="left">
-				<label for="floor_high">층수</label><br> <input type="radio"
-					name="floor_high" value="low">저층 <input type="radio"
-					name="floor_high" value="mid">중층 <input type="radio"
-					name="floor_high" value="high">고층
-			</div>
-
-			<div class="form-group" align="left">
-				<label for="facilities">주변 시설(최대 3개 선택 가능)</label><br> <label><input
-					onclick="CountChecked(this)" type="checkbox" name="facilities"
-					value="school"> 학군</label> <label><input
-					onclick="CountChecked(this)" type="checkbox" name="facilities"
-					value="coffee"> 커피숍</label> <label><input
-					onclick="CountChecked(this)" type="checkbox" name="facilities"
-					value="hospital"> 병원</label> <label><input
-					onclick="CountChecked(this)" type="checkbox" name="facilities"
-					value="convenience_store"> 편의점</label> <label><input
-					onclick="CountChecked(this)" type="checkbox" name="facilities"
-					value="mart"> 마트</label> <label><input
-					onclick="CountChecked(this)" type="checkbox" name="facilities"
-					value="bank"> 은행</label>
-			</div>
 
 			<div class="form-group" align="center">
 				<button type="button" id="registerBtn" class="btn btn-primary">회원가입</button>

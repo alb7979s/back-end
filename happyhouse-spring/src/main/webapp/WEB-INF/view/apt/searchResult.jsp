@@ -95,22 +95,22 @@ function searchCity() {
 
 	<div class="container" style="width:100%; max-height: 100%; ">
 		<div class="row">
-			<div class="col-md-3" style="height:70%">
+			<div class="col-md-2" style="height:70%">
 			  <p style="font-size: 130%;">실거래가를 검색해보세요!</p>
 		      <div style="margin-left:5px; display: inline-block; text-align:center; width:100%; height:30%;" >
 		        <form id="searchform" method="get" action="">
 		            <div class="input-group">
-		                <select class="form-control" name="key" id="key" style="width:100px;">
+		                <select class="form-control" name="key" id="key" style="width:100px; ">
 		                    <option value="dong"  <c:if test="${result.key =='dong'}">selected</c:if>>동</option>
 					    	<option value="AptName"  <c:if test="${result.key =='AptName'}">selected</c:if>>아파트</option>
 		                </select>
-		            	<input type="text" class="form-control" id="word" name="word" size="50" value="${result.word}" placeholder="검색어를 입력해주세요" style="width:200px;">
+		            	<input type="text" class="form-control" id="word" name="word" size="50" value="${result.word}" placeholder="검색어를 입력해주세요" style="width:100px;">
 		            	<button onclick="searchCity();" type="button" class="btn btn-warning"><span class="glyphicon glyphicon-search"></span></button>
 		            </div>
 		        </form>
 		      </div>
 		      
-		      <div class = "my-custom-scrollbar my-custom-scrollbar-primary" style="overflow-y:auto; position:absolute; text-align:center; width:100%; height:600px;">
+		      <div class = "my-custom-scrollbar my-custom-scrollbar-primary" style="overflow-y:auto; position:absolute; text-align:center; width:100%; height:650px;">
 		      <div>
 		      <!-- 아파트 리스트 출력하는 부분 -->
 		      <c:if test="${empty result.aptinfo and empty result.first}">
@@ -129,8 +129,15 @@ function searchCity() {
 	                <div class="panel-heading" style="display:none;">
 		                <p>${apt.aptName}</p>
 		            </div>
-		            
-		            <div class="aptPanelSub">
+		            <div class="card aptPanelSub" style="width: 95%;">
+					  <img src="../images/apt.jpg" style="height:50%; width:100%;"></img>
+					  <div class="card-body">
+					    <p class="p1">${apt.dong}</p>
+							<p class="p2">${apt.aptName}</p>
+					  </div>
+					</div>
+					
+		            <%-- <div class="aptPanelSub">
 				      	<div  style="width:30%; height:100px; float:left;">
 							<img src="../images/apt.jpg" style="height:100%; width:80%;"></img>
 						</div>
@@ -138,7 +145,7 @@ function searchCity() {
 							<p class="p1">${apt.dong}</p>
 							<p class="p2">${apt.aptName}</p>
 						</div>
-					</div>
+					</div> --%>
 					
 				</div>
 		      	 
@@ -148,9 +155,9 @@ function searchCity() {
 		      </div>
 			</div>
 			
-			<div class="col-md-6">
+			<div class="col-md-7">
 			
-				<div id="map" style="width:100%; height:700px;">
+				<div id="map" style="width:100%; height:730px;">
 					<ul id="category">
 				        <li id="BK9" data-order="0"> 
 				            <span class="category_bg bank"></span>
@@ -180,17 +187,17 @@ function searchCity() {
 				</div>
 			</div>
 			
-			<div class="col-md-3" id="details" style="display:none; overflow-y:auto; height:700px" >
+			<div class="col-md-3" id="details" style="display:none; overflow-y:auto; height:730px" >
 				<!-- <div class = "my-custom-scrollbar my-custom-scrollbar-primary" style="overflow-y:auto; position:absolute; text-align:center; height:600px;"> -->
 					<!-- 아파트 상세 정보를 띄울 부분 -->
 					<div id="aptName"></div>
 					<div id="aptDetail"></div>
 					
-					<div class="card-body"  style="height:120;"> 
+					<div class="card-body"  style="height:120px; margin-bottom:20px;"> 
 						<canvas id="aptChart"></canvas>
 					</div>
 					
-					<div id="aptSearchCnt" style="margin:auto;"></div>
+					<div id="aptSearchCnt" style="margin:auto; margin-top:100px;"></div>
 					<div id="compareBtn">
 					  <div style="width:100%; margin:10px auto; border-bottom:1px solid black"><h3>거래내역 상세 조회하기▼</h3></div>
 					  <div id="slideTogglebox" style="display:none;"></div>
@@ -475,7 +482,7 @@ function compare(){
 			maxData = curdongData;
 			minData = searchdongData;
 			
-			maxLabel = curdong[1];
+			maxLabel = curdong[0];
 			minLabel = dong;
 			if(maxData.length<minData.length){
 				temp=minData;
@@ -654,7 +661,7 @@ function showDetail(aptinfo){
 		//style="width:30%; height:100px; float:left;"
     $("#aptName").empty();
     details='<div style="width:90%; float:left;"><h2>['+info[0]+'] <strong>' +info[1]+'</strong></h2></div>'
-    details+='<div style="width:10%; height:70%; float:left;"><button id="shareButton" class="form-select2"  ><i class="fas fa-share-square"></i></button></div>'
+    details+='<div style="width:10%; height:50%; float:left;"><button id="shareButton" class="form-select2"  ><i class="fas fa-share-square"></i></button></div>'
     //details+='<button class="btn" style="font-size:24px"><i class="fa fa-heart" style="font-size:30px;color:pink;"></i>찜하기</button>'
   	
     details+='<div id="roadview" style="width:100%;height:200px;"></div>'
